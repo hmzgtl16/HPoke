@@ -1,15 +1,169 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle files
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle-wrapper.jar
+
+# Local configuration file (sdk path, etc)
 local.properties
+
+# General Android Studio files
+*.iml
+.idea/
+.classpath
+.c9/
+*.class
+*.log
+*.pyc
+*.swp
+*.swo
+*~
+.DS_Store
+.coverage
+.hashtable
+.LSOverride
+*.swp
+*~.nib
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.moved-aside
+DerivedData
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibExports.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+*.jks
+*.keystore
+
+# Android Studio
+.gradle
+.idea
+*.iml
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+
+# Gradle cache
+.gradle
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibExports.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+*.jks
+*.keystore
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+**/google-services.json
+
+# Freeline
+freeline.py
+freeline/
+freeline_files/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/frameit/screenshots
+
+# Version control
+vcs.xml
+
+# lint
+lint-baseline.xml
+
+# Gradle files
+gradlew
+gradlew.bat
+
+# CMake
+cmake_build_debug/
+
+# Kotlin
+.kotlin/
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Executables
+*.com
+*.exe
+*.out
+*.app
+
+# C/C++ binary
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Gradle build files
+build-logic/build/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+
+# IDE specific files
+.vscode/
+*.swp
+*.swo
+*~
+.classpath
+.c9/
+*.class
+
+# Android native build
+obj/
+local.properties
+
