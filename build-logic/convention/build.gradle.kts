@@ -1,26 +1,43 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-}
-    }
-        }
-            implementationClass = "com.example.hpoke.convention.KotlinAndroidConventionPlugin"
-            id = "com.example.hpoke.kotlin.android"
-        register("kotlinAndroid") {
-        }
-            implementationClass = "com.example.hpoke.convention.AndroidComposeConventionPlugin"
-            id = "com.example.hpoke.android.compose"
-        register("androidCompose") {
-        }
-            implementationClass = "com.example.hpoke.convention.AndroidApplicationConventionPlugin"
-            id = "com.example.hpoke.android.application"
-        register("androidApplication") {
-    plugins {
-gradlePlugin {
-
-}
-    compileOnly(libs.kotlin.gradlePlugin)
-    compileOnly(libs.android.gradlePlugin)
-dependencies {
-
-}
     `kotlin-dsl`
+}
 
+group = "com.example.hnotes.buildlogic"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
+dependencies {
+    compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
+    compileOnly(libs.com.android.tools.build.gradle.plugin)
+}
+
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = libs.plugins.hpoke.android.application.asProvider().get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidApplicationCompose") {
+            id = libs.plugins.hpoke.android.application.compose.get().pluginId
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+    }
+}
