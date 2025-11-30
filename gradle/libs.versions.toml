@@ -40,3 +40,5 @@ org-jetbrains-kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compos
 # Plugins defined by this project
 hpoke-android-application = { id = "hpoke.android.application" }
 hpoke-android-application-compose = { id = "hpoke.android.application.compose" }
+hpoke-android-library = { id = "hpoke.android.library" }
+hpoke-android-library-compose = { id = "hpoke.android.library.compose" }
