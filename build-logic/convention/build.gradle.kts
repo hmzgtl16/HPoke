@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.example.hnotes.buildlogic"
+group = "com.example.hpoke.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -46,6 +46,10 @@ gradlePlugin {
         register("androidLibraryCompose") {
             id = libs.plugins.hpoke.android.library.compose.get().pluginId
             implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("androidFeature") {
+            id = libs.plugins.hpoke.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
         }
     }
 }
