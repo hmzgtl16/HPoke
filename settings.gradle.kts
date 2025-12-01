@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HPoke"
 include(":app")
+include(":core:network")
