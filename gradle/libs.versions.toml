@@ -1,6 +1,5 @@
 [versions]
 android-gradle-plugin = "8.13.1"
-org-jetbrains-kotlin = "2.2.21"
 coreKtx = "1.17.0"
 ch-qos-logback-classic = "1.5.21"
 io-insert-koin = "4.1.1"
@@ -12,7 +11,9 @@ lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.0"
 composeBom = "2025.11.01"
 androidx-room = "2.7.2"
-com-google-devtools-ksp = "2.2.0-2.0.2"
+com-google-devtools-ksp = "2.3.3"
+org-jetbrains-kotlin = "2.2.21"
+org-jetbrains-kotlinx-datetime = "0.6.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,7 @@ io-ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-co
 io-ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
 org-jetbrains-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "org-jetbrains-kotlin" }
+org-jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "org-jetbrains-kotlinx-datetime" }
 
 # Dependencies of the included build-logic
 androidx-room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidx-room" }
