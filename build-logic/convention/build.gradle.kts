@@ -18,8 +18,10 @@ kotlin {
 }
 
 dependencies {
+    compileOnly(libs.androidx.room.gradle.plugin)
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
     compileOnly(libs.com.android.tools.build.gradle.plugin)
+    compileOnly(libs.com.google.devtools.ksp.gradle.plugin)
 }
 
 tasks {
@@ -50,6 +52,10 @@ gradlePlugin {
         register("androidFeature") {
             id = libs.plugins.hpoke.android.feature.get().pluginId
             implementationClass = "AndroidFeatureConventionPlugin"
+        }
+        register("androidRoom") {
+            id = libs.plugins.hpoke.android.room.get().pluginId
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }

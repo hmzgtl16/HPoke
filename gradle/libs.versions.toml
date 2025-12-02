@@ -11,6 +11,8 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.0"
 composeBom = "2025.11.01"
+androidx-room = "2.7.2"
+com-google-devtools-ksp = "2.2.0-2.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +30,8 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 ch-qos-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "ch-qos-logback-classic" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
 io-insert-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "io-insert-koin" }
 io-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "io-ktor" }
 io-ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "io-ktor" }
@@ -37,12 +41,16 @@ io-ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serializa
 org-jetbrains-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "org-jetbrains-kotlin" }
 
 # Dependencies of the included build-logic
+androidx-room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidx-room" }
 com-android-tools-build-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
 org-jetbrains-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
+com-google-devtools-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "com-google-devtools-ksp" }
 
 [plugins]
+androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 com-android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 com-android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "org-jetbrains-kotlin" }
@@ -54,3 +62,4 @@ hpoke-android-application-compose = { id = "hpoke.android.application.compose" }
 hpoke-android-library = { id = "hpoke.android.library" }
 hpoke-android-library-compose = { id = "hpoke.android.library.compose" }
 hpoke-android-feature = { id = "hpoke.android.feature" }
+hpoke-android-room = { id = "hpoke.android.room" }
