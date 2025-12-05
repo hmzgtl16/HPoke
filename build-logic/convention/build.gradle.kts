@@ -57,5 +57,9 @@ gradlePlugin {
             id = libs.plugins.hpoke.android.room.get().pluginId
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = libs.plugins.hpoke.jvm.library.get().pluginId
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }

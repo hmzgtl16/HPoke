@@ -65,3 +65,4 @@ hpoke-android-library = { id = "hpoke.android.library" }
 hpoke-android-library-compose = { id = "hpoke.android.library.compose" }
 hpoke-android-feature = { id = "hpoke.android.feature" }
 hpoke-android-room = { id = "hpoke.android.room" }
+hpoke-jvm-library = { id = "hpoke.jvm.library" }
