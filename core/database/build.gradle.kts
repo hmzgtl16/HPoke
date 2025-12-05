@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(libs.org.jetbrains.kotlinx.datetime)
+    implementation(libs.io.insert.koin.core)
 }
