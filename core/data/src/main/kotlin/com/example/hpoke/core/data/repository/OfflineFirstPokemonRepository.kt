@@ -3,7 +3,6 @@ package com.example.hpoke.core.data.repository
 import com.example.hpoke.core.data.mapper.asEntity
 import com.example.hpoke.core.data.mapper.asModel
 import com.example.hpoke.core.data.mapper.toEntity
-import com.example.hpoke.core.data.sync.Synchronizer
 import com.example.hpoke.core.data.sync.suspendRunCatching
 import com.example.hpoke.core.database.dao.AbilityDao
 import com.example.hpoke.core.database.dao.PokemonDao
@@ -43,7 +42,7 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
     override suspend fun getPokemon(id: Int): Flow<Pokemon?> =
         pokemonDao.getPokemonById(id).map { it?.asModel() }
 
-    override suspend fun sync(synchronizer: Synchronizer): Boolean = suspendRunCatching {
+    override suspend fun sync(): Boolean = suspendRunCatching {
         val limit = 100
         var offset = 0
         val allResults = mutableListOf<NamedApiResourceDto>()
