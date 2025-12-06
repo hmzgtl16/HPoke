@@ -7,7 +7,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
+    implementation(projects.core.data)
+    implementation(libs.androidx.work.runtime)
     implementation(libs.io.insert.koin.core)
     implementation(libs.io.insert.koin.androidx.workmanager)
+    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
 }
