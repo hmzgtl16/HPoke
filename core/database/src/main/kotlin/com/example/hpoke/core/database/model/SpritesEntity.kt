@@ -6,15 +6,13 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "species",
+    tableName = "sprites",
     indices = [Index(value = ["name"], unique = true)]
 )
-data class SpeciesEntity(
+data class SpritesEntity(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "front_default") val frontDefault: String? = null,
-    @ColumnInfo(name = "back_default") val backDefault: String? = null,
-    @ColumnInfo(name = "front_shiny") val frontShiny: String? = null,
-    @ColumnInfo(name = "back_shiny") val backShiny: String? = null
+    @ColumnInfo(name = "front_shiny") val frontShiny: String? = null
 )
 
 

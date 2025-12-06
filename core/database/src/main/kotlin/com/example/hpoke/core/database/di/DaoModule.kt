@@ -9,7 +9,5 @@ val daoModule = module {
     single { get<HPokeDatabase>().speciesDao() }
     single { get<HPokeDatabase>().typeDao() }
     single { get<HPokeDatabase>().abilityDao() }
-    single { get<HPokeDatabase>().moveDao() }
     single { get<HPokeDatabase>().statDao() }
-    single { get<HPokeDatabase>().itemDao() }
 }

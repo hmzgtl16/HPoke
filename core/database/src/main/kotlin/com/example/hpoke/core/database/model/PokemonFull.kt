@@ -1,7 +1,6 @@
 package com.example.hpoke.core.database.model
 
 import androidx.room.Embedded
-import androidx.room.Junction
 import androidx.room.Relation
 
 data class PokemonFull(
@@ -10,17 +9,7 @@ data class PokemonFull(
         parentColumn = "id",
         entityColumn = "id"
     )
-    val species: SpeciesEntity,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "id",
-        associateBy = Junction(
-            value = PokemonAbilityCrossRef::class,
-            parentColumn = "pokemon_id",
-            entityColumn = "move_id"
-        )
-    )
-    val moves: List<MoveEntity>,
+    val species: SpritesEntity,
     @Relation(
         entity = PokemonStatCrossRef::class,
         parentColumn = "id",
