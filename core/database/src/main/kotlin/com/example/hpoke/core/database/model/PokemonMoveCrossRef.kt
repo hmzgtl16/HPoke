@@ -1,30 +1,30 @@
 package com.example.hpoke.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
     tableName = "pokemon_move_cross_ref",
-    primaryKeys = ["pokemonId", "moveId"],
+    primaryKeys = ["pokemon_id", "move_id"],
     foreignKeys = [
         ForeignKey(
             entity = PokemonEntity::class,
             parentColumns = ["id"],
-            childColumns = ["pokemonId"],
-            onDelete = ForeignKey.Companion.CASCADE
+            childColumns = ["pokemon_id"],
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = MoveEntity::class,
             parentColumns = ["id"],
-            childColumns = ["moveId"],
-            onDelete = ForeignKey.Companion.CASCADE
+            childColumns = ["move_id"],
+            onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["moveId"])]
+    indices = [Index(value = ["move_id"])]
 )
 data class PokemonMoveCrossRef(
-    val pokemonId: Int,
-    val moveId: Int
-    // you can add level, learnMethod, etc. later
+    @ColumnInfo(name = "pokemon_id") val pokemon_id: Int,
+    @ColumnInfo(name = "move_id") val move_id: Int
 )

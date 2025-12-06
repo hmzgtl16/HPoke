@@ -6,8 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    tableName = "pokemon_ability_cross_ref",
-    primaryKeys = ["pokemon_id", "ability_id"],
+    tableName = "pokemon_stat_cross_ref",
+    primaryKeys = ["pokemon_id", "stat_id"],
     foreignKeys = [
         ForeignKey(
             entity = PokemonEntity::class,
@@ -16,17 +16,17 @@ import androidx.room.Index
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = AbilityEntity::class,
+            entity = TypeEntity::class,
             parentColumns = ["id"],
-            childColumns = ["ability_id"],
+            childColumns = ["stat_id"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["ability_id"])]
+    indices = [Index(value = ["stat_id"])]
 )
-data class PokemonAbilityCrossRef(
+data class PokemonStatCrossRef(
     @ColumnInfo(name = "pokemon_id") val pokemonId: Int,
-    @ColumnInfo(name = "ability_id") val abilityId: Int,
-    @ColumnInfo(name = "is_hidden") val isHidden: Boolean,
-    @ColumnInfo(name = "slot") val slot: Int
+    @ColumnInfo(name = "stat_id") val statId: Int,
+    @ColumnInfo(name = "base_stat") val baseStat: Int,
+    @ColumnInfo(name = "effort") val effort: Int
 )

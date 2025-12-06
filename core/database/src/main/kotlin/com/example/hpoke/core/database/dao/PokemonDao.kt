@@ -7,13 +7,12 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.hpoke.core.database.model.PokemonAbilityCrossRef
 import com.example.hpoke.core.database.model.PokemonEntity
+import com.example.hpoke.core.database.model.PokemonFull
 import com.example.hpoke.core.database.model.PokemonHeldItemCrossRef
 import com.example.hpoke.core.database.model.PokemonMoveCrossRef
 import com.example.hpoke.core.database.model.PokemonStatEntity
 import com.example.hpoke.core.database.model.PokemonTypeCrossRef
-import com.example.hpoke.core.database.model.PokemonWithAbilities
-import com.example.hpoke.core.database.model.PokemonWithStats
-import com.example.hpoke.core.database.model.PokemonWithTypes
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
@@ -44,14 +43,16 @@ interface PokemonDao {
 
     // BASIC QUERIES
 
+    @Transaction
     @Query("SELECT * FROM pokemon WHERE id = :id")
-    suspend fun getPokemonById(id: Int): PokemonEntity?
+    fun getPokemonById(id: Int): Flow<PokemonFull?>
 
     @Query("SELECT * FROM pokemon WHERE name = :name LIMIT 1")
     suspend fun getPokemonByName(name: String): PokemonEntity?
 
+    @Transaction
     @Query("SELECT * FROM pokemon ORDER BY id ASC")
-    suspend fun getAllPokemon(): List<PokemonEntity>
+    fun getAllPokemon(): Flow<List<PokemonFull>>
 
     @Query("DELETE FROM pokemon")
     suspend fun clearPokemon()
@@ -59,15 +60,4 @@ interface PokemonDao {
 
     // RELATIONS
 
-    @Transaction
-    @Query("SELECT * FROM pokemon WHERE id = :id")
-    suspend fun getPokemonWithTypes(id: Int): PokemonWithTypes?
-
-    @Transaction
-    @Query("SELECT * FROM pokemon WHERE id = :id")
-    suspend fun getPokemonWithAbilities(id: Int): PokemonWithAbilities?
-
-    @Transaction
-    @Query("SELECT * FROM pokemon WHERE id = :id")
-    suspend fun getPokemonWithStats(id: Int): PokemonWithStats?
 }

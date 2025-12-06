@@ -29,3 +29,4 @@ data class PokemonTypeCrossRef(
     @ColumnInfo(name = "type_id") val typeId: Int,
     @ColumnInfo(name = "slot") val slot: Int // 1 = primary, 2 = secondary
 )
+

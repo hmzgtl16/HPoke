@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["name"], unique = true)],
     foreignKeys = [
         ForeignKey(
-            entity = PokemonSpeciesEntity::class,
+            entity = SpeciesEntity::class,
             parentColumns = ["id"],
             childColumns = ["speciesId"],
             onDelete = ForeignKey.CASCADE

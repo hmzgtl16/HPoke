@@ -14,16 +14,16 @@ import com.example.hpoke.core.database.model.PokemonAbilityCrossRef
 import com.example.hpoke.core.database.model.PokemonEntity
 import com.example.hpoke.core.database.model.PokemonHeldItemCrossRef
 import com.example.hpoke.core.database.model.PokemonMoveCrossRef
-import com.example.hpoke.core.database.model.PokemonSpeciesEntity
 import com.example.hpoke.core.database.model.PokemonStatEntity
 import com.example.hpoke.core.database.model.PokemonTypeCrossRef
+import com.example.hpoke.core.database.model.SpeciesEntity
 import com.example.hpoke.core.database.model.StatEntity
 import com.example.hpoke.core.database.model.TypeEntity
 
 @Database(
     entities = [
         PokemonEntity::class,
-        PokemonSpeciesEntity::class,
+        SpeciesEntity::class,
         TypeEntity::class,
         PokemonTypeCrossRef::class,
         AbilityEntity::class,

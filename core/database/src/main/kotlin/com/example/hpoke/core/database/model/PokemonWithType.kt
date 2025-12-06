@@ -3,11 +3,11 @@ package com.example.hpoke.core.database.model
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class PokemonStatWithInfo(
-    @Embedded val pokemonStat: PokemonStatEntity,
+data class PokemonWithType(
+    @Embedded val pokemonTypeCrossRef: PokemonTypeCrossRef,
     @Relation(
-        parentColumn = "statId",
+        parentColumn = "type_id",
         entityColumn = "id"
     )
-    val stat: StatEntity
+    val type: TypeEntity
 )
