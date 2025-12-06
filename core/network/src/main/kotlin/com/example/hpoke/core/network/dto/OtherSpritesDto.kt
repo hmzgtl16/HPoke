@@ -4,8 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SpritesDto(
-    @SerialName(value = "other") val other: OtherSpritesDto,
-
+data class OtherSpritesDto(
+    @SerialName(value = "official-artwork") val officialArtwork: OfficialArtwork
 )
-

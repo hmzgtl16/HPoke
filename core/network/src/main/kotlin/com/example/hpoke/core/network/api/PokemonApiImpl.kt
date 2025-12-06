@@ -1,7 +1,6 @@
 package com.example.hpoke.core.network.api
 
 import com.example.hpoke.core.network.dto.AbilityDto
-import com.example.hpoke.core.network.dto.MoveDto
 import com.example.hpoke.core.network.dto.PokemonDto
 import com.example.hpoke.core.network.dto.PokemonListDto
 import com.example.hpoke.core.network.dto.StatDto
@@ -31,19 +30,15 @@ class PokemonApiImpl : PokemonApi, KoinComponent {
         .get("pokemon/$name")
         .body()
 
-    override suspend fun getAbility(id: Int): AbilityDto = client
-        .get("ability/$id")
+    override suspend fun getAbility(name: String): AbilityDto = client
+        .get("ability/$name")
         .body()
 
-    override suspend fun getMove(id: Int): MoveDto = client
-        .get("move/$id")
+    override suspend fun getStat(name: String): StatDto = client
+        .get("stat/$name")
         .body()
 
-    override suspend fun getStat(id: Int): StatDto = client
-        .get("stat/$id")
-        .body()
-
-    override suspend fun getType(id: Int): TypeDto = client
-        .get("type/$id")
+    override suspend fun getType(name: String): TypeDto = client
+        .get("type/$name")
         .body()
 }
