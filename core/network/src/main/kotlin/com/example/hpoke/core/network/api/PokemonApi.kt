@@ -11,7 +11,7 @@ interface PokemonApi {
 
     suspend fun getPokemonList(offset: Int = 0, limit: Int = 20): PokemonListDto
 
-    suspend fun getPokemon(id: Int): PokemonDto
+    suspend fun getPokemon(name: String): PokemonDto
 
     suspend fun getAbility(id: Int): AbilityDto
 

@@ -27,8 +27,8 @@ class PokemonApiImpl : PokemonApi, KoinComponent {
         }
         .body()
 
-    override suspend fun getPokemon(id: Int): PokemonDto = client
-        .get("pokemon/$id")
+    override suspend fun getPokemon(name: String): PokemonDto = client
+        .get("pokemon/$name")
         .body()
 
     override suspend fun getAbility(id: Int): AbilityDto = client
