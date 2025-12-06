@@ -18,14 +18,12 @@ class PokemonApiImpl : PokemonApi, KoinComponent {
     val client: HttpClient by inject()
 
     override suspend fun getPokemonList(
-        offset: Int?,
+        offset: Int,
         limit: Int
     ): PokemonListDto = client
         .get("pokemon") {
-            offset?.let {
-                parameter("offset", it)
-                parameter("limit", limit)
-            }
+            parameter("offset", offset)
+            parameter("limit", limit)
         }
         .body()
 

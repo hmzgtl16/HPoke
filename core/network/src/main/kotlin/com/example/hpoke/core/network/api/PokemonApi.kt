@@ -9,7 +9,7 @@ import com.example.hpoke.core.network.dto.TypeDto
 
 interface PokemonApi {
 
-    suspend fun getPokemonList(offset: Int? = null, limit: Int = 20): PokemonListDto
+    suspend fun getPokemonList(offset: Int = 0, limit: Int = 20): PokemonListDto
 
     suspend fun getPokemon(id: Int): PokemonDto
 
