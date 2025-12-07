@@ -10,6 +10,7 @@ import com.example.hpoke.core.database.dao.TypeDao
 import com.example.hpoke.core.database.model.AbilityEntity
 import com.example.hpoke.core.database.model.PokemonAbilityCrossRef
 import com.example.hpoke.core.database.model.PokemonEntity
+import com.example.hpoke.core.database.model.PokemonStatCrossRef
 import com.example.hpoke.core.database.model.PokemonTypeCrossRef
 import com.example.hpoke.core.database.model.SpritesEntity
 import com.example.hpoke.core.database.model.StatEntity
@@ -24,6 +25,7 @@ import com.example.hpoke.core.database.model.TypeEntity
         AbilityEntity::class,
         PokemonAbilityCrossRef::class,
         StatEntity::class,
+        PokemonStatCrossRef::class,
     ],
     version = 1,
     exportSchema = true

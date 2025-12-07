@@ -14,7 +14,6 @@ fun PokemonFull.asModel() = Pokemon(
     species = species.asModel(),
     stats = stats.asModel(),
     types = types.asModel(),
-    moves = moves.asModel(),
     abilities = abilities.asModel()
 )
 

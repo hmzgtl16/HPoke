@@ -16,7 +16,7 @@ import androidx.room.Index
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = TypeEntity::class,
+            entity = StatEntity::class,
             parentColumns = ["id"],
             childColumns = ["stat_id"],
             onDelete = ForeignKey.CASCADE

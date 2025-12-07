@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = SpritesEntity::class,
             parentColumns = ["id"],
-            childColumns = ["speciesId"],
+            childColumns = ["spritesId"],
             onDelete = ForeignKey.CASCADE
         )
     ]

@@ -8,7 +8,6 @@ data class Pokemon(
     val baseExperience: Int?,
     val species: Species,
     val types: List<Type>,
-    val moves: List<Move>,
     val stats: List<Stat>,
     val abilities: List<Ability>,
 )

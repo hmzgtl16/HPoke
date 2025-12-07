@@ -14,6 +14,8 @@ fun PokemonWithStat.asModel() = Stat(
     effort = pokemonStatCrossRef.effort
 )
 
+fun List<PokemonWithStat>.asModel() = map(PokemonWithStat::asModel)
+
 fun StatDto.asEntity() = StatEntity(
     id = id,
     name = name,
