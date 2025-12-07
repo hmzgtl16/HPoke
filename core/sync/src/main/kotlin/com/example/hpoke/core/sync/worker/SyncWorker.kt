@@ -8,6 +8,7 @@ import androidx.work.WorkerParameters
 import com.example.hpoke.core.data.repository.PokemonRepository
 import com.example.hpoke.core.sync.initializer.SyncConstraints
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 
 class SyncWorker(
@@ -17,6 +18,10 @@ class SyncWorker(
 ) : CoroutineWorker(appContext = appContext, params = workerParams) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        val isSynced = pokemonRepository.isSynced.first()
+
+        if (isSynced) return@withContext Result.success()
+
         val syncedSuccessfully = pokemonRepository.sync()
 
         if (syncedSuccessfully)

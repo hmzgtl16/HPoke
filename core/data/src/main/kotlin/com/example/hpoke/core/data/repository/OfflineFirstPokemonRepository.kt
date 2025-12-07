@@ -42,6 +42,10 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
     override suspend fun getPokemon(id: Int): Flow<Pokemon?> =
         pokemonDao.getPokemonById(id).map { it?.asModel() }
 
+    override val isSynced: Flow<Boolean>
+        get() = pokemonDao.getAllPokemon()
+            .map { it.size == pokemonApi.getPokemonList().count }
+
     override suspend fun sync(): Boolean = suspendRunCatching {
         val limit = 100
         var offset = 0
