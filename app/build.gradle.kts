@@ -1,3 +1,5 @@
+import com.example.hpoke.BuildType
+
 plugins {
     alias(libs.plugins.hpoke.android.application)
     alias(libs.plugins.hpoke.android.application.compose)
@@ -15,17 +17,37 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = BuildType.DEBUG.applicationIdSuffix
+        }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            applicationIdSuffix = BuildType.RELEASE.applicationIdSuffix
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+
+    packaging {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+            excludes.add("/META-INF/INDEX.LIST")
+        }
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 }
 
 dependencies {
+    implementation(projects.core.sync)
+    implementation(projects.feature.home)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
