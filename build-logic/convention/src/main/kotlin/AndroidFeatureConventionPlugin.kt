@@ -10,55 +10,40 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = libs.findPlugin("hpoke-android-library").get().get().pluginId)
+            apply(
+                plugin = libs.findPlugin("org-jetbrains-kotlin-plugin-serialization").get()
+                    .get().pluginId
+            )
 
             extensions.configure<LibraryExtension> {
                 testOptions.animationsDisabled = true
             }
 
             dependencies {
-               /*
-               add(
-                    "implementation",
+                add(
+                    "api",
                     project(":core:data")
                 )
                 add(
-                    "implementation",
-                    project(":core:ui")
-                )
-                add(
-                    "implementation",
+                    "api",
                     project(":core:navigation")
                 )
                 add(
-                    "implementation",
-                    libs.findLibrary("androidx-hilt-navigation-compose").get()
+                    "api",
+                    libs.findLibrary("androidx-navigation3-ui").get()
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("androidx-lifecycle-runtime-compose").get()
+                    libs.findLibrary("androidx-lifecycle-viewmodel-navigation3").get()
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("androidx-lifecycle-viewmodel-compose").get()
-                )
-
-                add(
-                    "testImplementation",
-                    libs.findLibrary("androidx-navigation-testing").get()
+                    libs.findLibrary("org-jetbrains-kotlinx-serialization-core").get()
                 )
                 add(
-                    "androidTestImplementation",
-                    libs.findLibrary("androidx-compose-ui-test").get()
+                    "implementation",
+                    libs.findLibrary("io-insert-koin-androidx-compose").get()
                 )
-                add(
-                    "androidTestImplementation",
-                    libs.findLibrary("androidx-compose-ui-test-manifest").get()
-                )
-                add(
-                    "androidTestImplementation",
-                    libs.findLibrary("androidx-lifecycle-runtime-testing").get()
-                )
-                */
             }
         }
     }
