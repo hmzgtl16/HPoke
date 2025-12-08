@@ -47,13 +47,16 @@ io-insert-koin-core = { group = "io.insert-koin", name = "koin-core", version.re
 io-insert-koin-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3", version.ref = "io-insert-koin" }
 io-insert-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "io-insert-koin" }
 io-insert-koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "io-insert-koin" }
+io-insert-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "io-insert-koin" }
 io-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "io-ktor" }
 io-ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "io-ktor" }
 io-ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "io-ktor" }
 io-ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "io-ktor" }
+io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "io-ktor" }
 io-ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "io-ktor" }
 org-jetbrains-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
+org-jetbrains-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-jetbrains-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "org-jetbrains-kotlinx-datetime" }
 org-jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "org-jetbrains-kotlinx-serialization" }
 
