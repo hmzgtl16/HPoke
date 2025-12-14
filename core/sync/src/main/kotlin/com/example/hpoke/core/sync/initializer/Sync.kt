@@ -8,7 +8,7 @@ import com.example.hpoke.core.sync.worker.SyncWorker
 object Sync {
 
     fun initialize(context: Context) {
-        WorkManager.getInstance(context).apply {
+        WorkManager.getInstance(context = context).apply {
             enqueueUniqueWork(
                 uniqueWorkName = SyncWorker.SYNC_WORK_NAME,
                 existingWorkPolicy = ExistingWorkPolicy.KEEP,

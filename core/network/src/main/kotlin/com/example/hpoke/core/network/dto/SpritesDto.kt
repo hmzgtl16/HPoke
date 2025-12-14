@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SpritesDto(
     @SerialName(value = "other") val other: OtherSpritesDto,
-
 )
 

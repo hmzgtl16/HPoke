@@ -13,19 +13,19 @@ data class PokemonFull(
     @Relation(
         entity = PokemonStatCrossRef::class,
         parentColumn = "id",
-        entityColumn = "stat_id"
+        entityColumn = "pokemon_id"
     )
     val stats: List<PokemonWithStat>,
     @Relation(
         entity = PokemonTypeCrossRef::class,
         parentColumn = "id",
-        entityColumn = "type_id"
+        entityColumn = "pokemon_id"
     )
     val types: List<PokemonWithType>,
     @Relation(
         entity = PokemonAbilityCrossRef::class,
         parentColumn = "id",
-        entityColumn = "ability_id"
+        entityColumn = "pokemon_id"
     )
     val abilities: List<PokemonWithAbility>,
 )

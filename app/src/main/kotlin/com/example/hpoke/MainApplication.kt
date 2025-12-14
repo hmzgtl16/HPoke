@@ -2,6 +2,7 @@ package com.example.hpoke
 
 import android.app.Application
 import com.example.hpoke.core.data.di.dataModule
+import com.example.hpoke.core.database.di.daoModule
 import com.example.hpoke.core.database.di.databaseModule
 import com.example.hpoke.core.navigation.di.navigationModule
 import com.example.hpoke.core.network.di.networkModule
@@ -25,6 +26,7 @@ class MainApplication : Application() {
             modules(
                 dataModule,
                 databaseModule,
+                daoModule,
                 navigationModule,
                 networkModule,
                 syncModule,

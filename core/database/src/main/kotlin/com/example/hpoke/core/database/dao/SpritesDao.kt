@@ -6,8 +6,8 @@ import androidx.room.OnConflictStrategy
 import com.example.hpoke.core.database.model.SpritesEntity
 
 @Dao
-interface SpeciesDao {
+interface SpritesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSpeciesList(list: List<SpritesEntity>)
+    suspend fun insertSprites(sprites: List<SpritesEntity>)
 }

@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.hpoke.core.database.dao.AbilityDao
 import com.example.hpoke.core.database.dao.PokemonDao
-import com.example.hpoke.core.database.dao.SpeciesDao
+import com.example.hpoke.core.database.dao.SpritesDao
 import com.example.hpoke.core.database.dao.StatDao
 import com.example.hpoke.core.database.dao.TypeDao
 import com.example.hpoke.core.database.model.AbilityEntity
@@ -33,7 +33,7 @@ import com.example.hpoke.core.database.model.TypeEntity
 abstract class HPokeDatabase : RoomDatabase() {
 
     abstract fun pokemonDao(): PokemonDao
-    abstract fun speciesDao(): SpeciesDao
+    abstract fun speciesDao(): SpritesDao
     abstract fun typeDao(): TypeDao
     abstract fun abilityDao(): AbilityDao
     abstract fun statDao(): StatDao
