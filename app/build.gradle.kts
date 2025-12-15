@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.designsystem)
     implementation(projects.core.sync)
     implementation(projects.feature.home)
     implementation(libs.androidx.core.ktx)

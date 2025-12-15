@@ -1,7 +1,6 @@
 [versions]
 android-gradle-plugin = "8.13.1"
 coreKtx = "1.17.0"
-ch-qos-logback-classic = "1.5.21"
 io-insert-koin = "4.2.0-alpha3"
 io-ktor = "3.3.3"
 junit = "4.13.2"
@@ -10,7 +9,7 @@ espressoCore = "3.7.0"
 androidx-test = "1.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.12.0"
-composeBom = "2025.11.01"
+androidx-compose-bom = "2025.12.00"
 androidx-lifecycle = "2.10.0"
 androidx-navigation3 = "1.0.0"
 androidx-room = "2.8.4"
@@ -32,15 +31,15 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidx-test" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-ch-qos-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "ch-qos-logback-classic" }
 androidx-lifecycle-viewmodel-navigation3 = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "androidx-navigation3" }
 androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "androidx-navigation3" }

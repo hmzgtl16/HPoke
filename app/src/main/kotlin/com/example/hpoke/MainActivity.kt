@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.Modifier
 import androidx.navigation3.ui.NavDisplay
+import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.navigation.Navigator
-import com.example.hpoke.ui.theme.HPokeTheme
 import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.navigation3.getEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
