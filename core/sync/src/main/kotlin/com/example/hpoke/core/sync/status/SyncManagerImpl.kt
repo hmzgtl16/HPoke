@@ -1,7 +1,7 @@
 package com.example.hpoke.core.sync.status
 
 import android.content.Context
-import androidx.work.ExistingWorkPolicy
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.hpoke.core.sync.initializer.anyRunning
@@ -24,9 +24,9 @@ class SyncManagerImpl : SyncManager, KoinComponent {
 
     override fun requestSync() {
         WorkManager.getInstance(context)
-            .enqueueUniqueWork(
+            .enqueueUniquePeriodicWork(
                 uniqueWorkName = SyncWorker.SYNC_WORK_NAME,
-                existingWorkPolicy = ExistingWorkPolicy.KEEP,
+                existingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.KEEP,
                 request = SyncWorker.startUpSyncWork(),
             )
     }

@@ -2,7 +2,6 @@ package com.example.hpoke.core.sync.worker
 
 import android.content.Context
 import androidx.work.CoroutineWorker
-import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
 import com.example.hpoke.core.data.repository.PokemonRepository
@@ -42,7 +41,7 @@ class SyncWorker(
             repeatInterval = 1,
             repeatIntervalTimeUnit = TimeUnit.DAYS
         )
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            //.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .setConstraints(SyncConstraints)
             .build()
     }
