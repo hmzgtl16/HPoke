@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.example.hpoke.core.designsystem.R
+import com.example.hpoke.core.designsystem.theme.HPokeTheme
 
 @Composable
 fun HPokeImage(
@@ -26,6 +27,7 @@ fun HPokeImage(
     placeholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
     contentScale: ContentScale = ContentScale.Crop
 ) {
+
     SubcomposeAsyncImage(
         model = imageUrl,
         contentDescription = contentDescription,
@@ -55,8 +57,8 @@ fun HPokeImage(
 
 @PreviewLightDark
 @Composable
-private fun HPokeImagePreview() {
-    MaterialTheme {
+fun HPokeImagePreview() {
+    HPokeTheme {
         HPokeImage(
             imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/13",
             contentDescription = "Pokemon ditto",
