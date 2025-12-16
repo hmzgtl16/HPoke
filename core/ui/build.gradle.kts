@@ -1,0 +1,16 @@
+plugins {
+    alias(libs.plugins.hpoke.android.library)
+    alias(libs.plugins.hpoke.android.library.compose)
+}
+
+android {
+    namespace = "com.example.hpoke.core.ui"
+}
+
+dependencies {
+    implementation(projects.core.designsystem)
+    implementation(projects.core.model)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.palette)
+    implementation(libs.io.coil)
+}
