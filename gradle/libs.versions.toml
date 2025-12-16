@@ -1,6 +1,7 @@
 [versions]
 android-gradle-plugin = "8.13.1"
 coreKtx = "1.17.0"
+io-coil = "3.3.0"
 io-insert-koin = "4.2.0-alpha3"
 io-ktor = "3.3.3"
 junit = "4.13.2"
@@ -49,6 +50,10 @@ androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", 
 androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidx-work" }
 com-squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "com-squareup-okhttp3" }
+io-coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "io-coil" }
+io-coil-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "io-coil" }
+io-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "io-coil" }
+io-coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "io-coil" }
 io-insert-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "io-insert-koin" }
 io-insert-koin-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3", version.ref = "io-insert-koin" }
 io-insert-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "io-insert-koin" }

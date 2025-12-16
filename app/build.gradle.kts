@@ -46,9 +46,14 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.navigation)
     implementation(projects.core.sync)
     implementation(projects.feature.home)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.io.coil)
+    implementation(libs.io.coil.network.ktor)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
