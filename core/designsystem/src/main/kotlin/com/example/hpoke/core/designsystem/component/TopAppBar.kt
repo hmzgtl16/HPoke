@@ -31,6 +31,7 @@ fun HPokeTopAppBar(
 @PreviewLightDark
 @Composable
 private fun HPokeTopAppBarPreview() {
+
     MaterialTheme {
         HPokeTopAppBar(
             titleRes = android.R.string.untitled
