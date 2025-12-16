@@ -7,6 +7,7 @@ import coil3.SingletonImageLoader
 import coil3.disk.DiskCache
 import coil3.memory.MemoryCache
 import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.request.allowHardware
 import coil3.request.crossfade
 import coil3.util.DebugLogger
 import com.example.hpoke.core.data.di.dataModule
@@ -63,6 +64,7 @@ class MainApplication : Application(), SingletonImageLoader.Factory {
                     .maxSizePercent(percent = 0.02)
                     .build()
             })
+            .allowHardware(enable = false)
             .crossfade(enable = true)
             .apply {
                 if (BuildConfig.DEBUG) {

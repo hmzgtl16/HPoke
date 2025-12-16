@@ -1,8 +1,10 @@
 package com.example.hpoke.core.designsystem.component
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -15,17 +17,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import coil3.BitmapImage
 import coil3.compose.SubcomposeAsyncImage
+import coil3.compose.SubcomposeAsyncImageContent
 import com.example.hpoke.core.designsystem.R
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 
 @Composable
 fun HPokeImage(
-    imageUrl: String,
+    imageUrl: String?,
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
-    contentScale: ContentScale = ContentScale.Crop
+    contentScale: ContentScale = ContentScale.Crop,
+    onBitmapReady: (Bitmap) -> Unit
 ) {
 
     SubcomposeAsyncImage(
@@ -39,17 +44,24 @@ fun HPokeImage(
                 contentAlignment = Alignment.Center
             ) {
                 HPokeCircularProgressIndicator(
-                    modifier = Modifier.size(60.dp),
+                    modifier = Modifier.size(size = 40.dp),
                     color = MaterialTheme.colorScheme.tertiary
                 )
             }
+        },
+        success = {
+            val bitmap = (it.result.image as? BitmapImage)?.bitmap
+            if (bitmap != null) onBitmapReady(bitmap)
+            SubcomposeAsyncImageContent()
         },
         error = {
             Image(
                 painter = placeholder,
                 contentDescription = contentDescription,
-                contentScale = contentScale,
-                modifier = Modifier.fillMaxSize()
+                contentScale = ContentScale.None,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(all = 16.dp)
             )
         }
     )
@@ -64,7 +76,8 @@ fun HPokeImagePreview() {
             contentDescription = "Pokemon ditto",
             modifier = Modifier
                 .size(size = 120.dp)
-                .clip(shape = RoundedCornerShape(size = 16.dp))
+                .clip(shape = RoundedCornerShape(size = 16.dp)),
+            onBitmapReady = {}
         )
     }
 }

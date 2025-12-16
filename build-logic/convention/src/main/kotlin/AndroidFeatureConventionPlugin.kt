@@ -21,15 +21,23 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
             dependencies {
                 add(
-                    "api",
+                    "implementation",
                     project(":core:data")
                 )
                 add(
-                    "api",
+                    "implementation",
+                    project(":core:designsystem")
+                )
+                add(
+                    "implementation",
                     project(":core:navigation")
                 )
                 add(
-                    "api",
+                    "implementation",
+                    project(":core:ui")
+                )
+                add(
+                    "implementation",
                     libs.findLibrary("androidx-navigation3-ui").get()
                 )
                 add(
