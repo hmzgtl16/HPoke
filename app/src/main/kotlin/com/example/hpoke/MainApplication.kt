@@ -18,10 +18,12 @@ import com.example.hpoke.core.network.di.networkModule
 import com.example.hpoke.core.sync.di.syncModule
 import com.example.hpoke.core.sync.initializer.Sync
 import com.example.hpoke.feature.home.di.homeModule
+import okio.Path.Companion.toOkioPath
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
+import java.io.File
 
 class MainApplication : Application(), SingletonImageLoader.Factory {
 
@@ -46,11 +48,21 @@ class MainApplication : Application(), SingletonImageLoader.Factory {
         Sync.initialize(context = this)
     }
 
-    override fun newImageLoader(context: PlatformContext): ImageLoader {
-        return ImageLoader.Builder(context)
+    override fun newImageLoader(context: PlatformContext): ImageLoader =
+        ImageLoader.Builder(context = context)
             .components { add(factory = KtorNetworkFetcherFactory()) }
-            .memoryCache(initializer = MemoryCache.Builder()::build)
-            .diskCache(initializer = DiskCache.Builder()::build)
+            .memoryCache(initializer = {
+                MemoryCache.Builder()
+                    .maxSizePercent(context = context, percent = 0.25).build()
+            })
+            .diskCache(initializer = {
+                DiskCache.Builder()
+                    .directory(
+                        directory = File(context.cacheDir, "image_cache").toOkioPath()
+                    )
+                    .maxSizePercent(percent = 0.02)
+                    .build()
+            })
             .crossfade(enable = true)
             .apply {
                 if (BuildConfig.DEBUG) {
@@ -58,5 +70,4 @@ class MainApplication : Application(), SingletonImageLoader.Factory {
                 }
             }
             .build()
-    }
 }
