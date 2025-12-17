@@ -24,8 +24,8 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
 
             dependencies {
                 add("implementation", libs.findLibrary("androidx-room-runtime").get())
+                add("implementation", libs.findLibrary("androidx-room-paging").get())
                 add("ksp", libs.findLibrary("androidx-room-compiler").get())
-                add("runtimeOnly", libs.findLibrary("androidx-sqlite-bundled").get())
             }
         }
     }

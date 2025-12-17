@@ -1,5 +1,6 @@
 package com.example.hpoke.core.database.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -33,5 +34,5 @@ interface PokemonDao {
 
     @Transaction
     @Query("SELECT * FROM pokemon ORDER BY id ASC")
-    fun getAllPokemon(): Flow<List<PokemonFull>>
+    fun getAllPokemon(): PagingSource<Int, PokemonFull>
 }

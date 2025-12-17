@@ -1,5 +1,8 @@
 package com.example.hpoke.core.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.hpoke.core.data.mapper.asEntity
 import com.example.hpoke.core.data.mapper.asModel
 import com.example.hpoke.core.data.mapper.toEntity
@@ -44,16 +47,18 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
     val typeDao: TypeDao by inject()
     val statDao: StatDao by inject()
 
-    override val pokemons: Flow<List<Pokemon>>
-        get() = pokemonDao.getAllPokemon()
-            .map(List<PokemonFull>::asModel)
+    override fun getPokemons(pageSize: Int): Flow<PagingData<Pokemon>> =
+        Pager(
+            config = PagingConfig(pageSize = pageSize),
+            pagingSourceFactory = pokemonDao::getAllPokemon
+        )
+            .flow
+            .map(PagingData<PokemonFull>::asModel)
+
+
 
     override suspend fun getPokemon(id: Int): Flow<Pokemon?> =
         pokemonDao.getPokemonById(id).map { it?.asModel() }
-
-    override val isSynced: Flow<Boolean>
-        get() = pokemonDao.getAllPokemon()
-            .map { it.size == pokemonApi.getPokemonList().count }
 
     override suspend fun sync(): Boolean = suspendRunCatching {
 

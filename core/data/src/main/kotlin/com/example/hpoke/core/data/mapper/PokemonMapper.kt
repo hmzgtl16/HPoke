@@ -1,5 +1,7 @@
 package com.example.hpoke.core.data.mapper
 
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.hpoke.core.database.model.PokemonEntity
 import com.example.hpoke.core.database.model.PokemonFull
 import com.example.hpoke.core.model.Pokemon
@@ -17,8 +19,6 @@ fun PokemonFull.asModel() = Pokemon(
     abilities = abilities.asModel()
 )
 
-fun List<PokemonFull>.asModel() = map(PokemonFull::asModel)
-
 fun PokemonDto.toEntity() = PokemonEntity(
     id = id,
     name = name,
@@ -27,3 +27,5 @@ fun PokemonDto.toEntity() = PokemonEntity(
     baseExperience = baseExperience,
     spritesId = id
 )
+
+fun PagingData<PokemonFull>.asModel(): PagingData<Pokemon> = map(PokemonFull::asModel)

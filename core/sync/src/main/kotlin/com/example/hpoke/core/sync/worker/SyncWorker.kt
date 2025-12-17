@@ -7,7 +7,6 @@ import androidx.work.WorkerParameters
 import com.example.hpoke.core.data.repository.PokemonRepository
 import com.example.hpoke.core.sync.initializer.SyncConstraints
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -21,10 +20,6 @@ class SyncWorker(
     private val pokemonRepository: PokemonRepository by inject()
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val isSynced = pokemonRepository.isSynced.first()
-
-        if (isSynced) return@withContext Result.success()
-
         val syncedSuccessfully = pokemonRepository.sync()
 
         if (syncedSuccessfully)
