@@ -24,6 +24,7 @@ import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.model.Pokemon
 import com.example.hpoke.core.ui.palette.generatePalette
 import com.example.hpoke.core.ui.palette.paletteBackgroundColor
+import com.example.hpoke.core.ui.palette.paletteTextColor
 import com.example.hpoke.core.ui.palette.rememberPaletteState
 import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
 import java.util.Locale
@@ -37,6 +38,7 @@ fun PokemonCard(
 
     var palette by rememberPaletteState()
     val backgroundColor by palette.paletteBackgroundColor()
+    val textColor by palette.paletteTextColor()
 
     ElevatedCard(
         modifier = modifier,
@@ -67,6 +69,7 @@ fun PokemonCard(
                     if (it.isLowerCase()) it.titlecase(locale = Locale.getDefault())
                     else it.toString()
                 },
+                color = textColor,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.align(alignment = Alignment.BottomCenter)
             )

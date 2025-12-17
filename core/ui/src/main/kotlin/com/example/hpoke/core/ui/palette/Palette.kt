@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.palette.graphics.Palette
 
-
 @Composable
 internal fun Palette?.paletteBackgroundColor(): State<Color> {
     val defaultBackground = MaterialTheme.colorScheme.surface
@@ -21,6 +20,19 @@ internal fun Palette?.paletteBackgroundColor(): State<Color> {
             this?.dominantSwatch?.rgb
                 ?.let(::Color)
                 ?: defaultBackground
+        }
+    }
+}
+
+@Composable
+internal fun Palette?.paletteTextColor(): State<Color> {
+    val defaultText = MaterialTheme.colorScheme.onSurface
+
+    return remember(this) {
+        derivedStateOf {
+            this?.dominantSwatch?.titleTextColor
+                ?.let(::Color)
+                ?: defaultText
         }
     }
 }
