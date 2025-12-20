@@ -1,5 +1,6 @@
 package com.example.hpoke.feature.home
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,7 @@ fun HomeScreen(
     )
 }
 
+@VisibleForTesting
 @Composable
 fun HomeScreen(
     pokemons: LazyPagingItems<Pokemon>,
@@ -68,12 +71,12 @@ fun HomeScreen(
                 .padding(paddingValues = paddingValues)
         ) {
             when (pokemons.loadState.refresh) {
-                is LoadState.NotLoading if pokemons.itemCount == 0 -> {
-                    HomeScreenEmpty(modifier = Modifier.fillMaxSize())
-                }
-
                 is LoadState.Loading -> {
                     HomeScreenLoading(modifier = Modifier.fillMaxSize())
+                }
+
+                is LoadState.NotLoading if pokemons.itemCount == 0 -> {
+                    HomeScreenEmpty(modifier = Modifier.fillMaxSize())
                 }
 
                 is LoadState.Error -> {
@@ -100,9 +103,9 @@ fun HomeScreen(
 fun HomeScreenLoading(
     modifier: Modifier = Modifier
 ) {
-
     Box(
-        modifier = modifier,
+        modifier = modifier
+            .testTag(tag = "homeScreenLoading"),
         contentAlignment = Alignment.Center
     ) {
 
@@ -117,7 +120,8 @@ fun HomeScreenEmpty(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier,
+        modifier = modifier
+            .testTag(tag = "homeScreenEmpty"),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -135,7 +139,8 @@ fun HomeScreenError(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .testTag(tag = "homeScreenError"),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             space = 12.dp,
@@ -162,7 +167,8 @@ fun HomeScreenGrid(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
+        modifier = modifier
+            .testTag(tag = "homeScreenGrid"),
         columns = GridCells.Adaptive(minSize = 128.dp),
         contentPadding = PaddingValues(all = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
@@ -205,31 +211,6 @@ fun HomeScreenGrid(
     }
 }
 
-/*@PreviewScreenSizes
-@Composable
-fun HomeScreenLoadingPreview() {
-
-    HPokeTheme {
-        HomeScreen(
-            uiState = HomeUiState.Loading,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@PreviewScreenSizes
-@Composable
-fun HomeScreenEmptyPreview() {
-
-    HPokeTheme {
-        HomeScreen(
-            uiState = HomeUiState.Success(pokemons = emptyList()),
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-*/
-
 @PreviewScreenSizes
 @Composable
 fun HomeScreenPreview(
@@ -238,7 +219,7 @@ fun HomeScreenPreview(
 
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(PagingData.from(pokemons)).collectAsLazyPagingItems(),
+            pokemons = flowOf(PagingData.from(data = pokemons)).collectAsLazyPagingItems(),
             modifier = Modifier.fillMaxSize()
         )
     }
