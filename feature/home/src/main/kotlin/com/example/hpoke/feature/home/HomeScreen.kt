@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -187,8 +188,6 @@ fun HomeScreenGrid(
                 )
             }
         }
-
-        // Footer: loading / error while paging
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
@@ -213,13 +212,84 @@ fun HomeScreenGrid(
 
 @PreviewScreenSizes
 @Composable
+fun HomeScreenLoadingPreview(
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+) {
+
+    HPokeTheme {
+        HomeScreen(
+            pokemons = flowOf(
+                PagingData.from(
+                    data = pokemons,
+                    sourceLoadStates = LoadStates(
+                        refresh = LoadState.Loading,
+                        append = LoadState.Loading,
+                        prepend = LoadState.Loading
+                    )
+                )
+            ).collectAsLazyPagingItems(),
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@PreviewScreenSizes
+@Composable
+fun HomeScreenEmptyPreview() {
+    HPokeTheme {
+        HomeScreen(
+            pokemons = flowOf(
+                PagingData.empty<Pokemon>(
+                    sourceLoadStates = LoadStates(
+                        refresh = LoadState.NotLoading(endOfPaginationReached = true),
+                        append = LoadState.NotLoading(endOfPaginationReached = true),
+                        prepend = LoadState.NotLoading(endOfPaginationReached = true)
+                    )
+                )
+            ).collectAsLazyPagingItems(),
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@PreviewScreenSizes
+@Composable
+fun HomeScreenErrorPreview() {
+
+    HPokeTheme {
+        HomeScreen(
+            pokemons = flowOf(
+                PagingData.empty<Pokemon>(
+                    sourceLoadStates = LoadStates(
+                        refresh = LoadState.Error(error = Exception("Error loading data")),
+                        append = LoadState.Error(error = Exception("Error loading data")),
+                        prepend = LoadState.Error(error = Exception("Error loading data"))
+                    )
+                )
+            ).collectAsLazyPagingItems(),
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@PreviewScreenSizes
+@Composable
 fun HomeScreenPreview(
     @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
 ) {
 
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(PagingData.from(data = pokemons)).collectAsLazyPagingItems(),
+            pokemons = flowOf(
+                PagingData.from(
+                    data = pokemons.subList(0, 4),
+                    sourceLoadStates = LoadStates(
+                        refresh = LoadState.NotLoading(endOfPaginationReached = true),
+                        append = LoadState.NotLoading(endOfPaginationReached = true),
+                        prepend = LoadState.NotLoading(endOfPaginationReached = true)
+                    )
+                )
+            ).collectAsLazyPagingItems(),
             modifier = Modifier.fillMaxSize()
         )
     }
