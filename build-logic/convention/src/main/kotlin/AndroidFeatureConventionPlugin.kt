@@ -52,6 +52,14 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                     "implementation",
                     libs.findLibrary("io-insert-koin-androidx-compose").get()
                 )
+                add(
+                    "androidTestImplementation",
+                    libs.findLibrary("androidx-compose-ui-test-junit4").get()
+                )
+                add(
+                    "androidTestImplementation",
+                    libs.findLibrary("androidx-compose-ui-test-manifest").get()
+                )
             }
         }
     }
