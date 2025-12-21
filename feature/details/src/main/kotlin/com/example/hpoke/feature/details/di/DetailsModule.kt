@@ -1,8 +1,8 @@
 package com.example.hpoke.feature.details.di
 
+import com.example.hpoke.core.navigation.Details
 import com.example.hpoke.feature.details.DetailsScreen
 import com.example.hpoke.feature.details.DetailsViewModel
-import com.example.hpoke.feature.details.navigation.Details
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.module.dsl.viewModel

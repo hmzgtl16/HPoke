@@ -39,14 +39,16 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onPokemonClick: (Int) -> Unit
 ) {
 
     val pokemons = viewModel.pokemons.collectAsLazyPagingItems()
 
     HomeScreen(
         pokemons = pokemons,
-        modifier = modifier
+        modifier = modifier,
+        onPokemonClick = onPokemonClick
     )
 }
 
@@ -54,7 +56,8 @@ fun HomeScreen(
 @Composable
 fun HomeScreen(
     pokemons: LazyPagingItems<Pokemon>,
-    modifier: Modifier = Modifier,
+    onPokemonClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
     Scaffold(
@@ -91,7 +94,7 @@ fun HomeScreen(
                 else -> {
                     HomeScreenGrid(
                         pokemons = pokemons,
-                        onPokemonClick = {},
+                        onPokemonClick = onPokemonClick,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -228,6 +231,7 @@ fun HomeScreenLoadingPreview(
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -247,6 +251,7 @@ fun HomeScreenEmptyPreview() {
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -267,6 +272,7 @@ fun HomeScreenErrorPreview() {
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -290,6 +296,7 @@ fun HomeScreenPreview(
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
