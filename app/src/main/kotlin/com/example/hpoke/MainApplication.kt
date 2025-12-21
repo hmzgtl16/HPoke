@@ -18,6 +18,7 @@ import com.example.hpoke.core.network.BuildConfig
 import com.example.hpoke.core.network.di.networkModule
 import com.example.hpoke.core.sync.di.syncModule
 import com.example.hpoke.core.sync.initializer.Sync
+import com.example.hpoke.feature.details.di.detailsModule
 import com.example.hpoke.feature.home.di.homeModule
 import okio.Path.Companion.toOkioPath
 import org.koin.android.ext.koin.androidContext
@@ -42,7 +43,8 @@ class MainApplication : Application(), SingletonImageLoader.Factory {
                 navigationModule,
                 networkModule,
                 syncModule,
-                homeModule
+                homeModule,
+                detailsModule
             )
         }
 
