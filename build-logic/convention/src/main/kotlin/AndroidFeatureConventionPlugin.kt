@@ -38,11 +38,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("androidx-navigation3-ui").get()
-                )
-                add(
-                    "implementation",
-                    libs.findLibrary("androidx-lifecycle-viewmodel-navigation3").get()
+                    libs.findLibrary("androidx-navigation3-runtime").get()
                 )
                 add(
                     "implementation",
