@@ -1,9 +1,18 @@
 package com.example.hpoke.feature.details.di
 
-import androidx.navigation3.runtime.NavKey
+import com.example.hpoke.feature.details.DetailsScreen
+import com.example.hpoke.feature.details.DetailsViewModel
 import com.example.hpoke.feature.details.navigation.Details
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import org.koin.dsl.navigation3.navigation
 
+@OptIn(KoinExperimentalAPI::class)
 val detailsModule = module {
-    single<NavKey> { Details }
+    viewModel {
+        DetailsViewModel(pokemonId = it.get(), pokemonRepository = get())
+    }
+    navigation<Details> { DetailsScreen(viewModel = koinViewModel()) }
 }
