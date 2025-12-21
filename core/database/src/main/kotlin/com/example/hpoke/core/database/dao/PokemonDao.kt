@@ -30,7 +30,7 @@ interface PokemonDao {
 
     @Transaction
     @Query("SELECT * FROM pokemon WHERE id = :id")
-    fun getPokemonById(id: Int): Flow<PokemonFull?>
+    fun getPokemonById(id: Int): Flow<PokemonFull>
 
     @Transaction
     @Query("SELECT * FROM pokemon ORDER BY id ASC")

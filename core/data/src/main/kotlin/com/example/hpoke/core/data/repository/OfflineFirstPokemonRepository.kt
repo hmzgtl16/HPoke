@@ -56,9 +56,8 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
             .map(PagingData<PokemonFull>::asModel)
 
 
-
-    override suspend fun getPokemon(id: Int): Flow<Pokemon?> =
-        pokemonDao.getPokemonById(id).map { it?.asModel() }
+    override fun getPokemon(id: Int): Flow<Pokemon> =
+        pokemonDao.getPokemonById(id).map(PokemonFull::asModel)
 
     override suspend fun sync(): Boolean = suspendRunCatching {
 

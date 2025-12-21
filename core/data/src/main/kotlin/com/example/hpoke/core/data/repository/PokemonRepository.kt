@@ -9,5 +9,5 @@ interface PokemonRepository : Syncable {
 
     fun getPokemons(pageSize: Int = 10): Flow<PagingData<Pokemon>>
 
-    suspend fun getPokemon(id: Int): Flow<Pokemon?>
+    fun getPokemon(id: Int): Flow<Pokemon>
 }
