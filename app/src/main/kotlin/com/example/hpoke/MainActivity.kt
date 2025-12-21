@@ -11,9 +11,10 @@ import com.example.hpoke.core.navigation.Navigator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.compose.navigation3.getEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.component.KoinComponent
 
 @OptIn(KoinExperimentalAPI::class)
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), KoinComponent {
 
     private val navigator: Navigator by inject()
 

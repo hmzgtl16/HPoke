@@ -4,10 +4,11 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 
 class NavigatorImpl() : Navigator, KoinComponent {
 
-    private val startDestination: NavKey by inject()
+    private val startDestination: NavKey by inject(named<Home>())
 
     override val backStack: NavBackStack<NavKey> = NavBackStack(startDestination)
 
