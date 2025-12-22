@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation3.ui.NavDisplay
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.navigation.Navigator
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val navigator: Navigator by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {

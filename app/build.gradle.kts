@@ -52,6 +52,7 @@ dependencies {
     implementation(projects.core.sync)
     implementation(projects.feature.home)
     implementation(projects.feature.details)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.io.coil)
     implementation(libs.io.coil.network.ktor)
