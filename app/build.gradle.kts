@@ -54,6 +54,7 @@ dependencies {
     implementation(projects.feature.details)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.io.coil)
     implementation(libs.io.coil.network.ktor)
     implementation(libs.androidx.core.ktx)

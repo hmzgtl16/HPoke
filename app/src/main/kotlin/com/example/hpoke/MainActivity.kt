@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.navigation.Navigator
@@ -29,7 +31,11 @@ class MainActivity : ComponentActivity(), KoinComponent {
                     backStack = navigator.backStack,
                     modifier = Modifier,
                     onBack = navigator::navigateUp,
-                    entryProvider = getEntryProvider()
+                    entryProvider = getEntryProvider(),
+                    entryDecorators = listOf(
+                        rememberSaveableStateHolderNavEntryDecorator(),
+                        rememberViewModelStoreNavEntryDecorator(), // ✅ this is the important one
+                    )
                 )
             }
         }
