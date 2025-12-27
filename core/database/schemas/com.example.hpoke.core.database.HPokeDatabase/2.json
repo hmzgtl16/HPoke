@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "06e2e9b9507a641a65dd2a2d4cfbeeb0",
+    "version": 2,
+    "identityHash": "1c06965250133897d9550324747496c7",
     "entities": [
       {
         "tableName": "pokemon",
@@ -83,7 +83,7 @@
       },
       {
         "tableName": "sprites",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `front_default` TEXT, `front_shiny` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `front_default` TEXT, `front_shiny` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -103,7 +103,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -111,7 +111,7 @@
       },
       {
         "tableName": "type",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -127,7 +127,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -146,7 +146,7 @@
       },
       {
         "tableName": "pokemon_type_cross_ref",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, PRIMARY KEY(`pokemon_id`, `slot`), FOREIGN KEY(`pokemon_id`) REFERENCES `pokemon`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`type_id`) REFERENCES `type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, PRIMARY KEY(`pokemon_id`, `type_id`), FOREIGN KEY(`pokemon_id`) REFERENCES `pokemon`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`type_id`) REFERENCES `type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pokemonId",
@@ -171,19 +171,10 @@
           "autoGenerate": false,
           "columnNames": [
             "pokemon_id",
-            "slot"
+            "type_id"
           ]
         },
         "indices": [
-          {
-            "name": "index_pokemon_type_cross_ref_pokemon_id",
-            "unique": false,
-            "columnNames": [
-              "pokemon_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_type_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
-          },
           {
             "name": "index_pokemon_type_cross_ref_type_id",
             "unique": false,
@@ -221,7 +212,7 @@
       },
       {
         "tableName": "ability",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -237,7 +228,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -292,15 +283,6 @@
         },
         "indices": [
           {
-            "name": "index_pokemon_ability_cross_ref_pokemon_id",
-            "unique": false,
-            "columnNames": [
-              "pokemon_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_ability_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
-          },
-          {
             "name": "index_pokemon_ability_cross_ref_ability_id",
             "unique": false,
             "columnNames": [
@@ -337,7 +319,7 @@
       },
       {
         "tableName": "stat",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `game_index` INTEGER, `is_battle_only` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -350,10 +332,20 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "gameIndex",
+            "columnName": "game_index",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isBattleOnly",
+            "columnName": "is_battle_only",
+            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -408,15 +400,6 @@
         },
         "indices": [
           {
-            "name": "index_pokemon_stat_cross_ref_pokemon_id",
-            "unique": false,
-            "columnNames": [
-              "pokemon_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_stat_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
-          },
-          {
             "name": "index_pokemon_stat_cross_ref_stat_id",
             "unique": false,
             "columnNames": [
@@ -454,7 +437,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '06e2e9b9507a641a65dd2a2d4cfbeeb0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1c06965250133897d9550324747496c7')"
     ]
   }
 }

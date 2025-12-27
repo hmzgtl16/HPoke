@@ -25,7 +25,7 @@ import com.example.hpoke.core.database.model.TypeEntity
         AbilityEntity::class,
         PokemonAbilityCrossRef::class,
         StatEntity::class,
-        PokemonStatCrossRef::class,
+        PokemonStatCrossRef::class
     ],
     version = 1,
     exportSchema = true

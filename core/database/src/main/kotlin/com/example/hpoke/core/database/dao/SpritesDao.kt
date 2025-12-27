@@ -9,5 +9,5 @@ import com.example.hpoke.core.database.model.SpritesEntity
 interface SpritesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSprites(sprites: List<SpritesEntity>)
+    suspend fun insertSprites(sprites: List<SpritesEntity>): List<Long>
 }

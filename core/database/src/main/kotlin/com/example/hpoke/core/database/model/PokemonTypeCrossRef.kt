@@ -7,7 +7,7 @@ import androidx.room.Index
 
 @Entity(
     tableName = "pokemon_type_cross_ref",
-    primaryKeys = ["pokemon_id", "type_id"],
+    primaryKeys = ["pokemon_id", "slot"],
     foreignKeys = [
         ForeignKey(
             entity = PokemonEntity::class,
@@ -22,7 +22,10 @@ import androidx.room.Index
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["type_id"])]
+    indices = [
+        Index(value = ["pokemon_id"]),
+        Index(value = ["type_id"])
+    ]
 )
 data class PokemonTypeCrossRef(
     @ColumnInfo(name = "pokemon_id") val pokemonId: Int,

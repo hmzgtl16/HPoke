@@ -22,7 +22,10 @@ import androidx.room.Index
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["stat_id"])]
+    indices = [
+        Index(value = ["pokemon_id"]),
+        Index(value = ["stat_id"])
+    ]
 )
 data class PokemonStatCrossRef(
     @ColumnInfo(name = "pokemon_id") val pokemonId: Int,
