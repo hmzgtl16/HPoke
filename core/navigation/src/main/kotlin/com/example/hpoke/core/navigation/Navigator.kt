@@ -1,13 +1,12 @@
 package com.example.hpoke.core.navigation
 
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
 
 interface Navigator {
 
-    val backStack: NavBackStack<NavKey>
+    val backStack: NavBackStack<Route>
 
-    fun navigate(destination: NavKey)
+    fun navigate(destination: Route)
 
     fun navigateUp()
 }

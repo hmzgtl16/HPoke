@@ -4,39 +4,37 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.ui.NavDisplay
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.navigation.Navigator
+import com.example.hpoke.navigation.NavHost
 import org.koin.android.ext.android.inject
-import org.koin.androidx.compose.navigation3.getEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.component.KoinComponent
 
 @OptIn(KoinExperimentalAPI::class)
 class MainActivity : ComponentActivity(), KoinComponent {
 
-    private val navigator: Navigator by inject()
+    private val navigator by inject<Navigator>()
 
+    @Suppress("CAST_NEVER_SUCCEEDS")
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             HPokeTheme {
-                NavDisplay(
-                    backStack = navigator.backStack,
+                Scaffold(
                     modifier = Modifier,
-                    onBack = navigator::navigateUp,
-                    entryProvider = getEntryProvider(),
-                    entryDecorators = listOf(
-                        rememberSaveableStateHolderNavEntryDecorator(),
-                        rememberViewModelStoreNavEntryDecorator(), // ✅ this is the important one
+                ) {
+                    NavHost(
+                        modifier = Modifier,
+                        backStack = navigator.backStack,
+                        onBack = navigator::navigateUp
                     )
-                )
+                }
             }
         }
     }
