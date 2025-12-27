@@ -11,7 +11,5 @@ import androidx.room.PrimaryKey
 )
 data class StatEntity(
     @PrimaryKey val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "game_index") val gameIndex: Int? = null,
-    @ColumnInfo(name = "is_battle_only") val isBattleOnly: Boolean? = null
+    @ColumnInfo(name = "name") val name: String
 )

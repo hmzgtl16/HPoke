@@ -4,20 +4,22 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2025-12-27T13:29:18.903574700Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\hmzgt\.android\avd\Pixel_Tablet.avd" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="testHomeScreenLoadingState()">
+      <SelectionState runConfigName="testInsertPokemonWithAllStats()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testHomeScreenEmptyState()">
+      <SelectionState runConfigName="DaosTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testHomeScreenErrorState()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="HomeScreenComposeTest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="testHomeScreenGridWithPokemons()">
+      <SelectionState runConfigName="testInsertSinglePokemon()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

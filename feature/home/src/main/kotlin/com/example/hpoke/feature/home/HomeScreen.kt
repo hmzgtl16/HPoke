@@ -39,14 +39,16 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onPokemonClick: (Int) -> Unit
 ) {
 
     val pokemons = viewModel.pokemons.collectAsLazyPagingItems()
 
     HomeScreen(
         pokemons = pokemons,
-        modifier = modifier
+        modifier = modifier,
+        onPokemonClick = onPokemonClick
     )
 }
 
@@ -54,7 +56,8 @@ fun HomeScreen(
 @Composable
 fun HomeScreen(
     pokemons: LazyPagingItems<Pokemon>,
-    modifier: Modifier = Modifier,
+    onPokemonClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
 
     Scaffold(
@@ -91,7 +94,7 @@ fun HomeScreen(
                 else -> {
                     HomeScreenGrid(
                         pokemons = pokemons,
-                        onPokemonClick = {},
+                        onPokemonClick = onPokemonClick,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -170,15 +173,15 @@ fun HomeScreenGrid(
     LazyVerticalGrid(
         modifier = modifier
             .testTag(tag = "homeScreenGrid"),
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = PaddingValues(all = 8.dp),
+        columns = GridCells.Adaptive(minSize = 200.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+        verticalArrangement = Arrangement.spacedBy(space = 16.dp)
     ) {
 
         items(
             count = pokemons.itemCount,
-            key = { pokemons[it]?.id ?: it }
+            key = { pokemons[it]?.name ?: it }
         ) {
             pokemons[it]?.let { pokemon ->
                 PokemonCard(
@@ -188,6 +191,7 @@ fun HomeScreenGrid(
                 )
             }
         }
+
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {
@@ -228,6 +232,7 @@ fun HomeScreenLoadingPreview(
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -247,6 +252,7 @@ fun HomeScreenEmptyPreview() {
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -267,6 +273,7 @@ fun HomeScreenErrorPreview() {
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -290,6 +297,7 @@ fun HomeScreenPreview(
                     )
                 )
             ).collectAsLazyPagingItems(),
+            onPokemonClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

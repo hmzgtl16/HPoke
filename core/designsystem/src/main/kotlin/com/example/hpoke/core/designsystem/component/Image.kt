@@ -59,9 +59,7 @@ fun HPokeImage(
                 painter = placeholder,
                 contentDescription = contentDescription,
                 contentScale = ContentScale.None,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(all = 16.dp)
+                modifier = Modifier.padding(all = 16.dp)
             )
         }
     )

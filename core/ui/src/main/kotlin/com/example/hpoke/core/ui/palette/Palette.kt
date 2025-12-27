@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.palette.graphics.Palette
 
 @Composable
-internal fun Palette?.paletteBackgroundColor(): State<Color> {
+fun Palette?.paletteBackgroundColor(): State<Color> {
     val defaultBackground = MaterialTheme.colorScheme.surface
 
     return remember(this) {
@@ -25,7 +25,7 @@ internal fun Palette?.paletteBackgroundColor(): State<Color> {
 }
 
 @Composable
-internal fun Palette?.paletteTextColor(): State<Color> {
+fun Palette?.paletteTextColor(): State<Color> {
     val defaultText = MaterialTheme.colorScheme.onSurface
 
     return remember(this) {

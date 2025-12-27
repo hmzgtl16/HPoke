@@ -10,8 +10,8 @@ data class PokemonDto(
     @SerialName(value = "height") val height: Int,
     @SerialName(value = "weight") val weight: Int,
     @SerialName(value = "base_experience") val baseExperience: Int? = null,
+    @SerialName(value = "sprites") val sprites: PokemonSpritesDto,
     @SerialName(value = "types") val types: List<PokemonTypeDto>,
     @SerialName(value = "abilities") val abilities: List<PokemonAbilityDto>,
-    @SerialName(value = "stats") val stats: List<PokemonStatDto>,
-    @SerialName(value = "sprites") val sprites: SpritesDto
+    @SerialName(value = "stats") val stats: List<PokemonStatDto>
 )

@@ -16,9 +16,9 @@ class TestPokemonRepository : PokemonRepository {
     override fun getPokemons(pageSize: Int): Flow<PagingData<Pokemon>> =
         pokemonsFlow.map { PagingData.from(it) }
 
-    override suspend fun getPokemon(id: Int): Flow<Pokemon?> =
+    override fun getPokemon(id: Int): Flow<Pokemon> =
         pokemonsFlow.map {
-            it.firstOrNull { pokemon -> pokemon.id == id }
+            it.first { pokemon -> pokemon.id == id }
         }
 
     override suspend fun sync(): Boolean = true

@@ -27,7 +27,6 @@ import com.example.hpoke.core.ui.palette.paletteBackgroundColor
 import com.example.hpoke.core.ui.palette.paletteTextColor
 import com.example.hpoke.core.ui.palette.rememberPaletteState
 import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
-import java.util.Locale
 
 @Composable
 fun PokemonCard(
@@ -65,10 +64,7 @@ fun PokemonCard(
             )
 
             Text(
-                text = pokemon.name.replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(locale = Locale.getDefault())
-                    else it.toString()
-                },
+                text = pokemon.name.replaceFirstChar(Char::titlecase),
                 color = textColor,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.align(alignment = Alignment.BottomCenter)

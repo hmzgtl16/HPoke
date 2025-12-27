@@ -39,7 +39,7 @@ class DaosTest : DatabaseTest() {
         )
         spritesDao.insertSprites(sprites = listOf(element = sprites))
         pokemonDao.insertPokemons(pokemons = listOf(element = pokemon))
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(1, it.size)
             assertEquals("Bulbasaur", it[0].pokemon.name)
             true
@@ -121,14 +121,13 @@ class DaosTest : DatabaseTest() {
         )
         spritesDao.insertSprites(sprites = sprites)
         pokemonDao.insertPokemons(pokemons = pokemons)
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(3, it.size)
             assertEquals("Bulbasaur", it[0].pokemon.name)
             assertEquals("Ivysaur", it[1].pokemon.name)
             assertEquals("Venusaur", it[2].pokemon.name)
             true
         }
-
     }
 
     @Test
@@ -178,7 +177,7 @@ class DaosTest : DatabaseTest() {
         )
         spritesDao.insertSprites(sprites = sprites)
         pokemonDao.insertPokemons(pokemons = pokemons)
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(3, it.size)
             assertEquals(null, it[0].pokemon.baseExperience)
             assertEquals(null, it[1].pokemon.height)
@@ -303,7 +302,7 @@ class DaosTest : DatabaseTest() {
         )
         spritesDao.insertSprites(sprites = sprites)
         pokemonDao.insertPokemons(pokemons = pokemons)
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(3, it.size)
             true
         }
@@ -311,7 +310,7 @@ class DaosTest : DatabaseTest() {
 
     @Test
     fun testGetAllPokemonsEmpty() = runTest {
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(0, it.size)
             true
         }
@@ -346,7 +345,7 @@ class DaosTest : DatabaseTest() {
         pokemonDao.insertPokemons(pokemons = listOf(pokemon1))
         pokemonDao.insertPokemons(pokemons = listOf(pokemon2))
 
-        pokemonDao.getAllPokemon().first {
+        pokemonDao.getAllPokemonFlow().first {
             assertEquals(1, it.size)
             assertEquals(10, it[0].pokemon.height)
             assertEquals(75, it[0].pokemon.weight)
@@ -579,7 +578,7 @@ class DaosTest : DatabaseTest() {
         spritesDao.insertSprites(sprites = listOf(sprites))
         pokemonDao.insertPokemons(pokemons = listOf(pokemon))
         statDao.insertStats(stats = stats)
-        pokemonDao.insertPokemonStats(
+        pokemonDao.insertPokemonStatCrossRefs(
             refs = listOf(
                 PokemonStatCrossRef(pokemonId = 1, statId = 1, baseStat = 45, effort = 0),
                 PokemonStatCrossRef(pokemonId = 1, statId = 2, baseStat = 49, effort = 0),

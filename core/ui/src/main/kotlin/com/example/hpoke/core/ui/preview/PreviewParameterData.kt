@@ -24,8 +24,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 45, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 49, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 49, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 65, effort = 1),
-                Stat(id = 5, name = "sp-def", baseStat = 65, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 65, effort = 1),
+                Stat(id = 5, name = "special-defense", baseStat = 65, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 45, effort = 0)
             ),
             abilities = listOf(Ability(id = 65, name = "overgrow", isHidden = false, slot = 1))
@@ -45,8 +45,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 60, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 62, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 63, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 80, effort = 1),
-                Stat(id = 5, name = "sp-def", baseStat = 80, effort = 1),
+                Stat(id = 4, name = "special-attack", baseStat = 80, effort = 1),
+                Stat(id = 5, name = "special-defense", baseStat = 80, effort = 1),
                 Stat(id = 6, name = "speed", baseStat = 60, effort = 0)
             ),
             abilities = listOf(Ability(id = 65, name = "overgrow", isHidden = false, slot = 1))
@@ -66,8 +66,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 80, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 82, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 83, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 100, effort = 2),
-                Stat(id = 5, name = "sp-def", baseStat = 100, effort = 1),
+                Stat(id = 4, name = "special-attack", baseStat = 100, effort = 2),
+                Stat(id = 5, name = "special-defense", baseStat = 100, effort = 1),
                 Stat(id = 6, name = "speed", baseStat = 80, effort = 0)
             ),
             abilities = listOf(Ability(id = 65, name = "overgrow", isHidden = false, slot = 1))
@@ -84,8 +84,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 39, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 52, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 43, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 60, effort = 1),
-                Stat(id = 5, name = "sp-def", baseStat = 50, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 60, effort = 1),
+                Stat(id = 5, name = "special-defense", baseStat = 50, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 65, effort = 0)
             ),
             abilities = listOf(Ability(id = 66, name = "blaze", isHidden = false, slot = 1))
@@ -102,8 +102,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 58, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 64, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 58, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 80, effort = 1),
-                Stat(id = 5, name = "sp-def", baseStat = 65, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 80, effort = 1),
+                Stat(id = 5, name = "special-defense", baseStat = 65, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 80, effort = 1)
             ),
             abilities = listOf(Ability(id = 66, name = "blaze", isHidden = false, slot = 1))
@@ -123,8 +123,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 78, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 84, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 78, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 109, effort = 3),
-                Stat(id = 5, name = "sp-def", baseStat = 85, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 109, effort = 3),
+                Stat(id = 5, name = "special-defense", baseStat = 85, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 100, effort = 0)
             ),
             abilities = listOf(Ability(id = 66, name = "blaze", isHidden = false, slot = 1))
@@ -141,8 +141,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 44, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 48, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 65, effort = 1),
-                Stat(id = 4, name = "sp-atk", baseStat = 50, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 64, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 50, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 64, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 43, effort = 0)
             ),
             abilities = listOf(Ability(id = 67, name = "torrent", isHidden = false, slot = 1))
@@ -159,8 +159,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 59, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 63, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 80, effort = 1),
-                Stat(id = 4, name = "sp-atk", baseStat = 65, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 80, effort = 1),
+                Stat(id = 4, name = "special-attack", baseStat = 65, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 80, effort = 1),
                 Stat(id = 6, name = "speed", baseStat = 58, effort = 0)
             ),
             abilities = listOf(Ability(id = 67, name = "torrent", isHidden = false, slot = 1))
@@ -177,8 +177,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 79, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 83, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 100, effort = 1),
-                Stat(id = 4, name = "sp-atk", baseStat = 85, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 105, effort = 2),
+                Stat(id = 4, name = "special-attack", baseStat = 85, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 105, effort = 2),
                 Stat(id = 6, name = "speed", baseStat = 78, effort = 0)
             ),
             abilities = listOf(Ability(id = 67, name = "torrent", isHidden = false, slot = 1))
@@ -195,8 +195,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 45, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 52, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 43, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 35, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 40, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 35, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 40, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 35, effort = 0)
             ),
             abilities = listOf(Ability(id = 1, name = "shield-dust", isHidden = false, slot = 1))
@@ -213,8 +213,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 50, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 20, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 55, effort = 1),
-                Stat(id = 4, name = "sp-atk", baseStat = 25, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 25, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 25, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 25, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 30, effort = 0)
             ),
             abilities = listOf(Ability(id = 1, name = "shield-dust", isHidden = false, slot = 1))
@@ -234,8 +234,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 60, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 45, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 50, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 90, effort = 2),
-                Stat(id = 5, name = "sp-def", baseStat = 80, effort = 1),
+                Stat(id = 4, name = "special-attack", baseStat = 90, effort = 2),
+                Stat(id = 5, name = "special-defense", baseStat = 80, effort = 1),
                 Stat(id = 6, name = "speed", baseStat = 70, effort = 0)
             ),
             abilities = listOf(Ability(id = 2, name = "compound-eyes", isHidden = false, slot = 1))
@@ -255,8 +255,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 40, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 35, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 30, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 20, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 20, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 20, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 20, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 25, effort = 0)
             ),
             abilities = listOf(Ability(id = 3, name = "poison-powder", isHidden = false, slot = 1))
@@ -276,8 +276,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 45, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 25, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 50, effort = 1),
-                Stat(id = 4, name = "sp-atk", baseStat = 25, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 25, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 25, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 25, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 35, effort = 0)
             ),
             abilities = listOf(Ability(id = 3, name = "poison-powder", isHidden = false, slot = 1))
@@ -297,8 +297,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 65, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 90, effort = 2),
                 Stat(id = 3, name = "defense", baseStat = 40, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 45, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 80, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 45, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 80, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 75, effort = 1)
             ),
             abilities = listOf(Ability(id = 4, name = "swarm", isHidden = false, slot = 1))
@@ -318,8 +318,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 83, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 100, effort = 1),
                 Stat(id = 3, name = "defense", baseStat = 75, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 70, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 70, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 70, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 70, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 91, effort = 2)
             ),
             abilities = listOf(Ability(id = 5, name = "keen-eye", isHidden = false, slot = 1))
@@ -336,8 +336,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 30, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 56, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 35, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 25, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 35, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 25, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 35, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 72, effort = 0)
             ),
             abilities = listOf(Ability(id = 6, name = "run-away", isHidden = false, slot = 1))
@@ -354,8 +354,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 55, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 81, effort = 1),
                 Stat(id = 3, name = "defense", baseStat = 60, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 50, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 70, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 50, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 70, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 97, effort = 2)
             ),
             abilities = listOf(Ability(id = 6, name = "run-away", isHidden = false, slot = 1))
@@ -375,8 +375,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 40, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 60, effort = 0),
                 Stat(id = 3, name = "defense", baseStat = 30, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 31, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 31, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 31, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 31, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 70, effort = 1)
             ),
             abilities = listOf(Ability(id = 7, name = "keen-eye", isHidden = false, slot = 1))
@@ -396,8 +396,8 @@ object PreviewParameterData {
                 Stat(id = 1, name = "hp", baseStat = 65, effort = 0),
                 Stat(id = 2, name = "attack", baseStat = 90, effort = 1),
                 Stat(id = 3, name = "defense", baseStat = 56, effort = 0),
-                Stat(id = 4, name = "sp-atk", baseStat = 61, effort = 0),
-                Stat(id = 5, name = "sp-def", baseStat = 61, effort = 0),
+                Stat(id = 4, name = "special-attack", baseStat = 61, effort = 0),
+                Stat(id = 5, name = "special-defense", baseStat = 61, effort = 0),
                 Stat(id = 6, name = "speed", baseStat = 100, effort = 2)
             ),
             abilities = listOf(Ability(id = 7, name = "keen-eye", isHidden = false, slot = 1))

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_ui_stats">Stats</string>
+    <string name="core_ui_stat_hp">HP</string>
+    <string name="core_ui_stat_special_attack">Special Attack</string>
+    <string name="core_ui_stat_defense">Defense</string>
+    <string name="core_ui_stat_attack">Attack</string>
+    <string name="core_ui_stat_special_defense">Special Defense</string>
+    <string name="core_ui_stat_speed">Speed</string>
+    <string name="core_ui_types">Types</string>
+    <string name="core_ui_type_grass">Grass</string>
+    <string name="core_ui_type_poison">Poison</string>
+    <string name="core_ui_type_fire">Fire</string>
+    <string name="core_ui_type_water">Water</string>
+    <string name="core_ui_type_electric">Electric</string>
+    <string name="core_ui_type_ice">Ice</string>
+    <string name="core_ui_type_fighting">Fighting</string>
+    <string name="core_ui_type_ground">Ground</string>
+    <string name="core_ui_type_flying">Flying</string>
+    <string name="core_ui_type_psychic">Psychic</string>
+    <string name="core_ui_type_bug">Bug</string>
+    <string name="core_ui_type_rock">Rock</string>
+    <string name="core_ui_type_ghost">Ghost</string>
+    <string name="core_ui_type_dragon">Dragon</string>
+    <string name="core_ui_type_dark">Dark</string>
+    <string name="core_ui_type_steel">Steel</string>
+    <string name="core_ui_type_fairy">Fairy</string>
+    <string name="core_ui_type_normal">Normal</string>
+    <string name="core_ui_height">Height</string>
+    <string name="core_ui_height_format">%.1f m</string>
+    <string name="core_ui_weight">Weight</string>
+    <string name="core_ui_weight_format" formatted="true">%.1f kg</string>
+    <string name="core_ui_base_exp">Base Exp</string>
+    <string name="core_ui_base_exp_format">%d</string>
+    <string name="core_ui_abilities">Abilities</string>
+</resources>

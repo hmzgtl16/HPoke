@@ -1,8 +1,8 @@
 package com.example.hpoke.core.network.api
 
 import com.example.hpoke.core.network.dto.AbilityDto
+import com.example.hpoke.core.network.dto.NamedApiResourceListDto
 import com.example.hpoke.core.network.dto.PokemonDto
-import com.example.hpoke.core.network.dto.PokemonListDto
 import com.example.hpoke.core.network.dto.StatDto
 import com.example.hpoke.core.network.dto.TypeDto
 import io.ktor.client.HttpClient
@@ -19,7 +19,7 @@ class PokemonApiImpl : PokemonApi, KoinComponent {
     override suspend fun getPokemonList(
         offset: Int,
         limit: Int
-    ): PokemonListDto = client
+    ): NamedApiResourceListDto = client
         .get("pokemon") {
             parameter("offset", offset)
             parameter("limit", limit)

@@ -10,7 +10,6 @@ android {
 dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.model)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.palette)
+    api(libs.androidx.palette)
     implementation(libs.io.coil)
 }

@@ -1,8 +1,8 @@
 package com.example.hpoke.core.network.api
 
 import com.example.hpoke.core.network.dto.AbilityDto
+import com.example.hpoke.core.network.dto.NamedApiResourceListDto
 import com.example.hpoke.core.network.dto.PokemonDto
-import com.example.hpoke.core.network.dto.PokemonListDto
 import com.example.hpoke.core.network.dto.StatDto
 import com.example.hpoke.core.network.dto.TypeDto
 import io.ktor.client.HttpClient
@@ -56,7 +56,7 @@ class PokemonApiIntegrationTest {
                 client.get("pokemon") {
                     parameter("offset", offset)
                     parameter("limit", limit)
-                }.body<PokemonListDto>()
+                }.body<NamedApiResourceListDto>()
 
             override suspend fun getPokemon(name: String) =
                 client.get("pokemon/$name").body<PokemonDto>()

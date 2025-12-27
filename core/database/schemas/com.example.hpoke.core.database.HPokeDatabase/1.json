@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3a265f8094323a0edae1df2034c70b5f",
+    "identityHash": "06e2e9b9507a641a65dd2a2d4cfbeeb0",
     "entities": [
       {
         "tableName": "pokemon",
@@ -56,6 +56,15 @@
             ],
             "orders": [],
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_pokemon_name` ON `${TABLE_NAME}` (`name`)"
+          },
+          {
+            "name": "index_pokemon_spritesId",
+            "unique": false,
+            "columnNames": [
+              "spritesId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_spritesId` ON `${TABLE_NAME}` (`spritesId`)"
           }
         ],
         "foreignKeys": [
@@ -137,7 +146,7 @@
       },
       {
         "tableName": "pokemon_type_cross_ref",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, PRIMARY KEY(`pokemon_id`, `type_id`), FOREIGN KEY(`pokemon_id`) REFERENCES `pokemon`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`type_id`) REFERENCES `type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemon_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `slot` INTEGER NOT NULL, PRIMARY KEY(`pokemon_id`, `slot`), FOREIGN KEY(`pokemon_id`) REFERENCES `pokemon`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`type_id`) REFERENCES `type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pokemonId",
@@ -162,10 +171,19 @@
           "autoGenerate": false,
           "columnNames": [
             "pokemon_id",
-            "type_id"
+            "slot"
           ]
         },
         "indices": [
+          {
+            "name": "index_pokemon_type_cross_ref_pokemon_id",
+            "unique": false,
+            "columnNames": [
+              "pokemon_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_type_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
+          },
           {
             "name": "index_pokemon_type_cross_ref_type_id",
             "unique": false,
@@ -274,6 +292,15 @@
         },
         "indices": [
           {
+            "name": "index_pokemon_ability_cross_ref_pokemon_id",
+            "unique": false,
+            "columnNames": [
+              "pokemon_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_ability_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
+          },
+          {
             "name": "index_pokemon_ability_cross_ref_ability_id",
             "unique": false,
             "columnNames": [
@@ -310,7 +337,7 @@
       },
       {
         "tableName": "stat",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `game_index` INTEGER, `is_battle_only` INTEGER, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -323,16 +350,6 @@
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "gameIndex",
-            "columnName": "game_index",
-            "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "isBattleOnly",
-            "columnName": "is_battle_only",
-            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
@@ -391,6 +408,15 @@
         },
         "indices": [
           {
+            "name": "index_pokemon_stat_cross_ref_pokemon_id",
+            "unique": false,
+            "columnNames": [
+              "pokemon_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pokemon_stat_cross_ref_pokemon_id` ON `${TABLE_NAME}` (`pokemon_id`)"
+          },
+          {
             "name": "index_pokemon_stat_cross_ref_stat_id",
             "unique": false,
             "columnNames": [
@@ -428,7 +454,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a265f8094323a0edae1df2034c70b5f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '06e2e9b9507a641a65dd2a2d4cfbeeb0')"
     ]
   }
 }
