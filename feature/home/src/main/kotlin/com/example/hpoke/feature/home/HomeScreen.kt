@@ -181,7 +181,7 @@ fun HomeScreenGrid(
 
         items(
             count = pokemons.itemCount,
-            key = { pokemons[it]?.id ?: it }
+            key = { pokemons[it]?.name ?: it }
         ) {
             pokemons[it]?.let { pokemon ->
                 PokemonCard(
@@ -191,6 +191,7 @@ fun HomeScreenGrid(
                 )
             }
         }
+
         item(
             span = { GridItemSpan(maxLineSpan) }
         ) {

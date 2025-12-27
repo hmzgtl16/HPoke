@@ -33,7 +33,8 @@ class HomeScreenComposeTest {
                             prepend = LoadState.Loading
                         )
                     )
-                ).collectAsLazyPagingItems()
+                ).collectAsLazyPagingItems(),
+                onPokemonClick = {}
             )
         }
 
@@ -55,7 +56,8 @@ class HomeScreenComposeTest {
                             prepend = LoadState.NotLoading(endOfPaginationReached = true)
                         )
                     )
-                ).collectAsLazyPagingItems()
+                ).collectAsLazyPagingItems(),
+                onPokemonClick = {}
             )
         }
 
