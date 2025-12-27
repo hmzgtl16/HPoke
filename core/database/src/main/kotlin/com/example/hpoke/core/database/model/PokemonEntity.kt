@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "pokemon",
-    indices = [Index(value = ["name"], unique = true)],
+    indices = [Index(value = ["name"], unique = true), Index(value = ["spritesId"])],
     foreignKeys = [
         ForeignKey(
             entity = SpritesEntity::class,

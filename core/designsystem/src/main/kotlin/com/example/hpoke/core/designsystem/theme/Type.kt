@@ -12,14 +12,14 @@ val provider = GoogleFont.Provider(
     certificates = R.array.com_google_android_gms_fonts_certs
 )
 
-val bodyFontFamily = FontFamily(
+val displayFontFamily = FontFamily(
     Font(
         googleFont = GoogleFont("Audiowide"),
         fontProvider = provider,
     )
 )
 
-val displayFontFamily = FontFamily(
+val bodyFontFamily = FontFamily(
     Font(
         googleFont = GoogleFont("Google Sans Code"),
         fontProvider = provider,
