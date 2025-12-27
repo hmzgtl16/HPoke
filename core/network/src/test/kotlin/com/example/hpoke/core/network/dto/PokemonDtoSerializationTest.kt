@@ -142,7 +142,7 @@ class PokemonDtoSerializationTest {
         """.trimIndent()
 
         // Act
-        val result = json.decodeFromString<PokemonListDto>(jsonString)
+        val result = json.decodeFromString<NamedApiResourceListDto>(jsonString)
 
         // Assert
         assertNotNull(result)
