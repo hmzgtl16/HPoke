@@ -1,6 +1,7 @@
 package com.example.hpoke.feature.details.di
 
 import com.example.hpoke.core.navigation.Details
+import com.example.hpoke.core.navigation.Navigator
 import com.example.hpoke.feature.details.DetailsScreen
 import com.example.hpoke.feature.details.DetailsViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -17,6 +18,9 @@ val detailsModule = module {
         DetailsViewModel(pokemonId = it.get(), pokemonRepository = get())
     }
     navigation<Details> {
-        DetailsScreen(viewModel = koinViewModel { parametersOf(it.id) })
+        DetailsScreen(
+            viewModel = koinViewModel { parametersOf(it.id) },
+            onBackClick = get<Navigator>()::navigateUp
+        )
     }
 }
