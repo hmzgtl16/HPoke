@@ -173,10 +173,10 @@ fun HomeScreenGrid(
     LazyVerticalGrid(
         modifier = modifier
             .testTag(tag = "homeScreenGrid"),
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = PaddingValues(all = 8.dp),
+        columns = GridCells.Adaptive(minSize = 200.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+        verticalArrangement = Arrangement.spacedBy(space = 16.dp)
     ) {
 
         items(
