@@ -1,10 +1,12 @@
 package com.example.hpoke.core.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.hpoke.core.data.mapper.asEntity
 import com.example.hpoke.core.data.mapper.asModel
+import com.example.hpoke.core.data.mapper.asSpritesEntity
 import com.example.hpoke.core.data.mapper.toEntity
 import com.example.hpoke.core.data.sync.suspendRunCatching
 import com.example.hpoke.core.database.dao.AbilityDao
@@ -12,29 +14,20 @@ import com.example.hpoke.core.database.dao.PokemonDao
 import com.example.hpoke.core.database.dao.SpritesDao
 import com.example.hpoke.core.database.dao.StatDao
 import com.example.hpoke.core.database.dao.TypeDao
-import com.example.hpoke.core.database.model.AbilityEntity
 import com.example.hpoke.core.database.model.PokemonAbilityCrossRef
-import com.example.hpoke.core.database.model.PokemonEntity
 import com.example.hpoke.core.database.model.PokemonFull
 import com.example.hpoke.core.database.model.PokemonStatCrossRef
 import com.example.hpoke.core.database.model.PokemonTypeCrossRef
-import com.example.hpoke.core.database.model.SpritesEntity
-import com.example.hpoke.core.database.model.StatEntity
-import com.example.hpoke.core.database.model.TypeEntity
 import com.example.hpoke.core.model.Pokemon
 import com.example.hpoke.core.network.api.PokemonApi
-import com.example.hpoke.core.network.dto.NamedApiResourceDto
+import com.example.hpoke.core.network.dto.AbilityDto
 import com.example.hpoke.core.network.dto.PokemonDto
-import com.example.hpoke.core.network.dto.PokemonListDto
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+import com.example.hpoke.core.network.dto.StatDto
+import com.example.hpoke.core.network.dto.TypeDto
+import com.example.hpoke.core.network.dto.idFromUrl
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.supervisorScope
-import kotlinx.coroutines.sync.Semaphore
-import kotlinx.coroutines.sync.withPermit
-import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -55,155 +48,175 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
             .flow
             .map(PagingData<PokemonFull>::asModel)
 
-
     override fun getPokemon(id: Int): Flow<Pokemon> =
-        pokemonDao.getPokemonById(id).map(PokemonFull::asModel)
+        pokemonDao.getPokemonById(id = id)
+            .filterNotNull()
+            .map(PokemonFull::asModel)
 
     override suspend fun sync(): Boolean = suspendRunCatching {
+        syncIncrementalAndFixIncomplete()
+    }.onFailure {
+        Log.e("PokemonSync", "Sync failed", it)
+    }.isSuccess
 
-        // tuning knobs
-        val pageLimit = 100
-        val chunkSize = 100
-        val maxConcurrent = 3
+    private suspend fun syncIncrementalAndFixIncomplete() {
 
-        // 1) Fetch all pokemon summaries (names)
-        val allResults = mutableListOf<NamedApiResourceDto>()
+        // 1) Existing pokemon ids
+        val existingIds = pokemonDao.getAllPokemonIds().toHashSet()
+
+        // 2) Pokemon ids that exist but have missing relations
+        val needFixIds = (
+                pokemonDao.pokemonIdsMissingStats() +
+                        pokemonDao.pokemonIdsMissingTypes() +
+                        pokemonDao.pokemonIdsMissingAbilities()
+                ).toHashSet()
+
+        // name -> id caches for related entities
+        val abilityIdByName = mutableMapOf<String, Int>()
+        val statIdByName = mutableMapOf<String, Int>()
+        val typeIdByName = mutableMapOf<String, Int>()
+
         var offset = 0
-        var page: PokemonListDto
+        while (true) {
+            val page = pokemonApi.getPokemonList(offset = offset, limit = PAGE_LIMIT)
 
-        do {
-            page = pokemonApi.getPokemonList(offset = offset, limit = pageLimit)
-            allResults += page.results
-            offset += pageLimit
-        } while (page.next != null)
+            // Fetch details only for:
+            // - missing pokemons
+            // - OR existing but incomplete ones
+            val toFetch = page.results
+                .map { it to it.idFromUrl() }
+                .filter { (_, id) -> id !in existingIds || id in needFixIds }
+                .map { (res, _) -> res }
 
-        // 2) Caches to avoid repeated calls for shared resources
-        val typeCache = mutableMapOf<String, TypeEntity>()
-        val abilityCache = mutableMapOf<String, AbilityEntity>()
-        val statCache = mutableMapOf<String, StatEntity>()
+            toFetch.chunked(CHUNK_SIZE).forEach { chunk ->
+                // best-effort per pokemon (do not abort whole sync)
+                val pokemonDtos = chunk.map {
+                    pokemonApi.getPokemon(name = it.name)
+                }
 
-        val semaphore = Semaphore(maxConcurrent)
+                if (pokemonDtos.isEmpty()) return@forEach
 
-        // 3) Process in chunks to reduce RAM footprint
-        val chunks = allResults.chunked(chunkSize)
-        chunks.forEachIndexed { chunkIndex, chunk ->
+                // Mark as present to prevent duplicates during same run
+                pokemonDtos.forEach { existingIds += it.id }
 
-            // ---- Accumulators per chunk ----
-            val pokemonEntities = mutableListOf<PokemonEntity>()
-            val spritesEntities = mutableListOf<SpritesEntity>()
+                // --- core upserts ---
+                spritesDao.insertSprites(pokemonDtos.map(PokemonDto::asSpritesEntity))
+                pokemonDao.insertPokemons(pokemonDtos.map(PokemonDto::toEntity))
 
-            val typeEntities = mutableListOf<TypeEntity>()
-            val abilityEntities = mutableListOf<AbilityEntity>()
-            val statEntities = mutableListOf<StatEntity>()
+                // --- ensure abilities exist ---
+                val missingAbilityNames = pokemonDtos
+                    .flatMap(PokemonDto::abilities)
+                    .map { it.ability.name }
+                    .distinct()
+                    .filterNot(abilityIdByName::containsKey)
 
-            val pokemonTypeRefs = mutableListOf<PokemonTypeCrossRef>()
-            val pokemonAbilityRefs = mutableListOf<PokemonAbilityCrossRef>()
-            val pokemonStatRefs = mutableListOf<PokemonStatCrossRef>()
+                if (missingAbilityNames.isNotEmpty()) {
+                    val abilityDtos = missingAbilityNames.map {
+                        pokemonApi.getAbility(it)
+                    }
 
-            val results = supervisorScope {
-                chunk.map { summary ->
-                    async(Dispatchers.IO) {
-                        semaphore.withPermit {
-                            runCatching {
-                                pokemonApi.getPokemon(summary.name)
-                            }
+                    abilityDao.insertAbilities(abilityDtos.map(AbilityDto::asEntity))
+                    abilityDtos.forEach { abilityIdByName[it.name] = it.id }
+                }
+
+                // --- ensure stats exist ---
+                val missingStatNames = pokemonDtos
+                    .flatMap(PokemonDto::stats)
+                    .map { it.stat.name }
+                    .distinct()
+                    .filterNot(statIdByName::containsKey)
+
+                if (missingStatNames.isNotEmpty()) {
+                    val statDtos = missingStatNames.map {
+                        pokemonApi.getStat(it)
+                    }
+                    statDao.insertStats(statDtos.map(StatDto::asEntity))
+                    statDtos.forEach { statIdByName[it.name] = it.id }
+                }
+
+                // --- ensure types exist ---
+                val missingTypeNames = pokemonDtos
+                    .flatMap(PokemonDto::types)
+                    .map { it.type.name }
+                    .distinct()
+                    .filterNot(typeIdByName::containsKey)
+
+                if (missingTypeNames.isNotEmpty()) {
+                    val typeDtos = missingTypeNames.map {
+                        pokemonApi.getType(it)
+                    }
+                    typeDao.insertTypes(typeDtos.map(TypeDto::asEntity))
+                    typeDtos.forEach { typeIdByName[it.name] = it.id }
+                }
+
+                // --- cross refs (only add if the id exists) ---
+                val abilityRefs = buildList {
+                    pokemonDtos.forEach { p ->
+                        p.abilities.forEach { a ->
+                            val id = abilityIdByName[a.ability.name] ?: return@forEach
+                            add(
+                                PokemonAbilityCrossRef(
+                                    pokemonId = p.id,
+                                    abilityId = id,
+                                    isHidden = a.isHidden,
+                                    slot = a.slot
+                                )
+                            )
                         }
                     }
-                }.awaitAll()
+                }
+                abilityRefs
+                    .chunked(CHUNK_SIZE)
+                    .forEach { pokemonDao.insertPokemonAbilityCrossRefs(refs = it) }
+
+                val statRefs = buildList {
+                    pokemonDtos.forEach { p ->
+                        p.stats.forEach { s ->
+                            val id = statIdByName[s.stat.name] ?: return@forEach
+                            add(
+                                PokemonStatCrossRef(
+                                    pokemonId = p.id,
+                                    statId = id,
+                                    baseStat = s.baseStat,
+                                    effort = s.effort
+                                )
+                            )
+                        }
+                    }
+                }
+                statRefs
+                    .chunked(CHUNK_SIZE)
+                    .forEach { pokemonDao.insertPokemonStatCrossRefs(refs = it) }
+
+                val typeRefs = buildList {
+                    pokemonDtos.forEach { p ->
+                        p.types.forEach { t ->
+                            val id = typeIdByName[t.type.name] ?: return@forEach
+                            add(
+                                PokemonTypeCrossRef(
+                                    pokemonId = p.id,
+                                    typeId = id,
+                                    slot = t.slot
+                                )
+                            )
+                        }
+                    }
+                }
+                typeRefs
+                    .chunked(CHUNK_SIZE)
+                    .forEach { pokemonDao.insertPokemonTypeCrossRefs(refs = it) }
+
+                // once fixed, remove from needFixIds (so we don't refetch again)
+                pokemonDtos.forEach { needFixIds.remove(it.id) }
             }
 
-            val pokemonDtos = results
-                .mapNotNull(Result<PokemonDto>::getOrNull)
-
-            // Build entities + cross refs
-            for (dto in pokemonDtos) {
-                val pokemonEntity = dto.toEntity()
-                pokemonEntities += pokemonEntity
-                spritesEntities += dto.sprites.asEntity(id = dto.id)
-
-                // types (cached)
-                dto.types.forEach { t ->
-                    val typeName = t.type.name
-                    val typeEntity = typeCache[typeName] ?: run {
-                        val fetched = semaphore.withPermit {
-                            pokemonApi.getType(name = typeName)
-                        }.asEntity()
-                        typeCache[typeName] = fetched
-                        fetched
-                    }
-
-                    typeEntities += typeEntity
-                    pokemonTypeRefs += PokemonTypeCrossRef(
-                        pokemonId = pokemonEntity.id,
-                        typeId = typeEntity.id,
-                        slot = t.slot
-                    )
-                }
-
-                // abilities (cached)
-                dto.abilities.forEach { a ->
-                    val abilityName = a.ability.name
-                    val abilityEntity = abilityCache[abilityName] ?: run {
-                        val fetched = semaphore.withPermit {
-                            pokemonApi.getAbility(name = abilityName)
-                        }.asEntity()
-                        abilityCache[abilityName] = fetched
-                        fetched
-                    }
-
-                    abilityEntities += abilityEntity
-                    pokemonAbilityRefs += PokemonAbilityCrossRef(
-                        pokemonId = pokemonEntity.id,
-                        abilityId = abilityEntity.id,
-                        isHidden = a.isHidden,
-                        slot = a.slot
-                    )
-                }
-
-                // stats (cached)
-                dto.stats.forEach { s ->
-                    val statName = s.stat.name
-                    val statEntity = statCache[statName] ?: run {
-                        val fetched = semaphore.withPermit {
-                            pokemonApi.getStat(name = statName)
-                        }.asEntity()
-                        statCache[statName] = fetched
-                        fetched
-                    }
-
-                    statEntities += statEntity
-                    pokemonStatRefs += PokemonStatCrossRef(
-                        pokemonId = pokemonEntity.id,
-                        statId = statEntity.id,
-                        baseStat = s.baseStat,
-                        effort = s.effort
-                    )
-                }
-            }
-
-            // 4) Persist this chunk atomically
-            withContext(Dispatchers.IO) {
-
-                // Shared tables (dedupe inside chunk + REPLACE at DAO level)
-                spritesDao.insertSprites(spritesEntities.distinctBy { it.id })
-                typeDao.insertTypes(typeEntities.distinctBy(TypeEntity::id))
-                abilityDao.insertAbilities(abilityEntities.distinctBy(AbilityEntity::id))
-                statDao.insertStats(statEntities.distinctBy(StatEntity::id))
-
-                // Pokemon + cross refs
-                pokemonDao.insertPokemons(pokemonEntities)
-
-                if (pokemonTypeRefs.isNotEmpty())
-                    pokemonDao.insertPokemonTypeCrossRefs(pokemonTypeRefs)
-                if (pokemonAbilityRefs.isNotEmpty())
-                    pokemonDao.insertPokemonAbilityCrossRefs(pokemonAbilityRefs)
-                if (pokemonStatRefs.isNotEmpty())
-                    pokemonDao.insertPokemonStats(pokemonStatRefs)
-            }
-
-
+            offset += PAGE_LIMIT
+            if (page.next == null) break
         }
+    }
 
-        true
-    }.isSuccess
+    companion object {
+        private const val CHUNK_SIZE = 50
+        private const val PAGE_LIMIT = 50
+    }
 }
