@@ -8,3 +8,8 @@ data class NamedApiResourceDto(
     @SerialName(value = "name") val name: String,
     @SerialName(value = "url") val url: String
 )
+
+fun NamedApiResourceDto.idFromUrl(): Int = url
+    .trimEnd('/')
+    .substringAfterLast('/')
+    .toInt()

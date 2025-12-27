@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SpritesDto(
+data class PokemonSpritesDto(
     @SerialName(value = "other") val other: OtherSpritesDto,
 )
 

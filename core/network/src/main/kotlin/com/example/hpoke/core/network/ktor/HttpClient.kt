@@ -58,7 +58,7 @@ private fun HttpClientConfig<OkHttpConfig>.contentNegotiationConfig() {
 private fun HttpClientConfig<OkHttpConfig>.loggingConfig() {
     install(Logging) {
         logger = Logger.ANDROID
-        level = LogLevel.BODY
+        level = LogLevel.INFO
     }
 }
 
