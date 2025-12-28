@@ -13,12 +13,15 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
@@ -52,6 +55,7 @@ fun HomeScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @VisibleForTesting
 @Composable
 fun HomeScreen(
@@ -59,12 +63,14 @@ fun HomeScreen(
     onPokemonClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(connection = scrollBehavior.nestedScrollConnection),
         topBar = {
             HPokeTopAppBar(
-                titleRes = R.string.feature_home_app_bar_title
+                titleRes = R.string.feature_home_app_bar_title,
+                scrollBehavior = scrollBehavior
             )
         }
     ) { paddingValues ->
@@ -173,7 +179,7 @@ fun HomeScreenGrid(
     LazyVerticalGrid(
         modifier = modifier
             .testTag(tag = "homeScreenGrid"),
-        columns = GridCells.Adaptive(minSize = 200.dp),
+        columns = GridCells.Adaptive(minSize = 140.dp),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         verticalArrangement = Arrangement.spacedBy(space = 16.dp)
@@ -289,11 +295,11 @@ fun HomeScreenPreview(
         HomeScreen(
             pokemons = flowOf(
                 PagingData.from(
-                    data = pokemons.subList(0, 4),
+                    data = pokemons.subList(0, 9),
                     sourceLoadStates = LoadStates(
-                        refresh = LoadState.NotLoading(endOfPaginationReached = true),
-                        append = LoadState.NotLoading(endOfPaginationReached = true),
-                        prepend = LoadState.NotLoading(endOfPaginationReached = true)
+                        refresh = LoadState.NotLoading(endOfPaginationReached = false),
+                        append = LoadState.NotLoading(endOfPaginationReached = false),
+                        prepend = LoadState.NotLoading(endOfPaginationReached = false)
                     )
                 )
             ).collectAsLazyPagingItems(),

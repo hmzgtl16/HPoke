@@ -1,7 +1,7 @@
 package com.example.hpoke.navigation
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.rememberSupportingPaneSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -21,7 +21,7 @@ fun NavHost(
     onBack: () -> Unit
 ) {
     val entryProvider = koinEntryProvider()
-    val sceneStrategy = rememberSupportingPaneSceneStrategy<Route>()
+    val sceneStrategy = rememberListDetailSceneStrategy<Route>()
 
     @Suppress("UNCHECKED_CAST")
     val routeEntryProvider = entryProvider as (Route) -> NavEntry<Route>

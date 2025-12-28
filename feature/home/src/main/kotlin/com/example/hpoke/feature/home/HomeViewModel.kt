@@ -9,11 +9,11 @@ import com.example.hpoke.core.model.Pokemon
 import kotlinx.coroutines.flow.Flow
 
 class HomeViewModel(
-    pokemonRepository: PokemonRepository
+    private val pokemonRepository: PokemonRepository
 ) : ViewModel() {
 
-    val pokemons: Flow<PagingData<Pokemon>> =
-        pokemonRepository.getPokemons()
+    val pokemons: Flow<PagingData<Pokemon>>
+        get() = pokemonRepository.getPokemons()
             .cachedIn(scope = viewModelScope)
 }
 

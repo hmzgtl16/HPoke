@@ -1,6 +1,5 @@
 package com.example.hpoke.core.data.repository
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -26,7 +25,6 @@ import com.example.hpoke.core.network.dto.StatDto
 import com.example.hpoke.core.network.dto.TypeDto
 import com.example.hpoke.core.network.dto.idFromUrl
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -50,13 +48,10 @@ class OfflineFirstPokemonRepository : PokemonRepository, KoinComponent {
 
     override fun getPokemon(id: Int): Flow<Pokemon> =
         pokemonDao.getPokemonById(id = id)
-            .filterNotNull()
             .map(PokemonFull::asModel)
 
     override suspend fun sync(): Boolean = suspendRunCatching {
         syncIncrementalAndFixIncomplete()
-    }.onFailure {
-        Log.e("PokemonSync", "Sync failed", it)
     }.isSuccess
 
     private suspend fun syncIncrementalAndFixIncomplete() {

@@ -29,7 +29,7 @@ fun HPokeImage(
     contentDescription: String? = null,
     modifier: Modifier = Modifier,
     placeholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
-    previewPlaceholder: Painter = painterResource(id = R.drawable.preview_placeholder),
+    previewPlaceholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
     contentScale: ContentScale = ContentScale.Crop,
     onPaletteLoaded: (Palette) -> Unit = {}
 ) {

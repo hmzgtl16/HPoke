@@ -3,8 +3,8 @@ package com.example.hpoke.core.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -22,11 +23,10 @@ import androidx.compose.ui.unit.dp
 import com.example.hpoke.core.designsystem.component.HPokeImage
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.model.Pokemon
-import com.example.hpoke.core.ui.palette.generatePalette
 import com.example.hpoke.core.ui.palette.paletteBackgroundColor
 import com.example.hpoke.core.ui.palette.paletteTextColor
-import com.example.hpoke.core.ui.palette.rememberPaletteState
 import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
+import com.skydoves.landscapist.palette.rememberPaletteState
 
 @Composable
 fun PokemonCard(
@@ -41,8 +41,11 @@ fun PokemonCard(
 
     ElevatedCard(
         modifier = modifier,
-        shape = RoundedCornerShape(15),
-        colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
+        shape = RoundedCornerShape(10),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = backgroundColor,
+            contentColor = textColor
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         onClick = { onPokemonClick(pokemon.id) }
     ) {
@@ -50,24 +53,24 @@ fun PokemonCard(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(height = 180.dp)
-                .padding(16.dp)
         ) {
             HPokeImage(
                 imageUrl = pokemon.species.frontDefault,
                 contentDescription = pokemon.name,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(all = 24.dp)
+                    .padding(bottom = 24.dp)
                     .align(alignment = Alignment.Center),
-                onBitmapReady = { palette = it.generatePalette() }
+                onPaletteLoaded = { palette = it },
+                contentScale = ContentScale.Inside
             )
 
             Text(
                 text = pokemon.name.replaceFirstChar(Char::titlecase),
-                color = textColor,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier.align(alignment = Alignment.BottomCenter)
+                modifier = Modifier
+                    .align(alignment = Alignment.BottomCenter)
+                    .padding(bottom = 8.dp)
             )
         }
     }
@@ -82,8 +85,7 @@ private fun PokemonCardPreview(
         PokemonCard(
             pokemon = pokemons.first(),
             onPokemonClick = {},
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.size(size = 200.dp)
         )
     }
 }
