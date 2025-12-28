@@ -38,10 +38,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 )
                 add(
                     "implementation",
-                    platform(libs.findLibrary("com-github-skydoves-landscapist-bom").get())
-                )
-                add(
-                    "implementation",
                     libs.findLibrary("androidx-navigation3-runtime").get()
                 )
                 add(

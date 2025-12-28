@@ -29,6 +29,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             dependencies {
                 add(
+                    "implementation",
+                    platform(libs.findLibrary("com-github-skydoves-landscapist-bom").get())
+                )
+                add(
                     "androidTestImplementation",
                     libs.findLibrary("org-jetbrains-kotlin-test").get()
                 )
