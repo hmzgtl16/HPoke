@@ -12,4 +12,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.io.coil.compose)
+    implementation(libs.com.github.skydoves.landscapist.coil)
+    implementation(libs.com.github.skydoves.landscapist.palette)
+    implementation(libs.com.github.skydoves.landscapist.placeholder)
 }
