@@ -10,6 +10,5 @@ android {
 dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.model)
-    api(libs.androidx.palette)
-    implementation(libs.io.coil)
+    api(libs.com.github.skydoves.landscapist.palette)
 }

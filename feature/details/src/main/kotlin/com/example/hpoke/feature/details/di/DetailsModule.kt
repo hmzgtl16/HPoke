@@ -1,7 +1,7 @@
 package com.example.hpoke.feature.details.di
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.SupportingPaneSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import com.example.hpoke.core.navigation.Navigator
 import com.example.hpoke.core.navigation.Route
 import com.example.hpoke.feature.details.DetailsScreen
@@ -20,7 +20,7 @@ val detailsModule = module {
         DetailsViewModel(pokemonId = it.get(), pokemonRepository = get())
     }
     navigation<Route.Details>(
-        metadata = SupportingPaneSceneStrategy.supportingPane()
+        metadata = ListDetailSceneStrategy.detailPane()
     ) {
         DetailsScreen(
             viewModel = koinViewModel { parametersOf(it.id) },

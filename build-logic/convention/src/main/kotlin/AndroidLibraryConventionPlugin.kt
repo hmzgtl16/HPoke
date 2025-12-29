@@ -32,7 +32,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     "androidTestImplementation",
                     libs.findLibrary("org-jetbrains-kotlin-test").get()
                 )
-                add("testImplementation", libs.findLibrary("org-jetbrains-kotlin-test").get())
+                add(
+                    "testImplementation",
+                    libs.findLibrary("org-jetbrains-kotlin-test").get()
+                )
             }
         }
     }

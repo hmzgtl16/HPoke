@@ -1,7 +1,7 @@
 package com.example.hpoke.feature.home.di
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.SupportingPaneSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import com.example.hpoke.core.navigation.Navigator
 import com.example.hpoke.core.navigation.Route
 import com.example.hpoke.feature.home.HomeScreen
@@ -18,7 +18,7 @@ val homeModule = module {
     single<Route>(qualifier = named<Route.Home>()) { Route.Home }
     viewModel { HomeViewModel(pokemonRepository = get()) }
     navigation<Route.Home>(
-        metadata = SupportingPaneSceneStrategy.mainPane()
+        metadata = ListDetailSceneStrategy.listPane()
     ) {
         HomeScreen(
             viewModel = koinViewModel(),

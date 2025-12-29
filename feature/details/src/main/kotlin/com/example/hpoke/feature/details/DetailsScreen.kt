@@ -1,12 +1,15 @@
 package com.example.hpoke.feature.details
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -15,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
@@ -28,11 +32,10 @@ import com.example.hpoke.core.ui.PokemonAbilitiesCard
 import com.example.hpoke.core.ui.PokemonInfoCard
 import com.example.hpoke.core.ui.PokemonStats
 import com.example.hpoke.core.ui.PokemonTypesCard
-import com.example.hpoke.core.ui.palette.generatePalette
 import com.example.hpoke.core.ui.palette.paletteBackgroundColor
 import com.example.hpoke.core.ui.palette.paletteTextColor
-import com.example.hpoke.core.ui.palette.rememberPaletteState
 import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
+import com.skydoves.landscapist.palette.rememberPaletteState
 
 @Composable
 fun DetailsScreen(
@@ -80,6 +83,7 @@ fun DetailsScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreenContent(
     pokemon: Pokemon,
@@ -90,6 +94,8 @@ fun DetailsScreenContent(
     var palette by rememberPaletteState()
     val backgroundColor by palette.paletteBackgroundColor()
     val textColor by palette.paletteTextColor()
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
@@ -105,32 +111,29 @@ fun DetailsScreenContent(
                 )
             )
         },
+        containerColor = backgroundColor,
         modifier = modifier
     ) { paddingValues ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues = paddingValues),
+                .padding(paddingValues = paddingValues)
+                .verticalScroll(state = scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(
                 space = 16.dp,
                 alignment = Alignment.Top
             )
         ) {
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = backgroundColor),
-                contentAlignment = Alignment.Center
-            ) {
-                HPokeImage(
-                    imageUrl = pokemon.species.frontDefault,
-                    contentDescription = pokemon.name,
-                    onBitmapReady = { palette = it.generatePalette() },
-                    modifier = Modifier.padding(all = 16.dp)
-                )
-            }
+            HPokeImage(
+                imageUrl = pokemon.species.frontDefault,
+                contentDescription = pokemon.name,
+                onPaletteLoaded = { palette = it },
+                contentScale = ContentScale.Inside,
+                modifier = Modifier.height(height = 180.dp)
+            )
 
             PokemonInfoCard(
                 height = pokemon.height,
