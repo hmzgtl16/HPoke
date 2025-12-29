@@ -10,4 +10,5 @@ val daoModule = module {
     single { get<HPokeDatabase>().typeDao() }
     single { get<HPokeDatabase>().abilityDao() }
     single { get<HPokeDatabase>().statDao() }
+    single { get<HPokeDatabase>().remoteKeyDao() }
 }

@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.hpoke.core.database.dao.AbilityDao
 import com.example.hpoke.core.database.dao.PokemonDao
+import com.example.hpoke.core.database.dao.RemoteKeyDao
 import com.example.hpoke.core.database.dao.SpritesDao
 import com.example.hpoke.core.database.dao.StatDao
 import com.example.hpoke.core.database.dao.TypeDao
@@ -12,6 +13,7 @@ import com.example.hpoke.core.database.model.PokemonAbilityCrossRef
 import com.example.hpoke.core.database.model.PokemonEntity
 import com.example.hpoke.core.database.model.PokemonStatCrossRef
 import com.example.hpoke.core.database.model.PokemonTypeCrossRef
+import com.example.hpoke.core.database.model.RemoteKeyEntity
 import com.example.hpoke.core.database.model.SpritesEntity
 import com.example.hpoke.core.database.model.StatEntity
 import com.example.hpoke.core.database.model.TypeEntity
@@ -25,7 +27,8 @@ import com.example.hpoke.core.database.model.TypeEntity
         AbilityEntity::class,
         PokemonAbilityCrossRef::class,
         StatEntity::class,
-        PokemonStatCrossRef::class
+        PokemonStatCrossRef::class,
+        RemoteKeyEntity::class
     ],
     version = 1,
     exportSchema = true
@@ -37,4 +40,5 @@ abstract class HPokeDatabase : RoomDatabase() {
     abstract fun typeDao(): TypeDao
     abstract fun abilityDao(): AbilityDao
     abstract fun statDao(): StatDao
+    abstract fun remoteKeyDao(): RemoteKeyDao
 }

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.hpoke.android.library)
+    alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization)
 }
 
 android {
@@ -9,7 +10,6 @@ android {
 dependencies {
     api(libs.androidx.navigation3.runtime)
     api(libs.androidx.navigation3.ui)
-    api(libs.androidx.compose.material3.adaptive.navigation3)
-    api(libs.io.insert.koin.core)
-    api(libs.io.insert.koin.compose.navigation3)
+    implementation(libs.io.insert.koin.core)
+    implementation(libs.org.jetbrains.kotlinx.serialization.core)
 }

@@ -1,24 +1,20 @@
 [versions]
 android-gradle-plugin = "8.13.1"
-coreKtx = "1.17.0"
-io-coil = "3.3.0"
 io-insert-koin = "4.2.0-beta2"
 io-ktor = "3.3.3"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 androidx-test = "1.7.0"
-lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.12.0"
+androidx-activity = "1.12.2"
 androidx-compose-bom = "2025.12.00"
 androidx-compose-material3-adaptive-navigation3 = "1.3.0-alpha05"
+androidx-core = "1.17.0"
 androidx-core-splashscreen = "1.0.0"
 androidx-lifecycle = "2.10.0"
 androidx-navigation3 = "1.0.0"
 androidx-paging = "3.3.6"
-androidx-palette = "1.0.0"
 androidx-room = "2.8.4"
-androidx-work = "2.11.0"
 com-github-skydoves-landscapist = "2.8.1"
 com-google-devtools-ksp = "2.3.3"
 com-squareup-okhttp3 = "5.3.2"
@@ -29,13 +25,12 @@ org-jetbrains-kotlinx-serialization = "1.9.0"
 org-slf4j = "1.7.36"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidx-test" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
 androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
@@ -55,27 +50,17 @@ androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", 
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "androidx-paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "androidx-paging" }
 androidx-paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "androidx-paging" }
-androidx-palette = { group = "androidx.palette", name = "palette-ktx", version.ref = "androidx-palette" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
 androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "androidx-room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
-androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }
-androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidx-work" }
-com-github-skydoves-landscapist-bom = { group = "com.github.skydoves", name = "landscapist-bom", version.ref = "com-github-skydoves-landscapist" }
 com-github-skydoves-landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil3", version.ref = "com-github-skydoves-landscapist" }
 com-github-skydoves-landscapist-placeholder = { group = "com.github.skydoves", name = "landscapist-placeholder", version.ref = "com-github-skydoves-landscapist" }
 com-github-skydoves-landscapist-palette = { group = "com.github.skydoves", name = "landscapist-palette", version.ref = "com-github-skydoves-landscapist" }
 com-squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "com-squareup-okhttp3" }
-io-coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "io-coil" }
-io-coil-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "io-coil" }
-io-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "io-coil" }
-io-coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "io-coil" }
 io-insert-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "io-insert-koin" }
-io-insert-koin-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3", version.ref = "io-insert-koin" }
 io-insert-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "io-insert-koin" }
-io-insert-koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "io-insert-koin" }
+io-insert-koin-androidx-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3", version.ref = "io-insert-koin" }
 io-insert-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "io-insert-koin" }
-io-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "io-ktor" }
 io-ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "io-ktor" }
 io-ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "io-ktor" }
 io-ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "io-ktor" }

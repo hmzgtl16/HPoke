@@ -10,10 +10,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = libs.findPlugin("hpoke-android-library").get().get().pluginId)
-            apply(
-                plugin = libs.findPlugin("org-jetbrains-kotlin-plugin-serialization").get()
-                    .get().pluginId
-            )
 
             extensions.configure<LibraryExtension> {
                 testOptions.animationsDisabled = true
@@ -38,15 +34,15 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("androidx-navigation3-runtime").get()
-                )
-                add(
-                    "implementation",
-                    libs.findLibrary("org-jetbrains-kotlinx-serialization-core").get()
+                    libs.findLibrary("androidx-compose-material3-adaptive-navigation3").get()
                 )
                 add(
                     "implementation",
                     libs.findLibrary("io-insert-koin-androidx-compose").get()
+                )
+                add(
+                    "implementation",
+                    libs.findLibrary("io-insert-koin-androidx-compose-navigation3").get()
                 )
                 add(
                     "androidTestImplementation",

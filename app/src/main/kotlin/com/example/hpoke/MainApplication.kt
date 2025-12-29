@@ -6,7 +6,6 @@ import coil3.PlatformContext
 import coil3.SingletonImageLoader
 import coil3.disk.DiskCache
 import coil3.memory.MemoryCache
-import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.allowHardware
 import coil3.request.crossfade
 import coil3.util.DebugLogger
@@ -16,14 +15,11 @@ import com.example.hpoke.core.database.di.databaseModule
 import com.example.hpoke.core.navigation.di.navigationModule
 import com.example.hpoke.core.network.BuildConfig
 import com.example.hpoke.core.network.di.networkModule
-import com.example.hpoke.core.sync.di.syncModule
-import com.example.hpoke.core.sync.initializer.Sync
 import com.example.hpoke.feature.details.di.detailsModule
 import com.example.hpoke.feature.home.di.homeModule
 import okio.Path.Companion.toOkioPath
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import java.io.File
 
@@ -35,25 +31,20 @@ class MainApplication : Application(), SingletonImageLoader.Factory {
         startKoin {
             androidLogger()
             androidContext(androidContext = this@MainApplication)
-            workManagerFactory()
             modules(
                 dataModule,
                 databaseModule,
                 daoModule,
                 navigationModule,
                 networkModule,
-                syncModule,
                 homeModule,
                 detailsModule
             )
         }
-
-        Sync.initialize(context = this)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader =
         ImageLoader.Builder(context = context)
-            .components { add(factory = KtorNetworkFetcherFactory()) }
             .memoryCache(initializer = {
                 MemoryCache.Builder()
                     .maxSizePercent(context = context, percent = 0.25).build()
