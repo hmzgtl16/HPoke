@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -38,7 +39,6 @@ dependencies {
     compileOnly(libs.com.android.tools.build.gradle.plugin)
     compileOnly(libs.com.diffplug.spotless.gradle.plugin)
     compileOnly(libs.com.google.devtools.ksp.gradle.plugin)
-    lintChecks(libs.androidx.lint.gradle)
 }
 
 tasks {
