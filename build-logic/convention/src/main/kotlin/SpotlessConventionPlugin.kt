@@ -14,19 +14,34 @@ class SpotlessConventionPlugin : Plugin<Project> {
                 kotlin {
                     target("**/*.kt")
                     targetExclude(layout.buildDirectory.asFileTree)
-                    ktlint()
+                    licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+                    ktlint().editorConfigOverride(
+                        mapOf(
+                            "indent_size" to "4",
+                            "continuation_indent_size" to "4",
+                            "ktlint_function_naming_ignore_when_annotated_with" to "Composable"
+                        )
+                    )
                     trimTrailingWhitespace()
                     endWithNewline()
                 }
                 kotlinGradle {
                     target("**/*.gradle.kts")
                     targetExclude(layout.buildDirectory.asFileTree)
+                    licenseHeaderFile(
+                        rootProject.file("spotless/copyright.kts"),
+                        "(^(?![\\/ ]\\*).*$)"
+                    )
                     trimTrailingWhitespace()
                     endWithNewline()
                 }
                 format("xml") {
                     target("**/*.xml")
                     targetExclude(layout.buildDirectory.asFileTree)
+                    licenseHeaderFile(
+                        rootProject.file("spotless/copyright.xml"),
+                        "(<[^!?])"
+                    )
                     trimTrailingWhitespace()
                     endWithNewline()
                 }
