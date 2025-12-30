@@ -21,6 +21,7 @@ dependencies {
     compileOnly(libs.androidx.room.gradle.plugin)
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
     compileOnly(libs.com.android.tools.build.gradle.plugin)
+    compileOnly(libs.com.diffplug.spotless.gradle.plugin)
     compileOnly(libs.com.google.devtools.ksp.gradle.plugin)
 }
 
@@ -60,6 +61,10 @@ gradlePlugin {
         register("jvmLibrary") {
             id = libs.plugins.hpoke.jvm.library.get().pluginId
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("spotless") {
+            id = "hpoke.spotless"
+            implementationClass = "SpotlessConventionPlugin"
         }
     }
 }

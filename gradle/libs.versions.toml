@@ -15,6 +15,7 @@ androidx-lifecycle = "2.10.0"
 androidx-navigation3 = "1.0.0"
 androidx-paging = "3.3.6"
 androidx-room = "2.8.4"
+com-diffplug-spotless = "8.1.0"
 com-github-skydoves-landscapist = "2.8.1"
 com-google-devtools-ksp = "2.3.3"
 com-squareup-okhttp3 = "5.3.2"
@@ -78,6 +79,7 @@ org-slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref =
 # Dependencies of the included build-logic
 androidx-room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "androidx-room" }
 com-android-tools-build-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
+com-diffplug-spotless-gradle-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "com-diffplug-spotless" }
 com-google-devtools-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "com-google-devtools-ksp" }
 org-jetbrains-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "org-jetbrains-kotlin" }
 
@@ -85,6 +87,7 @@ org-jetbrains-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "k
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 com-android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 com-android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+com-diffplug-spotless = { id = "com.diffplug.spotless", version.ref = "com-diffplug-spotless" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin" }
@@ -99,3 +102,4 @@ hpoke-android-library-compose = { id = "hpoke.android.library.compose" }
 hpoke-android-feature = { id = "hpoke.android.feature" }
 hpoke-android-room = { id = "hpoke.android.room" }
 hpoke-jvm-library = { id = "hpoke.jvm.library" }
+hpoke-spotless = { id = "hpoke.spotless" }
