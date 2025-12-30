@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.data.mediator
 
 import androidx.paging.ExperimentalPagingApi
@@ -34,8 +50,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @OptIn(ExperimentalPagingApi::class)
-class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent {
-
+class PokemonRemoteMediator :
+    RemoteMediator<Int, PokemonFull>(),
+    KoinComponent {
     val pokemonApi: PokemonApi by inject()
     val pokemonDao: PokemonDao by inject()
     val spritesDao: SpritesDao by inject()
@@ -50,30 +67,31 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, PokemonFull>
+        state: PagingState<Int, PokemonFull>,
     ): MediatorResult {
-        val offset = try {
-            when (loadType) {
-                LoadType.REFRESH -> {
-                    val key = getRemoteKeyClosestToCurrentPosition(state)
-                    key?.nextKey?.minus(pageLimit) ?: 0
-                }
+        val offset =
+            try {
+                when (loadType) {
+                    LoadType.REFRESH -> {
+                        val key = getRemoteKeyClosestToCurrentPosition(state)
+                        key?.nextKey?.minus(pageLimit) ?: 0
+                    }
 
-                LoadType.PREPEND -> {
-                    val key = getRemoteKeyForFirstItem(state)
-                    val prev = key?.prevKey
-                    prev ?: return MediatorResult.Success(endOfPaginationReached = key != null)
-                }
+                    LoadType.PREPEND -> {
+                        val key = getRemoteKeyForFirstItem(state)
+                        val prev = key?.prevKey
+                        prev ?: return MediatorResult.Success(endOfPaginationReached = key != null)
+                    }
 
-                LoadType.APPEND -> {
-                    val key = getRemoteKeyForLastItem(state)
-                    val next = key?.nextKey
-                    next ?: return MediatorResult.Success(endOfPaginationReached = key != null)
+                    LoadType.APPEND -> {
+                        val key = getRemoteKeyForLastItem(state)
+                        val next = key?.nextKey
+                        next ?: return MediatorResult.Success(endOfPaginationReached = key != null)
+                    }
                 }
+            } catch (e: Exception) {
+                return MediatorResult.Error(e)
             }
-        } catch (e: Exception) {
-            return MediatorResult.Error(e)
-        }
 
         return try {
             val page = pokemonApi.getPokemonList(offset = offset, limit = pageLimit)
@@ -83,16 +101,18 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
             // - existingIds = all pokemon ids in db
             // - needFixIds = ids with missing relations
             val existingIds = pokemonDao.getAllPokemonIds().toHashSet()
-            val needFixIds = (
+            val needFixIds =
+                (
                     pokemonDao.pokemonIdsMissingStats() +
                             pokemonDao.pokemonIdsMissingTypes() +
                             pokemonDao.pokemonIdsMissingAbilities()
-                    ).toHashSet()
+                        ).toHashSet()
 
-            val toFetchSummaries = page.results
-                .map { it to it.idFromUrl() }
-                .filter { (_, id) -> id !in existingIds || id in needFixIds }
-                .map(Pair<NamedApiResourceDto, Int>::first)
+            val toFetchSummaries =
+                page.results
+                    .map { it to it.idFromUrl() }
+                    .filter { (_, id) -> id !in existingIds || id in needFixIds }
+                    .map(Pair<NamedApiResourceDto, Int>::first)
 
             if (toFetchSummaries.isEmpty()) {
                 // Still need to write remote keys for paging continuity?
@@ -102,16 +122,17 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
 
             // Concurrency: best-effort fetch
             val semaphore = kotlinx.coroutines.sync.Semaphore(maxConcurrent)
-            val pokemonDtos = supervisorScope {
-                toFetchSummaries.map {
-                    async(Dispatchers.IO) {
-                        semaphore.withPermit {
-                            runCatching { pokemonApi.getPokemon(name = it.name) }
+            val pokemonDtos =
+                supervisorScope {
+                    toFetchSummaries.map {
+                        async(Dispatchers.IO) {
+                            semaphore.withPermit {
+                                runCatching { pokemonApi.getPokemon(name = it.name) }
+                            }
                         }
-                    }
-                }.awaitAll()
-                    .mapNotNull(Result<PokemonDto>::getOrNull)
-            }
+                    }.awaitAll()
+                        .mapNotNull(Result<PokemonDto>::getOrNull)
+                }
 
             if (pokemonDtos.isEmpty()) {
                 return MediatorResult.Success(endOfPaginationReached = endReached)
@@ -121,7 +142,6 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
             val abilityIdByName = mutableMapOf<String, Int>()
             val statIdByName = mutableMapOf<String, Int>()
             val typeIdByName = mutableMapOf<String, Int>()
-
 
             if (loadType == LoadType.REFRESH) {
                 remoteKeyDao.clearRemoteKeys()
@@ -139,108 +159,118 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
             pokemonDao.insertPokemons(pokemons = pokemonDtos.map(PokemonDto::toEntity))
 
             // --- ensure abilities exist (your approach) ---
-            val missingAbilityNames = pokemonDtos
-                .flatMap(PokemonDto::abilities)
-                .map { it.ability.name }
-                .distinct()
-                .filterNot(abilityIdByName::containsKey)
+            val missingAbilityNames =
+                pokemonDtos
+                    .flatMap(PokemonDto::abilities)
+                    .map { it.ability.name }
+                    .distinct()
+                    .filterNot(abilityIdByName::containsKey)
 
             if (missingAbilityNames.isNotEmpty()) {
-                val abilityEntities = missingAbilityNames
-                    .map { pokemonApi.getAbility(name = it) }
-                    .map(AbilityDto::asEntity)
+                val abilityEntities =
+                    missingAbilityNames
+                        .map { pokemonApi.getAbility(name = it) }
+                        .map(AbilityDto::asEntity)
                 abilityDao.insertAbilities(abilities = abilityEntities)
                 abilityEntities.forEach { abilityIdByName[it.name] = it.id }
             }
 
             // --- ensure stats exist ---
-            val missingStatNames = pokemonDtos
-                .flatMap(PokemonDto::stats)
-                .map { it.stat.name }
-                .distinct()
-                .filterNot(statIdByName::containsKey)
+            val missingStatNames =
+                pokemonDtos
+                    .flatMap(PokemonDto::stats)
+                    .map { it.stat.name }
+                    .distinct()
+                    .filterNot(statIdByName::containsKey)
 
             if (missingStatNames.isNotEmpty()) {
-                val statDtos = missingStatNames
-                    .map { pokemonApi.getStat(it) }
-                    .map(StatDto::asEntity)
+                val statDtos =
+                    missingStatNames
+                        .map { pokemonApi.getStat(it) }
+                        .map(StatDto::asEntity)
                 statDao.insertStats(stats = statDtos)
                 statDtos.forEach { statIdByName[it.name] = it.id }
             }
 
             // --- ensure types exist ---
-            val missingTypeNames = pokemonDtos
-                .flatMap(PokemonDto::types)
-                .map { it.type.name }
-                .distinct()
-                .filterNot(typeIdByName::containsKey)
+            val missingTypeNames =
+                pokemonDtos
+                    .flatMap(PokemonDto::types)
+                    .map { it.type.name }
+                    .distinct()
+                    .filterNot(typeIdByName::containsKey)
 
             if (missingTypeNames.isNotEmpty()) {
-                val typeDtos = missingTypeNames
-                    .map { pokemonApi.getType(name = it) }
-                    .map(TypeDto::asEntity)
+                val typeDtos =
+                    missingTypeNames
+                        .map { pokemonApi.getType(name = it) }
+                        .map(TypeDto::asEntity)
                 typeDao.insertTypes(types = typeDtos)
                 typeDtos.forEach { typeIdByName[it.name] = it.id }
             }
 
             // --- cross refs ---
-            val abilityRefs = buildList {
-                pokemonDtos.forEach { p ->
-                    p.abilities.forEach { a ->
-                        val id = abilityIdByName[a.ability.name] ?: return@forEach
-                        add(
-                            PokemonAbilityCrossRef(
-                                pokemonId = p.id,
-                                abilityId = id,
-                                isHidden = a.isHidden,
-                                slot = a.slot
+            val abilityRefs =
+                buildList {
+                    pokemonDtos.forEach { p ->
+                        p.abilities.forEach { a ->
+                            val id = abilityIdByName[a.ability.name] ?: return@forEach
+                            add(
+                                PokemonAbilityCrossRef(
+                                    pokemonId = p.id,
+                                    abilityId = id,
+                                    isHidden = a.isHidden,
+                                    slot = a.slot,
+                                ),
                             )
-                        )
+                        }
                     }
                 }
-            }
             abilityRefs.chunked(chunkSize).forEach { pokemonDao.insertPokemonAbilityCrossRefs(it) }
 
-            val statRefs = buildList {
-                pokemonDtos.forEach { p ->
-                    p.stats.forEach { s ->
-                        val id = statIdByName[s.stat.name] ?: return@forEach
-                        add(
-                            PokemonStatCrossRef(
-                                pokemonId = p.id,
-                                statId = id,
-                                baseStat = s.baseStat,
-                                effort = s.effort
+            val statRefs =
+                buildList {
+                    pokemonDtos.forEach { p ->
+                        p.stats.forEach { s ->
+                            val id = statIdByName[s.stat.name] ?: return@forEach
+                            add(
+                                PokemonStatCrossRef(
+                                    pokemonId = p.id,
+                                    statId = id,
+                                    baseStat = s.baseStat,
+                                    effort = s.effort,
+                                ),
                             )
-                        )
+                        }
                     }
                 }
-            }
             statRefs.chunked(chunkSize).forEach { pokemonDao.insertPokemonStatCrossRefs(it) }
 
-            val typeRefs = buildList {
-                pokemonDtos.forEach { p ->
-                    p.types.forEach { t ->
-                        val id = typeIdByName[t.type.name] ?: return@forEach
-                        add(
-                            PokemonTypeCrossRef(
-                                pokemonId = p.id,
-                                typeId = id,
-                                slot = t.slot
+            val typeRefs =
+                buildList {
+                    pokemonDtos.forEach { p ->
+                        p.types.forEach { t ->
+                            val id = typeIdByName[t.type.name] ?: return@forEach
+                            add(
+                                PokemonTypeCrossRef(
+                                    pokemonId = p.id,
+                                    typeId = id,
+                                    slot = t.slot,
+                                ),
                             )
-                        )
+                        }
                     }
                 }
-            }
             typeRefs.chunked(chunkSize)
                 .forEach { pokemonDao.insertPokemonTypeCrossRefs(refs = it) }
 
             // remote keys (offset-based)
             val prev = if (offset == 0) null else offset - pageLimit
             val next = if (endReached) null else offset + pageLimit
-            val keys = pokemonDtos.map {
-                RemoteKeyEntity(pokemonId = it.id, prevKey = prev, nextKey = next)
-            }
+            val keys =
+                pokemonDtos.map {
+                    RemoteKeyEntity(pokemonId = it.id, prevKey = prev, nextKey = next)
+                }
             remoteKeyDao.insertAll(keys = keys)
 
             MediatorResult.Success(endOfPaginationReached = endReached)
@@ -250,7 +280,7 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
     }
 
     private suspend fun getRemoteKeyForLastItem(
-        state: PagingState<Int, PokemonFull>
+        state: PagingState<Int, PokemonFull>,
     ): RemoteKeyEntity? {
         val last = state.lastItemOrNull() ?: return null
         val id = last.pokemon.id
@@ -258,7 +288,7 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
     }
 
     private suspend fun getRemoteKeyForFirstItem(
-        state: PagingState<Int, PokemonFull>
+        state: PagingState<Int, PokemonFull>,
     ): RemoteKeyEntity? {
         val first = state.firstItemOrNull() ?: return null
         val id = first.pokemon.id
@@ -266,7 +296,7 @@ class PokemonRemoteMediator : RemoteMediator<Int, PokemonFull>(), KoinComponent 
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, PokemonFull>
+        state: PagingState<Int, PokemonFull>,
     ): RemoteKeyEntity? {
         val pos = state.anchorPosition ?: return null
         val closest = state.closestItemToPosition(pos) ?: return null

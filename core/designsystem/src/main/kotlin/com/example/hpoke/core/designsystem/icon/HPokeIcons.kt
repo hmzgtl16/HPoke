@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.hpoke
+package com.example.hpoke.core.designsystem.icon
 
-import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.getByType
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 
-val Project.libs
-    get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+internal object HPokeIcons {
+    val Back = Icons.AutoMirrored.Rounded.ArrowBack
+}

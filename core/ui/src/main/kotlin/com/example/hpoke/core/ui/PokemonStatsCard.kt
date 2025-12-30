@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.ui
 
 import androidx.compose.foundation.Canvas
@@ -43,47 +59,48 @@ fun PokemonStats(
     Card(modifier = modifier) {
         Column(
             modifier = Modifier.padding(all = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(space = 16.dp, alignment = Alignment.Top)
+            verticalArrangement = Arrangement.spacedBy(space = 16.dp, alignment = Alignment.Top),
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.core_ui_stats),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+                verticalArrangement = Arrangement.spacedBy(space = 8.dp),
             ) {
-
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(height = chartHeight),
-                    horizontalArrangement = Arrangement.spacedBy(space = 6.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(height = chartHeight),
+                    horizontalArrangement = Arrangement.spacedBy(space = 6.dp),
                 ) {
-
                     PokemonStat.entries.forEach {
                         StatBar(
                             value = statMap[it] ?: 0,
                             max = it.max,
                             steps = steps,
-                            modifier = Modifier
-                                .weight(weight = 1f)
-                                .fillMaxHeight(),
-                            gap = gap
+                            modifier =
+                                Modifier
+                                    .weight(weight = 1f)
+                                    .fillMaxHeight(),
+                            gap = gap,
                         )
                     }
                 }
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(
-                        space = 6.dp,
-                        alignment = Alignment.CenterHorizontally
-                    )
+                    horizontalArrangement =
+                        Arrangement.spacedBy(
+                            space = 6.dp,
+                            alignment = Alignment.CenterHorizontally,
+                        ),
                 ) {
                     PokemonStat.entries.forEach {
                         Text(
@@ -91,9 +108,10 @@ fun PokemonStats(
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(weight = 1f)
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(weight = 1f),
                         )
                     }
                 }
@@ -119,16 +137,18 @@ fun StatBar(
         val cellWidth = size.width
         val radius = CornerRadius(x = 2.dp.toPx(), y = 2.dp.toPx())
 
-        val filledSteps = ((value.coerceIn(0, max).toFloat() / max) * steps)
-            .toInt()
-            .coerceIn(minimumValue = 0, maximumValue = steps)
+        val filledSteps =
+            ((value.coerceIn(0, max).toFloat() / max) * steps)
+                .toInt()
+                .coerceIn(minimumValue = 0, maximumValue = steps)
 
         // Gradient brush (bottom → top)
-        val gradient = Brush.verticalGradient(
-            colors = listOf(fillGradientBottom, fillGradientTop),
-            startY = size.height,
-            endY = 0f
-        )
+        val gradient =
+            Brush.verticalGradient(
+                colors = listOf(fillGradientBottom, fillGradientTop),
+                startY = size.height,
+                endY = 0f,
+            )
 
         // base grid
         for (row in 0 until steps) {
@@ -137,7 +157,7 @@ fun StatBar(
                 color = cellColor,
                 topLeft = Offset(x = 0f, y = y),
                 size = Size(width = cellWidth, height = cellHeight),
-                cornerRadius = radius
+                cornerRadius = radius,
             )
         }
 
@@ -149,7 +169,7 @@ fun StatBar(
                 brush = gradient,
                 topLeft = Offset(x = 0f, y = y),
                 size = Size(width = cellWidth, height = cellHeight),
-                cornerRadius = radius
+                cornerRadius = radius,
             )
         }
     }
@@ -158,12 +178,12 @@ fun StatBar(
 @PreviewLightDark
 @Composable
 private fun PokemonStatsPreview(
-    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>,
 ) {
     HPokeTheme {
         PokemonStats(
             stats = pokemons.last().stats,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

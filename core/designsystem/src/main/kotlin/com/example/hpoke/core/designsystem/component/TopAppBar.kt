@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.example.hpoke.core.designsystem.component
@@ -25,14 +41,13 @@ fun HPokeTopAppBar(
     @StringRes titleRes: Int,
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
-
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
         colors = colors,
         modifier = modifier.testTag("hPokeTopAppBar"),
-        scrollBehavior = scrollBehavior
+        scrollBehavior = scrollBehavior,
     )
 }
 
@@ -44,9 +59,8 @@ fun HPokeTopAppBar(
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     modifier: Modifier = Modifier,
     onNavigationClick: () -> Unit = {},
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
-
     CenterAlignedTopAppBar(
         title = { Text(text = title) },
         modifier = modifier.testTag("hPokeTopAppBar"),
@@ -56,23 +70,22 @@ fun HPokeTopAppBar(
                 content = {
                     Icon(
                         imageVector = navigationIcon,
-                        contentDescription = navigationIconContentDescription
+                        contentDescription = navigationIconContentDescription,
                     )
-                }
+                },
             )
         },
         colors = colors,
-        scrollBehavior = scrollBehavior
+        scrollBehavior = scrollBehavior,
     )
 }
 
 @PreviewLightDark
 @Composable
 private fun HPokeTopAppBarPreview() {
-
     HPokeTheme {
         HPokeTopAppBar(
-            titleRes = android.R.string.untitled
+            titleRes = android.R.string.untitled,
         )
     }
 }
@@ -80,12 +93,11 @@ private fun HPokeTopAppBarPreview() {
 @PreviewLightDark
 @Composable
 private fun HPokeTopAppBarWithNavigationIconPreview() {
-
     HPokeTheme {
         HPokeTopAppBar(
             title = "Pokemon",
             navigationIcon = HPokeIcons.Back,
-            navigationIconContentDescription = "Back"
+            navigationIconContentDescription = "Back",
         )
     }
 }

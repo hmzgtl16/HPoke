@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.designsystem.component
 
 import androidx.compose.foundation.layout.size
@@ -31,31 +47,34 @@ fun HPokeImage(
     placeholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
     previewPlaceholder: Painter = painterResource(id = R.drawable.ic_placeholder_default),
     contentScale: ContentScale = ContentScale.Crop,
-    onPaletteLoaded: (Palette) -> Unit = {}
+    onPaletteLoaded: (Palette) -> Unit = {},
 ) {
-    val component = rememberImageComponent {
-        +ShimmerPlugin(
-            shimmer = Shimmer.Flash(
-                baseColor = Color.White,
-                highlightColor = Color.LightGray,
+    val component =
+        rememberImageComponent {
+            +ShimmerPlugin(
+                shimmer =
+                    Shimmer.Flash(
+                        baseColor = Color.White,
+                        highlightColor = Color.LightGray,
+                    ),
             )
-        )
-        +PlaceholderPlugin.Failure(source = placeholder)
-        +PalettePlugin(
-            imageModel = imageUrl,
-            useCache = true,
-            paletteLoadedListener = onPaletteLoaded::invoke
-        )
-    }
+            +PlaceholderPlugin.Failure(source = placeholder)
+            +PalettePlugin(
+                imageModel = imageUrl,
+                useCache = true,
+                paletteLoadedListener = onPaletteLoaded::invoke,
+            )
+        }
 
     CoilImage(
         modifier = modifier,
         imageModel = { imageUrl },
-        imageOptions = ImageOptions(
-            contentScale = contentScale,
-            contentDescription = contentDescription,
-            alignment = Alignment.BottomCenter
-        ),
+        imageOptions =
+            ImageOptions(
+                contentScale = contentScale,
+                contentDescription = contentDescription,
+                alignment = Alignment.BottomCenter,
+            ),
         component = component,
         previewPlaceholder = previewPlaceholder,
     )
@@ -68,9 +87,10 @@ fun HPokeImagePreview() {
         HPokeImage(
             imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/13",
             contentDescription = "Pokemon ditto",
-            modifier = Modifier
-                .size(size = 120.dp)
-                .clip(shape = RoundedCornerShape(size = 16.dp))
+            modifier =
+                Modifier
+                    .size(size = 120.dp)
+                    .clip(shape = RoundedCornerShape(size = 16.dp)),
         )
     }
 }

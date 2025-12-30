@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.ui
 
 import androidx.compose.foundation.layout.Arrangement
@@ -32,52 +48,53 @@ fun PokemonInfoCard(
     baseExperience: Int,
     modifier: Modifier = Modifier,
 ) {
-
     ElevatedCard(
         modifier = modifier,
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(intrinsicSize = IntrinsicSize.Min)
-                .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(
-                space = 16.dp,
-                alignment = Alignment.CenterHorizontally
+        colors =
+            CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             ),
+    ) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(intrinsicSize = IntrinsicSize.Min)
+                    .padding(all = 16.dp),
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    space = 16.dp,
+                    alignment = Alignment.CenterHorizontally,
+                ),
             verticalAlignment = Alignment.Top,
         ) {
             InfoColumn(
                 label = stringResource(id = R.string.core_ui_height),
                 value = stringResource(id = R.string.core_ui_height_format, height / 10f),
-                modifier = Modifier.weight(weight = 1f)
+                modifier = Modifier.weight(weight = 1f),
             )
 
             VerticalDivider(
                 modifier = Modifier.fillMaxHeight(),
-                color = MaterialTheme.colorScheme.outlineVariant
+                color = MaterialTheme.colorScheme.outlineVariant,
             )
 
             InfoColumn(
                 label = stringResource(id = R.string.core_ui_weight),
                 value = stringResource(id = R.string.core_ui_weight_format, weight / 10f),
-                modifier = Modifier.weight(weight = 1f)
+                modifier = Modifier.weight(weight = 1f),
             )
 
             VerticalDivider(
                 modifier = Modifier.fillMaxHeight(),
-                color = MaterialTheme.colorScheme.outlineVariant
+                color = MaterialTheme.colorScheme.outlineVariant,
             )
 
             InfoColumn(
                 label = stringResource(id = R.string.core_ui_base_exp),
                 value = stringResource(id = R.string.core_ui_base_exp_format, baseExperience),
-                modifier = Modifier.weight(weight = 1f)
+                modifier = Modifier.weight(weight = 1f),
             )
         }
     }
@@ -92,18 +109,18 @@ private fun InfoColumn(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(space = 4.dp, Alignment.Top)
+        verticalArrangement = Arrangement.spacedBy(space = 4.dp, Alignment.Top),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = label,
             style = MaterialTheme.typography.titleSmall,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Text(
             text = value,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurface,
         )
     }
 }
@@ -111,16 +128,17 @@ private fun InfoColumn(
 @PreviewLightDark
 @Composable
 fun PokemonInfoCardDynamicPreview(
-    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>,
 ) {
     HPokeTheme {
         PokemonInfoCard(
             height = pokemons.first().height,
             weight = pokemons.first().weight,
             baseExperience = pokemons.first().baseExperience,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         )
     }
 }
