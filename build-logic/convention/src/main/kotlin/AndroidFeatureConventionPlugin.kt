@@ -26,6 +26,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 )
                 add(
                     "implementation",
+                    project(":core:model")
+                )
+                add(
+                    "implementation",
                     project(":core:navigation")
                 )
                 add(
@@ -38,11 +42,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("io-insert-koin-androidx-compose").get()
-                )
-                add(
-                    "implementation",
-                    libs.findLibrary("io-insert-koin-androidx-compose-navigation3").get()
+                    libs.findLibrary("com-github-skydoves-landscapist-palette").get()
                 )
                 add(
                     "androidTestImplementation",

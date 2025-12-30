@@ -10,5 +10,5 @@ android {
 dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.model)
-    api(libs.com.github.skydoves.landscapist.palette)
+    implementation(libs.com.github.skydoves.landscapist.palette)
 }

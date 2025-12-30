@@ -29,12 +29,10 @@ dependencies {
     implementation(libs.io.ktor.serialization.kotlinx.json)
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
     implementation(libs.org.slf4j.android)
-    implementation(libs.io.insert.koin.core)
 
     // Test dependencies
     testImplementation(libs.junit)
     testImplementation(libs.org.jetbrains.kotlin.test)
     testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
     testImplementation(libs.io.ktor.client.mock)
-    testImplementation(libs.io.insert.koin.test)
 }

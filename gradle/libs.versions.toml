@@ -57,10 +57,11 @@ com-github-skydoves-landscapist-coil = { group = "com.github.skydoves", name = "
 com-github-skydoves-landscapist-placeholder = { group = "com.github.skydoves", name = "landscapist-placeholder", version.ref = "com-github-skydoves-landscapist" }
 com-github-skydoves-landscapist-palette = { group = "com.github.skydoves", name = "landscapist-palette", version.ref = "com-github-skydoves-landscapist" }
 com-squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "com-squareup-okhttp3" }
-io-insert-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "io-insert-koin" }
-io-insert-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "io-insert-koin" }
-io-insert-koin-androidx-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3", version.ref = "io-insert-koin" }
-io-insert-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "io-insert-koin" }
+io-insert-koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "io-insert-koin" }
+io-insert-koin-core = { group = "io.insert-koin", name = "koin-core" }
+io-insert-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose" }
+io-insert-koin-androidx-compose-navigation3 = { group = "io.insert-koin", name = "koin-compose-navigation3" }
+io-insert-koin-test = { group = "io.insert-koin", name = "koin-test" }
 io-ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "io-ktor" }
 io-ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "io-ktor" }
 io-ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "io-ktor" }

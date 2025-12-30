@@ -21,8 +21,6 @@ class TestPokemonRepository : PokemonRepository {
             it.first { pokemon -> pokemon.id == id }
         }
 
-    override suspend fun sync(): Boolean = true
-
     fun sendPokemons(pokemons: List<Pokemon>) {
         pokemonsFlow.tryEmit(pokemons)
     }

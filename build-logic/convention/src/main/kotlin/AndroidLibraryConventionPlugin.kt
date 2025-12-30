@@ -1,5 +1,6 @@
 
 import com.android.build.gradle.LibraryExtension
+import com.example.hpoke.configureKoin
 import com.example.hpoke.configureKotlinAndroid
 import com.example.hpoke.libs
 import org.gradle.api.Plugin
@@ -17,6 +18,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
+                configureKoin(this)
                 defaultConfig.targetSdk = 36
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.animationsDisabled = true

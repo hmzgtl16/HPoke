@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="sync_work_notification_title">HPoke</string>
-    <string name="sync_work_notification_channel_description">Background tasks for HPoke</string>
-    <string name="sync_work_notification_channel_name">Sync</string>
-</resources>

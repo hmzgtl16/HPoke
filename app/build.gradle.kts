@@ -47,15 +47,15 @@ android {
 
 dependencies {
     implementation(projects.core.data)
+    implementation(projects.core.database)
     implementation(projects.core.designsystem)
     implementation(projects.core.navigation)
+    implementation(projects.core.network)
     implementation(projects.feature.home)
     implementation(projects.feature.details)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.compose.material3.adaptive.navigation3)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.com.github.skydoves.landscapist.coil)
-    implementation(libs.io.insert.koin.androidx.compose.navigation3)
 }

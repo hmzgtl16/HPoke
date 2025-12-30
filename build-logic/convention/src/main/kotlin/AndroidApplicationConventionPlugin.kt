@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.example.hpoke.configureKoin
 import com.example.hpoke.configureKotlinAndroid
 import com.example.hpoke.libs
 import org.gradle.api.Plugin
@@ -15,6 +16,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
+                configureKoin(this)
                 defaultConfig.targetSdk = 36
                 testOptions.animationsDisabled = true
             }

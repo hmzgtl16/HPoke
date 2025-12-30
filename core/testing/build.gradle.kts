@@ -8,9 +8,9 @@ android {
 
 dependencies {
     implementation(projects.core.data)
+    implementation(projects.core.model)
     implementation(libs.androidx.paging.common)
-    api(libs.androidx.paging.testing)
     implementation(libs.junit)
 
-    api(libs.org.jetbrains.kotlinx.coroutines.test)
+    implementation(libs.org.jetbrains.kotlinx.coroutines.test)
 }

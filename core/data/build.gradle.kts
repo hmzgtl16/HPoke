@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.hpoke.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.plugin.serialization)
 }
 
 android {
@@ -8,11 +7,9 @@ android {
 }
 
 dependencies {
-    api(projects.core.model)
-    api(projects.core.database)
-    api(projects.core.network)
+    implementation(projects.core.database)
+    implementation(projects.core.model)
+    implementation(projects.core.network)
 
     implementation(libs.androidx.paging.runtime)
-    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
-    implementation(libs.io.insert.koin.core)
 }
