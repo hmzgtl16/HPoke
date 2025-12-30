@@ -30,7 +30,7 @@ class SpotlessConventionPlugin : Plugin<Project> {
                 kotlin {
                     target("**/*.kt")
                     targetExclude(layout.buildDirectory.asFileTree)
-                    licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+                    licenseHeaderFile(isolated.rootProject.projectDirectory.file("spotless/copyright.kt"))
                     ktlint()
                     trimTrailingWhitespace()
                     endWithNewline()
@@ -39,7 +39,7 @@ class SpotlessConventionPlugin : Plugin<Project> {
                     target("**/*.gradle.kts")
                     targetExclude(layout.buildDirectory.asFileTree)
                     licenseHeaderFile(
-                        rootProject.file("spotless/copyright.kts"),
+                        isolated.rootProject.projectDirectory.file("spotless/copyright.kts"),
                         "(^(?![\\/ ]\\*).*$)",
                     )
                     trimTrailingWhitespace()
@@ -49,7 +49,7 @@ class SpotlessConventionPlugin : Plugin<Project> {
                     target("**/*.xml")
                     targetExclude(layout.buildDirectory.asFileTree)
                     licenseHeaderFile(
-                        rootProject.file("spotless/copyright.xml"),
+                        isolated.rootProject.projectDirectory.file("spotless/copyright.xml"),
                         "(<[^!?])",
                     )
                     trimTrailingWhitespace()

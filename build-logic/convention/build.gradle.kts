@@ -17,7 +17,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `kotlin-dsl`
-    alias(libs.plugins.com.diffplug.spotless)
 }
 
 group = "com.example.hpoke.buildlogic"
@@ -39,40 +38,13 @@ dependencies {
     compileOnly(libs.com.android.tools.build.gradle.plugin)
     compileOnly(libs.com.diffplug.spotless.gradle.plugin)
     compileOnly(libs.com.google.devtools.ksp.gradle.plugin)
+    lintChecks(libs.androidx.lint.gradle)
 }
 
 tasks {
     validatePlugins {
         enableStricterValidation = true
         failOnWarning = true
-    }
-}
-
-// Spotless configuration
-spotless {
-    kotlin {
-        target("**/*.kt")
-        targetExclude(layout.buildDirectory.asFileTree)
-        licenseHeaderFile(rootProject.file("../spotless/copyright.kt"))
-        ktlint().editorConfigOverride(
-            mapOf(
-                "indent_size" to "4",
-                "continuation_indent_size" to "4",
-                "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
-            ),
-        )
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    kotlinGradle {
-        target("**/*.gradle.kts")
-        targetExclude(layout.buildDirectory.asFileTree)
-        licenseHeaderFile(
-            rootProject.file("../spotless/copyright.kts"),
-            "(^(?![\\/ ]\\*).*$)",
-        )
-        trimTrailingWhitespace()
-        endWithNewline()
     }
 }
 
