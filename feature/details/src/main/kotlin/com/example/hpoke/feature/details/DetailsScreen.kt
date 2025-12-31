@@ -18,17 +18,21 @@ package com.example.hpoke.feature.details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -40,8 +44,6 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.hpoke.core.designsystem.component.HPokeImage
-import com.example.hpoke.core.designsystem.component.HPokeTopAppBar
-import com.example.hpoke.core.designsystem.icon.HPokeIcons
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.model.Pokemon
 import com.example.hpoke.core.ui.PokemonAbilitiesCard
@@ -76,7 +78,6 @@ fun DetailsScreen(
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
     ) {
         when (uiState) {
             is DetailsUiState.Loading -> {
@@ -112,28 +113,15 @@ fun DetailsScreenContent(
     val scrollState = rememberScrollState()
 
     Scaffold(
-        topBar = {
-            HPokeTopAppBar(
-                title = pokemon.name.replaceFirstChar(Char::titlecase),
-                navigationIcon = HPokeIcons.Back,
-                navigationIconContentDescription = "Back",
-                onNavigationClick = onBackClick,
-                colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = backgroundColor,
-                        titleContentColor = textColor,
-                        navigationIconContentColor = textColor,
-                    ),
-            )
-        },
         containerColor = backgroundColor,
+        contentColor = textColor,
         modifier = modifier,
     ) { paddingValues ->
-
         Column(
             modifier =
                 Modifier
                     .fillMaxSize()
+                    .heightIn(max = 800.dp)
                     .padding(paddingValues = paddingValues)
                     .verticalScroll(state = scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -143,15 +131,19 @@ fun DetailsScreenContent(
                     alignment = Alignment.Top,
                 ),
         ) {
+
             HPokeImage(
                 imageUrl = pokemon.species.frontDefault,
                 contentDescription = pokemon.name,
                 onPaletteLoaded = { palette = it },
                 contentScale = ContentScale.Inside,
-                modifier = Modifier.height(height = 180.dp),
+                modifier = Modifier
+                    .fillMaxWidth(fraction = 0.5f)
+                    .heightIn(max = 320.dp),
             )
 
             PokemonInfoCard(
+                name = pokemon.name.replaceFirstChar(Char::titlecase),
                 height = pokemon.height,
                 weight = pokemon.weight,
                 baseExperience = pokemon.baseExperience,
@@ -161,29 +153,94 @@ fun DetailsScreenContent(
                         .padding(horizontal = 16.dp),
             )
 
-            PokemonTypesCard(
-                types = pokemon.types,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+            DetailsScreenContentWithConstraints(
+                pokemon = pokemon,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             )
+        }
+    }
+}
 
-            PokemonAbilitiesCard(
-                abilities = pokemon.abilities,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-            )
+@Composable
+fun DetailsScreenContentWithConstraints(
+    pokemon: Pokemon,
+    modifier: Modifier = Modifier,
+) {
+    BoxWithConstraints(
+        modifier = modifier,
+    ) {
+        if (maxWidth < 600.dp) {
+            Column(
+                modifier = Modifier,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        space = 16.dp,
+                        alignment = Alignment.Top,
+                    ),
+            ) {
 
-            PokemonStats(
-                stats = pokemon.stats,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-            )
+                PokemonTypesCard(
+                    types = pokemon.types,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+                PokemonAbilitiesCard(
+                    abilities = pokemon.abilities,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+                PokemonStats(
+                    stats = pokemon.stats,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
+
+        if (maxWidth >= 600.dp) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(intrinsicSize = IntrinsicSize.Max),
+                horizontalArrangement = Arrangement.spacedBy(
+                    space = 16.dp,
+                    alignment = Alignment.Start,
+                ),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .weight(weight = 1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement =
+                        Arrangement.spacedBy(
+                            space = 16.dp,
+                            alignment = Alignment.Top,
+                        ),
+                ) {
+
+                    PokemonTypesCard(
+                        types = pokemon.types,
+                        modifier =
+                            Modifier.fillMaxWidth(),
+                    )
+
+                    PokemonAbilitiesCard(
+                        abilities = pokemon.abilities,
+                        modifier =
+                            Modifier.fillMaxWidth(),
+                    )
+                }
+
+                PokemonStats(
+                    stats = pokemon.stats,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(weight = 1f),
+                )
+            }
         }
     }
 }

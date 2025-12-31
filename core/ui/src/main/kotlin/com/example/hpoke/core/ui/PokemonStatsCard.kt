@@ -24,7 +24,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,22 +51,34 @@ import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
 fun PokemonStats(
     stats: List<Stat>,
     modifier: Modifier = Modifier,
-    steps: Int = 10,
-    chartHeight: Dp = 180.dp,
+    steps: Int = 7,
+    chartHeight: Dp = 100.dp,
     gap: Dp = 3.dp,
 ) {
     val statMap = stats.asStatMap()
 
-    Card(modifier = modifier) {
+    ElevatedCard(
+        modifier = modifier,
+        colors =
+            CardDefaults.elevatedCardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            ),
+    ) {
         Column(
-            modifier = Modifier.padding(all = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(space = 16.dp, alignment = Alignment.Top),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(
+                space = 16.dp,
+                alignment = Alignment.Top,
+            ),
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.core_ui_stats),
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
 
@@ -127,7 +140,7 @@ fun StatBar(
     steps: Int,
     modifier: Modifier = Modifier,
     gap: Dp = 3.dp,
-    cellColor: Color = MaterialTheme.colorScheme.outlineVariant,
+    cellColor: Color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
     fillGradientTop: Color = MaterialTheme.colorScheme.primaryContainer,
     fillGradientBottom: Color = MaterialTheme.colorScheme.primary,
 ) {
