@@ -1,3 +1,4 @@
+![App](docs/splash-large-screen.png)
 # HPoke 📱
 
 HPoke is a modular Android Pokedex application built with modern Android technologies. It allows
