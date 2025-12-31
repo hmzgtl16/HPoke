@@ -49,13 +49,13 @@ scalability and maintainability.
 
 ## 📸 Screenshots
 
-| Splash                            | Home                          |
-|-----------------------------------|-------------------------------|
-| ![Splash](docs/splash-screen.png) | ![Home](docs/home-screen.png) |
+| Splash                            | Home                          | Details                                     |
+|-----------------------------------|-------------------------------|---------------------------------------------|
+| ![Splash](docs/splash-screen.png) | ![Home](docs/home-screen.png) | ![Details](docs/pokemon-details-screen.png) |
 
-| Details                                     | List Detail                                        |
-|---------------------------------------------|----------------------------------------------------|
-| ![Details](docs/pokemon-details-screen.png) | ![List Detail](docs/list-details-scene-screen.png) |
+| List Detail                                        |
+|----------------------------------------------------|
+| ![List Detail](docs/list-details-scene-screen.png) |
 
 
 ## 📜 License
