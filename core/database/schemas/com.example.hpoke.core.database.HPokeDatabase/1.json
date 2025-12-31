@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "06e2e9b9507a641a65dd2a2d4cfbeeb0",
+    "identityHash": "1c4a61698194329eb1ab9069104a89c0",
     "entities": [
       {
         "tableName": "pokemon",
@@ -450,11 +450,39 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "remote_key",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemonId` INTEGER NOT NULL, `prevKey` INTEGER, `nextKey` INTEGER, PRIMARY KEY(`pokemonId`))",
+        "fields": [
+          {
+            "fieldPath": "pokemonId",
+            "columnName": "pokemonId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prevKey",
+            "columnName": "prevKey",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nextKey",
+            "columnName": "nextKey",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pokemonId"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '06e2e9b9507a641a65dd2a2d4cfbeeb0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1c4a61698194329eb1ab9069104a89c0')"
     ]
   }
 }

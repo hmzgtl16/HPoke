@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.network.api
 
 import com.example.hpoke.core.network.dto.AbilityDto
@@ -25,17 +41,17 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class PokemonApiIntegrationTest {
-
     private lateinit var pokemonApi: PokemonApi
 
     private fun createMockHttpClient(responseBody: String): HttpClient {
-        val mockEngine = MockEngine { _ ->
-            respond(
-                content = ByteReadChannel(responseBody),
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
+        val mockEngine =
+            MockEngine { _ ->
+                respond(
+                    content = ByteReadChannel(responseBody),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json"),
+                )
+            }
 
         return HttpClient(mockEngine) {
             install(ContentNegotiation) {
@@ -44,14 +60,14 @@ class PokemonApiIntegrationTest {
                         prettyPrint = true
                         isLenient = true
                         ignoreUnknownKeys = true
-                    }
+                    },
                 )
             }
         }
     }
 
-    private fun createPokemonApiWithMockClient(client: HttpClient): PokemonApi {
-        return object : PokemonApi {
+    private fun createPokemonApiWithMockClient(client: HttpClient): PokemonApi =
+        object : PokemonApi {
             override suspend fun getPokemonList(offset: Int, limit: Int) =
                 client.get("pokemon") {
                     parameter("offset", offset)
@@ -64,13 +80,10 @@ class PokemonApiIntegrationTest {
             override suspend fun getAbility(name: String) =
                 client.get("ability/$name").body<AbilityDto>()
 
-            override suspend fun getStat(name: String) =
-                client.get("stat/$name").body<StatDto>()
+            override suspend fun getStat(name: String) = client.get("stat/$name").body<StatDto>()
 
-            override suspend fun getType(name: String) =
-                client.get("type/$name").body<TypeDto>()
+            override suspend fun getType(name: String) = client.get("type/$name").body<TypeDto>()
         }
-    }
 
     @Before
     fun setup() {
@@ -78,210 +91,221 @@ class PokemonApiIntegrationTest {
     }
 
     @Test
-    fun testGetPokemonListWithEmptyResults() = runTest {
-        // Arrange
-        val mockResponse = """
-            {
-                "count": 0,
-                "next": null,
-                "previous": null,
-                "results": []
-            }
-        """.trimIndent()
+    fun testGetPokemonListWithEmptyResults() =
+        runTest {
+            // Arrange
+            val mockResponse =
+                """
+                {
+                    "count": 0,
+                    "next": null,
+                    "previous": null,
+                    "results": []
+                }
+                """.trimIndent()
 
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
 
-        // Act
-        val result = pokemonApi.getPokemonList(offset = 0, limit = 20)
+            // Act
+            val result = pokemonApi.getPokemonList(offset = 0, limit = 20)
 
-        // Assert
-        assertNotNull(result)
-        assertEquals(0, result.count)
-        assertEquals(0, result.results.size)
-    }
+            // Assert
+            assertNotNull(result)
+            assertEquals(0, result.count)
+            assertEquals(0, result.results.size)
+        }
 
     @Test
-    fun testGetPokemonWithMultipleTypes() = runTest {
-        // Arrange
-        val mockResponse = """
-            {
-                "id": 4,
-                "name": "charmander",
-                "height": 6,
-                "weight": 85,
-                "base_experience": 62,
-                "types": [
-                    {
-                        "slot": 1,
-                        "type": {
-                            "name": "fire",
-                            "url": "https://pokeapi.co/api/v2/type/10/"
+    fun testGetPokemonWithMultipleTypes() =
+        runTest {
+            // Arrange
+            val mockResponse =
+                """
+                {
+                    "id": 4,
+                    "name": "charmander",
+                    "height": 6,
+                    "weight": 85,
+                    "base_experience": 62,
+                    "types": [
+                        {
+                            "slot": 1,
+                            "type": {
+                                "name": "fire",
+                                "url": "https://pokeapi.co/api/v2/type/10/"
+                            }
                         }
-                    }
-                ],
-                "abilities": [
-                    {
-                        "slot": 1,
-                        "is_hidden": false,
-                        "ability": {
-                            "name": "blaze",
-                            "url": "https://pokeapi.co/api/v2/ability/66/"
-                        }
-                    },
-                    {
-                        "slot": 3,
-                        "is_hidden": true,
-                        "ability": {
-                            "name": "solar-power",
-                            "url": "https://pokeapi.co/api/v2/ability/94/"
-                        }
-                    }
-                ],
-                "stats": [
-                    {
-                        "stat": {
-                            "name": "hp",
-                            "url": "https://pokeapi.co/api/v2/stat/1/"
+                    ],
+                    "abilities": [
+                        {
+                            "slot": 1,
+                            "is_hidden": false,
+                            "ability": {
+                                "name": "blaze",
+                                "url": "https://pokeapi.co/api/v2/ability/66/"
+                            }
                         },
-                        "effort": 0,
-                        "base_stat": 39
-                    },
-                    {
-                        "stat": {
-                            "name": "attack",
-                            "url": "https://pokeapi.co/api/v2/stat/2/"
+                        {
+                            "slot": 3,
+                            "is_hidden": true,
+                            "ability": {
+                                "name": "solar-power",
+                                "url": "https://pokeapi.co/api/v2/ability/94/"
+                            }
+                        }
+                    ],
+                    "stats": [
+                        {
+                            "stat": {
+                                "name": "hp",
+                                "url": "https://pokeapi.co/api/v2/stat/1/"
+                            },
+                            "effort": 0,
+                            "base_stat": 39
                         },
-                        "effort": 0,
-                        "base_stat": 52
-                    }
-                ],
-                "sprites": {
-                    "back_default": "https://example.com/back.png",
-                    "front_default": "https://example.com/front.png",
-                    "other": {
-                        "official-artwork": {
-                            "front_default": "https://example.com/official.png",
-                            "front_shiny": "https://example.com/official.png"
+                        {
+                            "stat": {
+                                "name": "attack",
+                                "url": "https://pokeapi.co/api/v2/stat/2/"
+                            },
+                            "effort": 0,
+                            "base_stat": 52
+                        }
+                    ],
+                    "sprites": {
+                        "back_default": "https://example.com/back.png",
+                        "front_default": "https://example.com/front.png",
+                        "other": {
+                            "official-artwork": {
+                                "front_default": "https://example.com/official.png",
+                                "front_shiny": "https://example.com/official.png"
+                            }
                         }
                     }
                 }
-            }
-        """.trimIndent()
+                """.trimIndent()
 
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
 
-        // Act
-        val result = pokemonApi.getPokemon("charmander")
+            // Act
+            val result = pokemonApi.getPokemon("charmander")
 
-        // Assert
-        assertNotNull(result)
-        assertEquals(4, result.id)
-        assertEquals("charmander", result.name)
-        assertEquals(1, result.types.size)
-        assertEquals(2, result.abilities.size)
-        assertEquals(2, result.stats.size)
-    }
-
-    @Test
-    fun testGetPokemonListPagination() = runTest {
-        // Arrange - simulating page 2
-        val mockResponse = """
-            {
-                "count": 1292,
-                "next": "https://pokeapi.co/api/v2/pokemon?offset=40&limit=20",
-                "previous": "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20",
-                "results": [
-                    {
-                        "name": "pokemon21",
-                        "url": "https://pokeapi.co/api/v2/pokemon/21/"
-                    },
-                    {
-                        "name": "pokemon22",
-                        "url": "https://pokeapi.co/api/v2/pokemon/22/"
-                    }
-                ]
-            }
-        """.trimIndent()
-
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
-
-        // Act
-        val result = pokemonApi.getPokemonList(offset = 20, limit = 20)
-
-        // Assert
-        assertNotNull(result)
-        assertEquals(1292, result.count)
-        assertEquals(2, result.results.size)
-        assertNotNull(result.next)
-        assertNotNull(result.previous)
-    }
+            // Assert
+            assertNotNull(result)
+            assertEquals(4, result.id)
+            assertEquals("charmander", result.name)
+            assertEquals(1, result.types.size)
+            assertEquals(2, result.abilities.size)
+            assertEquals(2, result.stats.size)
+        }
 
     @Test
-    fun testGetAbilityWithSpecialCharacters() = runTest {
-        // Arrange
-        val mockResponse = """
-            {
-                "id": 1,
-                "name": "stench"
-            }
-        """.trimIndent()
+    fun testGetPokemonListPagination() =
+        runTest {
+            // Arrange - simulating page 2
+            val mockResponse =
+                """
+                {
+                    "count": 1292,
+                    "next": "https://pokeapi.co/api/v2/pokemon?offset=40&limit=20",
+                    "previous": "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20",
+                    "results": [
+                        {
+                            "name": "pokemon21",
+                            "url": "https://pokeapi.co/api/v2/pokemon/21/"
+                        },
+                        {
+                            "name": "pokemon22",
+                            "url": "https://pokeapi.co/api/v2/pokemon/22/"
+                        }
+                    ]
+                }
+                """.trimIndent()
 
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
 
-        // Act
-        val result = pokemonApi.getAbility("stench")
+            // Act
+            val result = pokemonApi.getPokemonList(offset = 20, limit = 20)
 
-        // Assert
-        assertNotNull(result)
-        assertEquals("stench", result.name)
-    }
-
-    @Test
-    fun testGetStatByName() = runTest {
-        // Arrange
-        val mockResponse = """
-            {
-                "id": 2,
-                "name": "attack"
-            }
-        """.trimIndent()
-
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
-
-        // Act
-        val result = pokemonApi.getStat("attack")
-
-        // Assert
-        assertNotNull(result)
-        assertEquals(2, result.id)
-        assertEquals("attack", result.name)
-    }
+            // Assert
+            assertNotNull(result)
+            assertEquals(1292, result.count)
+            assertEquals(2, result.results.size)
+            assertNotNull(result.next)
+            assertNotNull(result.previous)
+        }
 
     @Test
-    fun testGetTypeByName() = runTest {
-        // Arrange
-        val mockResponse = """
-            {
-                "id": 10,
-                "name": "fire"
-            }
-        """.trimIndent()
+    fun testGetAbilityWithSpecialCharacters() =
+        runTest {
+            // Arrange
+            val mockResponse =
+                """
+                {
+                    "id": 1,
+                    "name": "stench"
+                }
+                """.trimIndent()
 
-        val mockHttpClient = createMockHttpClient(mockResponse)
-        pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
 
-        // Act
-        val result = pokemonApi.getType("fire")
+            // Act
+            val result = pokemonApi.getAbility("stench")
 
-        // Assert
-        assertNotNull(result)
-        assertEquals(10, result.id)
-        assertEquals("fire", result.name)
-    }
+            // Assert
+            assertNotNull(result)
+            assertEquals("stench", result.name)
+        }
+
+    @Test
+    fun testGetStatByName() =
+        runTest {
+            // Arrange
+            val mockResponse =
+                """
+                {
+                    "id": 2,
+                    "name": "attack"
+                }
+                """.trimIndent()
+
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+
+            // Act
+            val result = pokemonApi.getStat("attack")
+
+            // Assert
+            assertNotNull(result)
+            assertEquals(2, result.id)
+            assertEquals("attack", result.name)
+        }
+
+    @Test
+    fun testGetTypeByName() =
+        runTest {
+            // Arrange
+            val mockResponse =
+                """
+                {
+                    "id": 10,
+                    "name": "fire"
+                }
+                """.trimIndent()
+
+            val mockHttpClient = createMockHttpClient(mockResponse)
+            pokemonApi = createPokemonApiWithMockClient(mockHttpClient)
+
+            // Act
+            val result = pokemonApi.getType("fire")
+
+            // Assert
+            assertNotNull(result)
+            assertEquals(10, result.id)
+            assertEquals("fire", result.name)
+        }
 }
-

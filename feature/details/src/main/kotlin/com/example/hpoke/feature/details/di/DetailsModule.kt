@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.feature.details.di
 
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -14,17 +30,18 @@ import org.koin.dsl.module
 import org.koin.dsl.navigation3.navigation
 
 @OptIn(KoinExperimentalAPI::class, ExperimentalMaterial3AdaptiveApi::class)
-val detailsModule = module {
+val detailsModule =
+    module {
 
-    viewModel {
-        DetailsViewModel(pokemonId = it.get(), pokemonRepository = get())
+        viewModel {
+            DetailsViewModel(pokemonId = it.get(), pokemonRepository = get())
+        }
+        navigation<Route.Details>(
+            metadata = ListDetailSceneStrategy.detailPane(),
+        ) {
+            DetailsScreen(
+                viewModel = koinViewModel { parametersOf(it.id) },
+                onBackClick = get<Navigator>()::navigateUp,
+            )
+        }
     }
-    navigation<Route.Details>(
-        metadata = ListDetailSceneStrategy.detailPane()
-    ) {
-        DetailsScreen(
-            viewModel = koinViewModel { parametersOf(it.id) },
-            onBackClick = get<Navigator>()::navigateUp
-        )
-    }
-}

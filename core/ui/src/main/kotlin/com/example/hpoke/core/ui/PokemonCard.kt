@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.ui
 
 import androidx.compose.foundation.layout.Box
@@ -34,7 +50,6 @@ fun PokemonCard(
     onPokemonClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     var palette by rememberPaletteState()
     val backgroundColor by palette.paletteBackgroundColor()
     val textColor by palette.paletteTextColor()
@@ -42,35 +57,38 @@ fun PokemonCard(
     ElevatedCard(
         modifier = modifier,
         shape = RoundedCornerShape(10),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = backgroundColor,
-            contentColor = textColor
-        ),
+        colors =
+            CardDefaults.elevatedCardColors(
+                containerColor = backgroundColor,
+                contentColor = textColor,
+            ),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        onClick = { onPokemonClick(pokemon.id) }
+        onClick = { onPokemonClick(pokemon.id) },
     ) {
-
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
         ) {
             HPokeImage(
                 imageUrl = pokemon.species.frontDefault,
                 contentDescription = pokemon.name,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 24.dp)
-                    .align(alignment = Alignment.Center),
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 24.dp)
+                        .align(alignment = Alignment.Center),
                 onPaletteLoaded = { palette = it },
-                contentScale = ContentScale.Inside
+                contentScale = ContentScale.Inside,
             )
 
             Text(
                 text = pokemon.name.replaceFirstChar(Char::titlecase),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier
-                    .align(alignment = Alignment.BottomCenter)
-                    .padding(bottom = 8.dp)
+                modifier =
+                    Modifier
+                        .align(alignment = Alignment.BottomCenter)
+                        .padding(bottom = 8.dp),
             )
         }
     }
@@ -79,13 +97,13 @@ fun PokemonCard(
 @PreviewLightDark
 @Composable
 private fun PokemonCardPreview(
-    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>,
 ) {
     HPokeTheme {
         PokemonCard(
             pokemon = pokemons.first(),
             onPokemonClick = {},
-            modifier = Modifier.size(size = 200.dp)
+            modifier = Modifier.size(size = 200.dp),
         )
     }
 }

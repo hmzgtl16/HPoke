@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.network.dto
 
 import kotlinx.serialization.json.Json
@@ -7,22 +23,23 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class PokemonDtoSerializationTest {
-
     private lateinit var json: Json
 
     @Before
     fun setup() {
-        json = Json {
-            prettyPrint = true
-            isLenient = true
-            ignoreUnknownKeys = true
-        }
+        json =
+            Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            }
     }
 
     @Test
     fun testDeserializePokemonDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "id": 1,
                 "name": "bulbasaur",
@@ -67,7 +84,7 @@ class PokemonDtoSerializationTest {
                     }
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<PokemonDto>(jsonString)
@@ -87,7 +104,8 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializePokemonDtoWithoutOptionalFields() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "id": 2,
                 "name": "ivysaur",
@@ -107,7 +125,7 @@ class PokemonDtoSerializationTest {
                     }
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<PokemonDto>(jsonString)
@@ -123,7 +141,8 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializePokemonListDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "count": 1292,
                 "next": "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
@@ -139,7 +158,7 @@ class PokemonDtoSerializationTest {
                     }
                 ]
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<NamedApiResourceListDto>(jsonString)
@@ -155,12 +174,13 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializeAbilityDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "id": 65,
                 "name": "overgrow"
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<AbilityDto>(jsonString)
@@ -174,12 +194,13 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializeStatDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "id": 1,
                 "name": "hp"
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<StatDto>(jsonString)
@@ -193,12 +214,13 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializeTypeDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "id": 12,
                 "name": "grass"
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<TypeDto>(jsonString)
@@ -212,12 +234,13 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializeNamedApiResourceDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "name": "bulbasaur",
                 "url": "https://pokeapi.co/api/v2/pokemon/1/"
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<NamedApiResourceDto>(jsonString)
@@ -231,7 +254,8 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializePokemonTypeDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "slot": 1,
                 "type": {
@@ -239,7 +263,7 @@ class PokemonDtoSerializationTest {
                     "url": "https://pokeapi.co/api/v2/type/12/"
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<PokemonTypeDto>(jsonString)
@@ -253,7 +277,8 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializePokemonStatDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "stat": {
                     "name": "hp",
@@ -262,7 +287,7 @@ class PokemonDtoSerializationTest {
                 "effort": 0,
                 "base_stat": 45
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<PokemonStatDto>(jsonString)
@@ -277,7 +302,8 @@ class PokemonDtoSerializationTest {
     @Test
     fun testDeserializePokemonAbilityDto() {
         // Arrange
-        val jsonString = """
+        val jsonString =
+            """
             {
                 "slot": 1,
                 "is_hidden": false,
@@ -286,7 +312,7 @@ class PokemonDtoSerializationTest {
                     "url": "https://pokeapi.co/api/v2/ability/65/"
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Act
         val result = json.decodeFromString<PokemonAbilityDto>(jsonString)
@@ -298,4 +324,3 @@ class PokemonDtoSerializationTest {
         assertEquals("overgrow", result.ability.name)
     }
 }
-

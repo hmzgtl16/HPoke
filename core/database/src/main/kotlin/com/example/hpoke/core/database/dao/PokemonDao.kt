@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.core.database.dao
 
 import androidx.paging.PagingSource
@@ -14,7 +30,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
-
     @Upsert
     suspend fun insertPokemons(pokemons: List<PokemonEntity>): List<Long>
 
@@ -49,34 +64,34 @@ interface PokemonDao {
 
     @Query(
         """
-        SELECT p.id 
-        FROM pokemon p 
-        LEFT JOIN pokemon_stat_cross_ref ps ON ps.pokemon_id = p.id 
-        GROUP BY p.id 
+        SELECT p.id
+        FROM pokemon p
+        LEFT JOIN pokemon_stat_cross_ref ps ON ps.pokemon_id = p.id
+        GROUP BY p.id
         HAVING COUNT(ps.stat_id) < 6
-    """
+    """,
     )
     suspend fun pokemonIdsMissingStats(): List<Int>
 
     @Query(
         """
         SELECT p.id
-        FROM pokemon p 
-        LEFT JOIN pokemon_type_cross_ref pt ON pt.pokemon_id = p.id 
-        GROUP BY p.id 
+        FROM pokemon p
+        LEFT JOIN pokemon_type_cross_ref pt ON pt.pokemon_id = p.id
+        GROUP BY p.id
         HAVING COUNT(pt.type_id) < 1
-    """
+    """,
     )
     suspend fun pokemonIdsMissingTypes(): List<Int>
 
     @Query(
         """
-        SELECT p.id 
-        FROM pokemon p 
-        LEFT JOIN pokemon_ability_cross_ref pa ON pa.pokemon_id = p.id 
-        GROUP BY p.id 
+        SELECT p.id
+        FROM pokemon p
+        LEFT JOIN pokemon_ability_cross_ref pa ON pa.pokemon_id = p.id
+        GROUP BY p.id
         HAVING COUNT(pa.ability_id) < 1
-    """
+    """,
     )
     suspend fun pokemonIdsMissingAbilities(): List<Int>
 }

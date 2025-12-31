@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import com.android.build.gradle.LibraryExtension
 import com.example.hpoke.libs
 import org.gradle.api.Plugin
@@ -10,10 +26,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = libs.findPlugin("hpoke-android-library").get().get().pluginId)
-            apply(
-                plugin = libs.findPlugin("org-jetbrains-kotlin-plugin-serialization").get()
-                    .get().pluginId
-            )
 
             extensions.configure<LibraryExtension> {
                 testOptions.animationsDisabled = true
@@ -22,39 +34,39 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             dependencies {
                 add(
                     "implementation",
-                    project(":core:data")
+                    project(":core:data"),
                 )
                 add(
                     "implementation",
-                    project(":core:designsystem")
+                    project(":core:designsystem"),
                 )
                 add(
                     "implementation",
-                    project(":core:navigation")
+                    project(":core:model"),
                 )
                 add(
                     "implementation",
-                    project(":core:ui")
+                    project(":core:navigation"),
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("androidx-navigation3-runtime").get()
+                    project(":core:ui"),
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("org-jetbrains-kotlinx-serialization-core").get()
+                    libs.findLibrary("androidx-compose-material3-adaptive-navigation3").get(),
                 )
                 add(
                     "implementation",
-                    libs.findLibrary("io-insert-koin-androidx-compose").get()
+                    libs.findLibrary("com-github-skydoves-landscapist-palette").get(),
                 )
                 add(
                     "androidTestImplementation",
-                    libs.findLibrary("androidx-compose-ui-test-junit4").get()
+                    libs.findLibrary("androidx-compose-ui-test-junit4").get(),
                 )
                 add(
                     "androidTestImplementation",
-                    libs.findLibrary("androidx-compose-ui-test-manifest").get()
+                    libs.findLibrary("androidx-compose-ui-test-manifest").get(),
                 )
             }
         }

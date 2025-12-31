@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Hamza Gattal
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.hpoke.feature.home
 
 import androidx.annotation.VisibleForTesting
@@ -43,15 +59,14 @@ import kotlinx.coroutines.flow.flowOf
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    onPokemonClick: (Int) -> Unit
+    onPokemonClick: (Int) -> Unit,
 ) {
-
     val pokemons = viewModel.pokemons.collectAsLazyPagingItems()
 
     HomeScreen(
         pokemons = pokemons,
         modifier = modifier,
-        onPokemonClick = onPokemonClick
+        onPokemonClick = onPokemonClick,
     )
 }
 
@@ -61,7 +76,7 @@ fun HomeScreen(
 fun HomeScreen(
     pokemons: LazyPagingItems<Pokemon>,
     onPokemonClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -70,15 +85,16 @@ fun HomeScreen(
         topBar = {
             HPokeTopAppBar(
                 titleRes = R.string.feature_home_app_bar_title,
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
-        }
+        },
     ) { paddingValues ->
 
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues = paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues = paddingValues),
         ) {
             when (pokemons.loadState.refresh) {
                 is LoadState.Loading -> {
@@ -93,7 +109,7 @@ fun HomeScreen(
                     HomeScreenError(
                         message = (pokemons.loadState.refresh as LoadState.Error).error.message,
                         onRetry = { pokemons.retry() },
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     )
                 }
 
@@ -101,7 +117,7 @@ fun HomeScreen(
                     HomeScreenGrid(
                         pokemons = pokemons,
                         onPokemonClick = onPokemonClick,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     )
                 }
             }
@@ -111,33 +127,34 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenLoading(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .testTag(tag = "homeScreenLoading"),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .testTag(tag = "homeScreenLoading"),
+        contentAlignment = Alignment.Center,
     ) {
-
         HPokeCircularProgressIndicator(
-            modifier = Modifier.size(size = 32.dp)
+            modifier = Modifier.size(size = 32.dp),
         )
     }
 }
 
 @Composable
 fun HomeScreenEmpty(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .testTag(tag = "homeScreenEmpty"),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .testTag(tag = "homeScreenEmpty"),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = "No pokemons found",
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }
@@ -146,26 +163,28 @@ fun HomeScreenEmpty(
 fun HomeScreenError(
     message: String?,
     onRetry: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .testTag(tag = "homeScreenError"),
+        modifier =
+            modifier
+                .testTag(tag = "homeScreenError"),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(
-            space = 12.dp,
-            alignment = Alignment.CenterVertically
-        )
+        verticalArrangement =
+            Arrangement.spacedBy(
+                space = 12.dp,
+                alignment = Alignment.CenterVertically,
+            ),
     ) {
         Text(
             text = message ?: "An error occurred",
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
 
         Button(
             onClick = onRetry,
-            content = { Text(text = "Retry") }
+            content = { Text(text = "Retry") },
         )
     }
 }
@@ -174,32 +193,32 @@ fun HomeScreenError(
 fun HomeScreenGrid(
     pokemons: LazyPagingItems<Pokemon>,
     onPokemonClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
-        modifier = modifier
-            .testTag(tag = "homeScreenGrid"),
+        modifier =
+            modifier
+                .testTag(tag = "homeScreenGrid"),
         columns = GridCells.Adaptive(minSize = 140.dp),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 16.dp)
+        verticalArrangement = Arrangement.spacedBy(space = 16.dp),
     ) {
-
         items(
             count = pokemons.itemCount,
-            key = { pokemons[it]?.name ?: it }
+            key = { pokemons[it]?.name ?: it },
         ) {
             pokemons[it]?.let { pokemon ->
                 PokemonCard(
                     pokemon = pokemon,
                     onPokemonClick = onPokemonClick,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
 
         item(
-            span = { GridItemSpan(maxLineSpan) }
+            span = { GridItemSpan(maxLineSpan) },
         ) {
             when (val state = pokemons.loadState.append) {
                 is LoadState.Loading -> {
@@ -210,7 +229,7 @@ fun HomeScreenGrid(
                     HomeScreenError(
                         message = state.error.message,
                         onRetry = pokemons::retry,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
 
@@ -223,23 +242,24 @@ fun HomeScreenGrid(
 @PreviewScreenSizes
 @Composable
 fun HomeScreenLoadingPreview(
-    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>,
 ) {
-
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(
-                PagingData.from(
-                    data = pokemons,
-                    sourceLoadStates = LoadStates(
-                        refresh = LoadState.Loading,
-                        append = LoadState.Loading,
-                        prepend = LoadState.Loading
-                    )
-                )
-            ).collectAsLazyPagingItems(),
+            pokemons =
+                flowOf(
+                    PagingData.from(
+                        data = pokemons,
+                        sourceLoadStates =
+                            LoadStates(
+                                refresh = LoadState.Loading,
+                                append = LoadState.Loading,
+                                prepend = LoadState.Loading,
+                            ),
+                    ),
+                ).collectAsLazyPagingItems(),
             onPokemonClick = {},
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
@@ -249,17 +269,19 @@ fun HomeScreenLoadingPreview(
 fun HomeScreenEmptyPreview() {
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(
-                PagingData.empty<Pokemon>(
-                    sourceLoadStates = LoadStates(
-                        refresh = LoadState.NotLoading(endOfPaginationReached = true),
-                        append = LoadState.NotLoading(endOfPaginationReached = true),
-                        prepend = LoadState.NotLoading(endOfPaginationReached = true)
-                    )
-                )
-            ).collectAsLazyPagingItems(),
+            pokemons =
+                flowOf(
+                    PagingData.empty<Pokemon>(
+                        sourceLoadStates =
+                            LoadStates(
+                                refresh = LoadState.NotLoading(endOfPaginationReached = true),
+                                append = LoadState.NotLoading(endOfPaginationReached = true),
+                                prepend = LoadState.NotLoading(endOfPaginationReached = true),
+                            ),
+                    ),
+                ).collectAsLazyPagingItems(),
             onPokemonClick = {},
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
@@ -267,20 +289,21 @@ fun HomeScreenEmptyPreview() {
 @PreviewScreenSizes
 @Composable
 fun HomeScreenErrorPreview() {
-
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(
-                PagingData.empty<Pokemon>(
-                    sourceLoadStates = LoadStates(
-                        refresh = LoadState.Error(error = Exception("Error loading data")),
-                        append = LoadState.Error(error = Exception("Error loading data")),
-                        prepend = LoadState.Error(error = Exception("Error loading data"))
-                    )
-                )
-            ).collectAsLazyPagingItems(),
+            pokemons =
+                flowOf(
+                    PagingData.empty<Pokemon>(
+                        sourceLoadStates =
+                            LoadStates(
+                                refresh = LoadState.Error(error = Exception("Error loading data")),
+                                append = LoadState.Error(error = Exception("Error loading data")),
+                                prepend = LoadState.Error(error = Exception("Error loading data")),
+                            ),
+                    ),
+                ).collectAsLazyPagingItems(),
             onPokemonClick = {},
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
@@ -288,23 +311,24 @@ fun HomeScreenErrorPreview() {
 @PreviewScreenSizes
 @Composable
 fun HomeScreenPreview(
-    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>
+    @PreviewParameter(PokemonPreviewParameterProvider::class) pokemons: List<Pokemon>,
 ) {
-
     HPokeTheme {
         HomeScreen(
-            pokemons = flowOf(
-                PagingData.from(
-                    data = pokemons.subList(0, 9),
-                    sourceLoadStates = LoadStates(
-                        refresh = LoadState.NotLoading(endOfPaginationReached = false),
-                        append = LoadState.NotLoading(endOfPaginationReached = false),
-                        prepend = LoadState.NotLoading(endOfPaginationReached = false)
-                    )
-                )
-            ).collectAsLazyPagingItems(),
+            pokemons =
+                flowOf(
+                    PagingData.from(
+                        data = pokemons.subList(0, 9),
+                        sourceLoadStates =
+                            LoadStates(
+                                refresh = LoadState.NotLoading(endOfPaginationReached = false),
+                                append = LoadState.NotLoading(endOfPaginationReached = false),
+                                prepend = LoadState.NotLoading(endOfPaginationReached = false),
+                            ),
+                    ),
+                ).collectAsLazyPagingItems(),
             onPokemonClick = {},
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
