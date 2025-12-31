@@ -43,6 +43,7 @@ import com.example.hpoke.core.ui.preview.PokemonPreviewParameterProvider
 
 @Composable
 fun PokemonInfoCard(
+    name: String,
     height: Int,
     weight: Int,
     baseExperience: Int,
@@ -56,46 +57,64 @@ fun PokemonInfoCard(
                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             ),
     ) {
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(intrinsicSize = IntrinsicSize.Min)
-                    .padding(all = 16.dp),
-            horizontalArrangement =
-                Arrangement.spacedBy(
-                    space = 16.dp,
-                    alignment = Alignment.CenterHorizontally,
-                ),
-            verticalAlignment = Alignment.Top,
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(
+                space = 16.dp,
+                alignment = Alignment.Top,
+            ),
         ) {
-            InfoColumn(
-                label = stringResource(id = R.string.core_ui_height),
-                value = stringResource(id = R.string.core_ui_height_format, height / 10f),
-                modifier = Modifier.weight(weight = 1f),
+
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = name,
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center,
             )
 
-            VerticalDivider(
-                modifier = Modifier.fillMaxHeight(),
-                color = MaterialTheme.colorScheme.outlineVariant,
-            )
+            Row(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(intrinsicSize = IntrinsicSize.Min),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        space = 16.dp,
+                        alignment = Alignment.CenterHorizontally,
+                    ),
+                verticalAlignment = Alignment.Top,
+            ) {
+                InfoColumn(
+                    label = stringResource(id = R.string.core_ui_height),
+                    value = stringResource(id = R.string.core_ui_height_format, height / 10f),
+                    modifier = Modifier.weight(weight = 1f),
+                )
 
-            InfoColumn(
-                label = stringResource(id = R.string.core_ui_weight),
-                value = stringResource(id = R.string.core_ui_weight_format, weight / 10f),
-                modifier = Modifier.weight(weight = 1f),
-            )
+                VerticalDivider(
+                    modifier = Modifier.fillMaxHeight(),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                )
 
-            VerticalDivider(
-                modifier = Modifier.fillMaxHeight(),
-                color = MaterialTheme.colorScheme.outlineVariant,
-            )
+                InfoColumn(
+                    label = stringResource(id = R.string.core_ui_weight),
+                    value = stringResource(id = R.string.core_ui_weight_format, weight / 10f),
+                    modifier = Modifier.weight(weight = 1f),
+                )
 
-            InfoColumn(
-                label = stringResource(id = R.string.core_ui_base_exp),
-                value = stringResource(id = R.string.core_ui_base_exp_format, baseExperience),
-                modifier = Modifier.weight(weight = 1f),
-            )
+                VerticalDivider(
+                    modifier = Modifier.fillMaxHeight(),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                )
+
+                InfoColumn(
+                    label = stringResource(id = R.string.core_ui_base_exp),
+                    value = stringResource(id = R.string.core_ui_base_exp_format, baseExperience),
+                    modifier = Modifier.weight(weight = 1f),
+                )
+            }
         }
     }
 }
@@ -132,6 +151,7 @@ fun PokemonInfoCardDynamicPreview(
 ) {
     HPokeTheme {
         PokemonInfoCard(
+            name = pokemons.first().name,
             height = pokemons.first().height,
             weight = pokemons.first().weight,
             baseExperience = pokemons.first().baseExperience,

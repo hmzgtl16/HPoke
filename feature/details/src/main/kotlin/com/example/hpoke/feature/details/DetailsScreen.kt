@@ -28,7 +28,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -40,8 +39,6 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.hpoke.core.designsystem.component.HPokeImage
-import com.example.hpoke.core.designsystem.component.HPokeTopAppBar
-import com.example.hpoke.core.designsystem.icon.HPokeIcons
 import com.example.hpoke.core.designsystem.theme.HPokeTheme
 import com.example.hpoke.core.model.Pokemon
 import com.example.hpoke.core.ui.PokemonAbilitiesCard
@@ -112,21 +109,8 @@ fun DetailsScreenContent(
     val scrollState = rememberScrollState()
 
     Scaffold(
-        topBar = {
-            HPokeTopAppBar(
-                title = pokemon.name.replaceFirstChar(Char::titlecase),
-                navigationIcon = HPokeIcons.Back,
-                navigationIconContentDescription = "Back",
-                onNavigationClick = onBackClick,
-                colors =
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = backgroundColor,
-                        titleContentColor = textColor,
-                        navigationIconContentColor = textColor,
-                    ),
-            )
-        },
         containerColor = backgroundColor,
+        contentColor = textColor,
         modifier = modifier,
     ) { paddingValues ->
 
@@ -152,6 +136,7 @@ fun DetailsScreenContent(
             )
 
             PokemonInfoCard(
+                name = pokemon.name.replaceFirstChar(Char::titlecase),
                 height = pokemon.height,
                 weight = pokemon.weight,
                 baseExperience = pokemon.baseExperience,
@@ -187,6 +172,7 @@ fun DetailsScreenContent(
         }
     }
 }
+
 
 @PreviewScreenSizes
 @Composable
