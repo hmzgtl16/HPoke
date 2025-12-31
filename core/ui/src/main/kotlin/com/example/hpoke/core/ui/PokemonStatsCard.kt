@@ -66,14 +66,16 @@ fun PokemonStats(
             ),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(all = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(
-                space = 16.dp,
-                alignment = Alignment.Top,
-            ),
+            verticalArrangement =
+                Arrangement.spacedBy(
+                    space = 16.dp,
+                    alignment = Alignment.Top,
+                ),
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),

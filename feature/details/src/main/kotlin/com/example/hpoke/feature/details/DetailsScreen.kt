@@ -131,15 +131,15 @@ fun DetailsScreenContent(
                     alignment = Alignment.Top,
                 ),
         ) {
-
             HPokeImage(
                 imageUrl = pokemon.species.frontDefault,
                 contentDescription = pokemon.name,
                 onPaletteLoaded = { palette = it },
                 contentScale = ContentScale.Inside,
-                modifier = Modifier
-                    .fillMaxWidth(fraction = 0.5f)
-                    .heightIn(max = 320.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth(fraction = 0.5f)
+                        .heightIn(max = 320.dp),
             )
 
             PokemonInfoCard(
@@ -155,9 +155,10 @@ fun DetailsScreenContent(
 
             DetailsScreenContentWithConstraints(
                 pokemon = pokemon,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
             )
         }
     }
@@ -181,7 +182,6 @@ fun DetailsScreenContentWithConstraints(
                         alignment = Alignment.Top,
                     ),
             ) {
-
                 PokemonTypesCard(
                     types = pokemon.types,
                     modifier = Modifier.fillMaxWidth(),
@@ -201,18 +201,21 @@ fun DetailsScreenContentWithConstraints(
 
         if (maxWidth >= 600.dp) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(intrinsicSize = IntrinsicSize.Max),
-                horizontalArrangement = Arrangement.spacedBy(
-                    space = 16.dp,
-                    alignment = Alignment.Start,
-                ),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(intrinsicSize = IntrinsicSize.Max),
+                horizontalArrangement =
+                    Arrangement.spacedBy(
+                        space = 16.dp,
+                        alignment = Alignment.Start,
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(
-                    modifier = Modifier
-                        .weight(weight = 1f),
+                    modifier =
+                        Modifier
+                            .weight(weight = 1f),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement =
                         Arrangement.spacedBy(
@@ -220,7 +223,6 @@ fun DetailsScreenContentWithConstraints(
                             alignment = Alignment.Top,
                         ),
                 ) {
-
                     PokemonTypesCard(
                         types = pokemon.types,
                         modifier =
@@ -236,9 +238,10 @@ fun DetailsScreenContentWithConstraints(
 
                 PokemonStats(
                     stats = pokemon.stats,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(weight = 1f),
+                    modifier =
+                        Modifier
+                            .fillMaxHeight()
+                            .weight(weight = 1f),
                 )
             }
         }

@@ -49,16 +49,14 @@ scalability and maintainability.
 
 ## 📸 Screenshots
 
-*(Add screenshots here)*
+| Splash                            | Home                          |
+|-----------------------------------|-------------------------------|
+| ![Splash](docs/splash-screen.png) | ![Home](docs/home-screen.png) |
 
-## 🚦 Getting Started
+| Details                                     | List Detail                                        |
+|---------------------------------------------|----------------------------------------------------|
+| ![Details](docs/pokemon-details-screen.png) | ![List Detail](docs/list-details-scene-screen.png) |
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/HPoke.git
-   ```
-2. Open the project in **Android Studio (Ladybug or newer)**.
-3. Build and run the app on an emulator or a physical device.
 
 ## 📜 License
 
