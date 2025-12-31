@@ -229,14 +229,15 @@ object PreviewParameterData {
                         Stat(id = 5, name = "special-defense", baseStat = 40, effort = 0),
                         Stat(id = 6, name = "speed", baseStat = 35, effort = 0),
                     ),
-                abilities = listOf(
-                    Ability(
-                        id = 1,
-                        name = "shield-dust",
-                        isHidden = false,
-                        slot = 1,
+                abilities =
+                    listOf(
+                        Ability(
+                            id = 1,
+                            name = "shield-dust",
+                            isHidden = false,
+                            slot = 1,
+                        ),
                     ),
-                ),
             ),
             Pokemon(
                 id = 11,
@@ -255,14 +256,15 @@ object PreviewParameterData {
                         Stat(id = 5, name = "special-defense", baseStat = 25, effort = 0),
                         Stat(id = 6, name = "speed", baseStat = 30, effort = 0),
                     ),
-                abilities = listOf(
-                    Ability(
-                        id = 1,
-                        name = "shield-dust",
-                        isHidden = false,
-                        slot = 1,
+                abilities =
+                    listOf(
+                        Ability(
+                            id = 1,
+                            name = "shield-dust",
+                            isHidden = false,
+                            slot = 1,
+                        ),
                     ),
-                ),
             ),
             Pokemon(
                 id = 12,
@@ -285,14 +287,15 @@ object PreviewParameterData {
                         Stat(id = 5, name = "special-defense", baseStat = 80, effort = 1),
                         Stat(id = 6, name = "speed", baseStat = 70, effort = 0),
                     ),
-                abilities = listOf(
-                    Ability(
-                        id = 2,
-                        name = "compound-eyes",
-                        isHidden = false,
-                        slot = 1,
+                abilities =
+                    listOf(
+                        Ability(
+                            id = 2,
+                            name = "compound-eyes",
+                            isHidden = false,
+                            slot = 1,
+                        ),
                     ),
-                ),
             ),
             Pokemon(
                 id = 13,
@@ -315,14 +318,15 @@ object PreviewParameterData {
                         Stat(id = 5, name = "special-defense", baseStat = 20, effort = 0),
                         Stat(id = 6, name = "speed", baseStat = 25, effort = 0),
                     ),
-                abilities = listOf(
-                    Ability(
-                        id = 3,
-                        name = "poison-powder",
-                        isHidden = false,
-                        slot = 1,
+                abilities =
+                    listOf(
+                        Ability(
+                            id = 3,
+                            name = "poison-powder",
+                            isHidden = false,
+                            slot = 1,
+                        ),
                     ),
-                ),
             ),
             Pokemon(
                 id = 14,
@@ -345,14 +349,15 @@ object PreviewParameterData {
                         Stat(id = 5, name = "special-defense", baseStat = 25, effort = 0),
                         Stat(id = 6, name = "speed", baseStat = 35, effort = 0),
                     ),
-                abilities = listOf(
-                    Ability(
-                        id = 3,
-                        name = "poison-powder",
-                        isHidden = false,
-                        slot = 1,
+                abilities =
+                    listOf(
+                        Ability(
+                            id = 3,
+                            name = "poison-powder",
+                            isHidden = false,
+                            slot = 1,
+                        ),
                     ),
-                ),
             ),
             Pokemon(
                 id = 15,
