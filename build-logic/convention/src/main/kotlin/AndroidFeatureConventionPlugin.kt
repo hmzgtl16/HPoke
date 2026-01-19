@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.example.hpoke.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
