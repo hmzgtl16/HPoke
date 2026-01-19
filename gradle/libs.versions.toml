@@ -1,5 +1,5 @@
 [versions]
-android-gradle-plugin = "8.13.1"
+android-gradle-plugin = "9.0.0"
 io-insert-koin = "4.2.0-beta3"
 io-ktor = "3.3.3"
 junit = "4.13.2"
