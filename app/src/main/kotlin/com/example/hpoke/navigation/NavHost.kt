@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.example.hpoke.core.navigation.Route
@@ -36,12 +35,6 @@ fun NavHost(
     backStack: NavBackStack<Route>,
     onBack: () -> Unit,
 ) {
-    val entryProvider = koinEntryProvider()
-    val sceneStrategy = rememberListDetailSceneStrategy<Route>()
-
-    @Suppress("UNCHECKED_CAST")
-    val routeEntryProvider = entryProvider as (Route) -> NavEntry<Route>
-
     NavDisplay(
         backStack = backStack,
         modifier = modifier,
@@ -51,7 +44,7 @@ fun NavHost(
                 rememberSaveableStateHolderNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator(),
             ),
-        sceneStrategy = sceneStrategy,
-        entryProvider = routeEntryProvider,
+        sceneStrategy = rememberListDetailSceneStrategy(),
+        entryProvider = koinEntryProvider(),
     )
 }
